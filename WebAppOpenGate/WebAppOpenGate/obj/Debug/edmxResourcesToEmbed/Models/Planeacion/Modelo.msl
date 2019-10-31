@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DB_A3F19C_PruebasModelStoreContainer" CdmEntityContainer="DB_A3F19C_PruebasEntities">
+    <EntitySetMapping Name="masterarticulos">
+      <EntityTypeMapping TypeName="DB_A3F19C_PruebasModel.masterarticulos">
+        <MappingFragment StoreEntitySet="masterarticulos">
+          <ScalarProperty Name="activo" ColumnName="activo" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="pesopallet" ColumnName="pesopallet" />
+          <ScalarProperty Name="kgcaja" ColumnName="kgcaja" />
+          <ScalarProperty Name="cajaspallet" ColumnName="cajaspallet" />
+          <ScalarProperty Name="multiplosurtido" ColumnName="multiplosurtido" />
+          <ScalarProperty Name="qtypallet" ColumnName="qtypallet" />
+          <ScalarProperty Name="qtycaja" ColumnName="qtycaja" />
+          <ScalarProperty Name="sku" ColumnName="sku" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="geneticas">
+      <EntityTypeMapping TypeName="DB_A3F19C_PruebasModel.geneticas">
+        <MappingFragment StoreEntitySet="geneticas">
+          <ScalarProperty Name="maximo" ColumnName="maximo" />
+          <ScalarProperty Name="minimo" ColumnName="minimo" />
+          <ScalarProperty Name="geneticafinal" ColumnName="geneticafinal" />
+          <ScalarProperty Name="promedio" ColumnName="promedio" />
+          <ScalarProperty Name="wh" ColumnName="wh" />
+          <ScalarProperty Name="sku" ColumnName="sku" />
+          <ScalarProperty Name="clave" ColumnName="clave" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

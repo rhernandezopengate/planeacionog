@@ -1,0 +1,75 @@
+﻿@model WebAppOpenGate.Models.Planeacion.geneticas
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutPlaneacion.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>geneticas</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.clave)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.clave)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sku)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sku)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.wh)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.wh)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.promedio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.promedio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.geneticafinal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.geneticafinal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.minimo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.minimo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.maximo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.maximo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

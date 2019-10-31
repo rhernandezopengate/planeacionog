@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB_A3F19C_PruebasModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="DB_A3F19C_PruebasEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="masterarticulos" EntityType="DB_A3F19C_PruebasModel.masterarticulos" />
+    <EntitySet Name="geneticas" EntityType="DB_A3F19C_PruebasModel.geneticas" />
+  </EntityContainer>
+  <EntityType Name="masterarticulos">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="sku" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="qtycaja" Type="Int32" />
+    <Property Name="qtypallet" Type="Int32" />
+    <Property Name="multiplosurtido" Type="Int32" />
+    <Property Name="cajaspallet" Type="Int32" />
+    <Property Name="kgcaja" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="pesopallet" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="descripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="activo" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="geneticas">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="clave" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="sku" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="wh" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="promedio" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="geneticafinal" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="minimo" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="maximo" Type="Decimal" Precision="18" Scale="2" />
+  </EntityType>
+</Schema>

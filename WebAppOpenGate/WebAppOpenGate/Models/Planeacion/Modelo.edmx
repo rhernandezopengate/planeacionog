@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DB_A3F19C_PruebasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="geneticas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="clave" Type="varchar" MaxLength="50" />
+          <Property Name="sku" Type="varchar" MaxLength="10" />
+          <Property Name="wh" Type="varchar" MaxLength="10" />
+          <Property Name="promedio" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="geneticafinal" Type="varchar" MaxLength="10" />
+          <Property Name="minimo" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="maximo" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="masterarticulos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sku" Type="varchar" MaxLength="50" />
+          <Property Name="qtycaja" Type="int" />
+          <Property Name="qtypallet" Type="int" />
+          <Property Name="multiplosurtido" Type="int" />
+          <Property Name="cajaspallet" Type="int" />
+          <Property Name="kgcaja" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="pesopallet" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="descripcion" Type="varchar" MaxLength="500" />
+          <Property Name="activo" Type="bit" />
+        </EntityType>
+        <EntityContainer Name="DB_A3F19C_PruebasModelStoreContainer">
+          <EntitySet Name="geneticas" EntityType="Self.geneticas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="masterarticulos" EntityType="Self.masterarticulos" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DB_A3F19C_PruebasModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DB_A3F19C_PruebasEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="masterarticulos" EntityType="DB_A3F19C_PruebasModel.masterarticulos" />
+          <EntitySet Name="geneticas" EntityType="DB_A3F19C_PruebasModel.geneticas" />
+        </EntityContainer>
+        <EntityType Name="masterarticulos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sku" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="qtycaja" Type="Int32" />
+          <Property Name="qtypallet" Type="Int32" />
+          <Property Name="multiplosurtido" Type="Int32" />
+          <Property Name="cajaspallet" Type="Int32" />
+          <Property Name="kgcaja" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="pesopallet" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="descripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="activo" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="geneticas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="clave" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sku" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="wh" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="promedio" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="geneticafinal" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="minimo" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="maximo" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DB_A3F19C_PruebasModelStoreContainer" CdmEntityContainer="DB_A3F19C_PruebasEntities">
+          <EntitySetMapping Name="masterarticulos">
+            <EntityTypeMapping TypeName="DB_A3F19C_PruebasModel.masterarticulos">
+              <MappingFragment StoreEntitySet="masterarticulos">
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="pesopallet" ColumnName="pesopallet" />
+                <ScalarProperty Name="kgcaja" ColumnName="kgcaja" />
+                <ScalarProperty Name="cajaspallet" ColumnName="cajaspallet" />
+                <ScalarProperty Name="multiplosurtido" ColumnName="multiplosurtido" />
+                <ScalarProperty Name="qtypallet" ColumnName="qtypallet" />
+                <ScalarProperty Name="qtycaja" ColumnName="qtycaja" />
+                <ScalarProperty Name="sku" ColumnName="sku" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="geneticas">
+            <EntityTypeMapping TypeName="DB_A3F19C_PruebasModel.geneticas">
+              <MappingFragment StoreEntitySet="geneticas">
+                <ScalarProperty Name="maximo" ColumnName="maximo" />
+                <ScalarProperty Name="minimo" ColumnName="minimo" />
+                <ScalarProperty Name="geneticafinal" ColumnName="geneticafinal" />
+                <ScalarProperty Name="promedio" ColumnName="promedio" />
+                <ScalarProperty Name="wh" ColumnName="wh" />
+                <ScalarProperty Name="sku" ColumnName="sku" />
+                <ScalarProperty Name="clave" ColumnName="clave" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

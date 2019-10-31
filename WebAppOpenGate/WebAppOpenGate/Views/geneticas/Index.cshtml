@@ -1,0 +1,208 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPlaneacion.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Plain Page</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#">Settings 1</a>
+                            </li>
+                            <li>
+                                <a href="#">Settings 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="well" style="overflow:auto">
+                    <div class="col-sm-3">
+                        SKU
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input id="txtSKU" type="text" class="form-control" placeholder="SKU"/>
+                                <span class="input-group-addon">
+                                    <span class="fa fa-print"></span>
+                                </span>                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <table id="table" class="table table-striped jambo_table" width="100%">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Clave</th>
+                            <th>SKU</th>
+                            <th>Promedio</th>
+                            <th>Genetica Final</th>
+                            <th>Minimo</th>
+                            <th>Maximo</th>
+                            <th></th>                            
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+
+    <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css" rel="stylesheet" />
+    <link href="~/Content/toastr.css" rel="stylesheet" />
+}
+
+@section Scripts {
+
+    <script src="~/Scripts/toastr.js"></script>
+    <!-- Datatables -->
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.4/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.4.0/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/pdfmake.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.4.0/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.4.0/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            table = $("#table").DataTable({
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                "processing": true,
+                "serverSide": true,
+                "dom": 'Blrtip',
+                "columnDefs": [{                    
+                    targets: [1,2,3,4,5], className: 'dt-body-center text-center'
+                }],
+                buttons: [
+                    {
+                        extend: 'copyHtml5',
+                        text: '<i class="fa fa-files-o"></i>',
+                        titleAttr: 'COPIAR',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+
+                        extend: 'print',
+                        text: '<i class="fa fa-print"></i>',
+                        titleAttr: 'IMPRIMIR',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'excel',
+                        text: '<i class="fa fa-file-excel-o"></i>',
+                        titleAttr: 'EXCEL',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'pdf',
+                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        titleAttr: 'PDF',
+                        orientation: 'landscape',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    }
+
+                ],
+                "ajax": {
+                    "url": "/geneticas/ObtenerGeneticas",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "aoColumns": [
+                    //0
+                    { "data": "id", "autoWidth": true, "visible": false },
+                    { "data": "clave", "autoWidth": true },
+                    { "data": "sku", "autoWidth": true },
+                    { "data": "promedio", "autoWidth": true },
+                    { "data": "geneticafinal", "autoWidth": true },
+                    { "data": "minimo", "autoWidth": true },
+                    { "data": "maximo", "autoWidth": true },                    
+                    {
+                        "data": null,
+                        "targets": -1,
+                        "render": function (data, type, full) {
+                            return "<a  onclick='Editar(" + full['id'] + ")' id='btnEdit" + full['id'] + "' class='btn btn-success'><i class='glyphicon glyphicon-pencil'></i></a>";
+
+                        },
+                        "bSearchable": false,
+                        "sortable": false,
+                        "autoWidth": true,
+                        "sWidth": "50px"
+                    }
+                ]
+            });
+
+            $('#txtSKU').on('keyup', function () {
+                table.columns(0).search(this.value).draw();
+            });
+        });
+
+        var Editar = function (ID) {
+            $.ajaxSetup({ cache: false });
+            var EditUrl = "/masterarticulos/Edit/" + ID;
+            $("#MyModalContent").load(EditUrl, function () {
+                $("#MyModal").modal({
+                    //backdrop: 'static',
+                    keyboard: false
+                }, 'show');
+                bindForm(this);
+            });
+            return false;
+        }
+
+        function bindForm(dialog) {
+            $('form', dialog).submit(function () {
+                $.ajax({
+                    url: this.action,
+                    type: this.method,
+                    data: $(this).serialize(),
+                    success: function (result) {
+                        if (result === 'Correcto') {
+                            $("#MyModal").modal('hide');
+                            toastr.success('Edicion Correcta');
+                            table.draw();
+                        }
+                        else {
+                            $("#MyModal").modal('show');
+                            toastr.error('Ha ocurrido un error');
+                            bindForm(dialog);
+                        }
+                    },
+                    error: function (xml, message, text) {
+                        toastr.error("Msg: " + message + ", Text: " + text);
+                    }
+                });
+                return false;
+            });
+        }
+    </script>
+}

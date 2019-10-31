@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB_A3F19C_PruebasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="geneticas">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="clave" Type="varchar" MaxLength="50" />
+    <Property Name="sku" Type="varchar" MaxLength="10" />
+    <Property Name="wh" Type="varchar" MaxLength="10" />
+    <Property Name="promedio" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="geneticafinal" Type="varchar" MaxLength="10" />
+    <Property Name="minimo" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="maximo" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="masterarticulos">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="sku" Type="varchar" MaxLength="50" />
+    <Property Name="qtycaja" Type="int" />
+    <Property Name="qtypallet" Type="int" />
+    <Property Name="multiplosurtido" Type="int" />
+    <Property Name="cajaspallet" Type="int" />
+    <Property Name="kgcaja" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="pesopallet" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="descripcion" Type="varchar" MaxLength="500" />
+    <Property Name="activo" Type="bit" />
+  </EntityType>
+  <EntityContainer Name="DB_A3F19C_PruebasModelStoreContainer">
+    <EntitySet Name="geneticas" EntityType="Self.geneticas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="masterarticulos" EntityType="Self.masterarticulos" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>
