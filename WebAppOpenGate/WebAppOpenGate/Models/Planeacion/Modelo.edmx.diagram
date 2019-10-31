@@ -5,8 +5,9 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="a1e1b30509344bbc84f67f45e8d0ffa9" Name="Diagram1">
-        <EntityTypeShape EntityType="DB_A3F19C_PruebasModel.masterarticulos" Width="1.5" PointX="0.5" PointY="0.5" />
-        <EntityTypeShape EntityType="DB_A3F19C_PruebasModel.geneticas" Width="1.5" PointX="2.25" PointY="0.5" />
+        <EntityTypeShape EntityType="DB_A3F19C_PruebasModel.masterarticulos" Width="1.5" PointX="2.375" PointY="0.5" />
+        <EntityTypeShape EntityType="DB_A3F19C_PruebasModel.geneticas" Width="1.5" PointX="4.125" PointY="0.5" />
+        <EntityTypeShape EntityType="DB_A3F19C_PruebasModel.onhand" Width="1.5" PointX="0.5" PointY="0.5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

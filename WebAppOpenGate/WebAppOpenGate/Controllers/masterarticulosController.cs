@@ -42,7 +42,7 @@ namespace WebAppOpenGate.Controllers
             {
                 List<masterarticulos> listFacturas = new List<masterarticulos>();
 
-                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString()))
+                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["BDConnection"].ToString()))
                 {
                     con.Open();
 

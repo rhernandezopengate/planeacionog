@@ -7,22 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebAppOpenGate.Models.Planeacion
+namespace WebAppOpenGate.Models.Permisos
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class masterarticulos
+    public partial class roloperacion
     {
         public int id { get; set; }
-        public string sku { get; set; }
-        public Nullable<int> qtycaja { get; set; }
-        public Nullable<int> qtypallet { get; set; }
-        public Nullable<int> multiplosurtido { get; set; }
-        public Nullable<int> cajaspallet { get; set; }
-        public Nullable<decimal> kgcaja { get; set; }
-        public Nullable<decimal> pesopallet { get; set; }
-        public string descripcion { get; set; }
-        public Nullable<bool> activo { get; set; }
+        public int operaciones_Id { get; set; }
+        public int rol_Id { get; set; }
+    
+        public virtual operaciones operaciones { get; set; }
+        public virtual rol rol { get; set; }
     }
 }

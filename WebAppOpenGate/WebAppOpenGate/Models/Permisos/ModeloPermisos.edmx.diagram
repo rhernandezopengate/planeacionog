@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9f7652307360439caa048cde2a761c7e" Name="Diagram1">
+        <EntityTypeShape EntityType="DB_A3F19C_PruebasModel1.modulo" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A3F19C_PruebasModel1.operaciones" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A3F19C_PruebasModel1.rol" Width="1.5" PointX="7.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A3F19C_PruebasModel1.roloperacion" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A3F19C_PruebasModel1.usuario" Width="1.5" PointX="10.375" PointY="1.125" IsExpanded="true" />
+        <AssociationConnector Association="DB_A3F19C_PruebasModel1.operaciones_modulo_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_A3F19C_PruebasModel1.roloperacion_operaciones_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_A3F19C_PruebasModel1.roloperacion_rol_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_A3F19C_PruebasModel1.usuario_rol_fk" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

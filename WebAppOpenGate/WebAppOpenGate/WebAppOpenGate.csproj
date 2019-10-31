@@ -175,18 +175,50 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\geneticasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\masterarticulosController.cs" />
     <Compile Include="Controllers\onhandController.cs" />
     <Compile Include="Controllers\planeacionController.cs" />
+    <Compile Include="Filters\AuthorizeUser.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Permisos\ModeloPermisos.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModeloPermisos.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Permisos\ModeloPermisos.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModeloPermisos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Permisos\ModeloPermisos.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModeloPermisos.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Permisos\modulo.cs">
+      <DependentUpon>ModeloPermisos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Permisos\operaciones.cs">
+      <DependentUpon>ModeloPermisos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Permisos\rol.cs">
+      <DependentUpon>ModeloPermisos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Permisos\roloperacion.cs">
+      <DependentUpon>ModeloPermisos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Permisos\usuario.cs">
+      <DependentUpon>ModeloPermisos.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Planeacion\geneticas.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
@@ -207,6 +239,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Modelo.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Planeacion\onhand.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -233,6 +268,16 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\Permisos\ModeloPermisos.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModeloPermisos.edmx</DependentUpon>
+      <LastGenOutput>ModeloPermisos.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Permisos\ModeloPermisos.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModeloPermisos.edmx</DependentUpon>
+      <LastGenOutput>ModeloPermisos.cs</LastGenOutput>
+    </Content>
     <Content Include="Models\Planeacion\Modelo.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Modelo.edmx</DependentUpon>
@@ -273,6 +318,13 @@
     </Content>
     <Content Include="Content\toastr.scss" />
     <Content Include="Content\toastr.less" />
+    <EntityDeploy Include="Models\Permisos\ModeloPermisos.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModeloPermisos.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Permisos\ModeloPermisos.edmx.diagram">
+      <DependentUpon>ModeloPermisos.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -4700,10 +4752,10 @@
     <Content Include="Views\geneticas\Edit.cshtml" />
     <Content Include="Views\geneticas\Index.cshtml" />
     <Content Include="Views\onhand\Index.cshtml" />
+    <Content Include="Views\Error\UnauthorizedOperation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\Permisos\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

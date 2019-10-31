@@ -28,8 +28,46 @@
     <Property Name="descripcion" Type="varchar" MaxLength="500" />
     <Property Name="activo" Type="bit" />
   </EntityType>
+  <EntityType Name="onhand">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fechaalta" Type="datetime" />
+    <Property Name="org" Type="varchar" MaxLength="10" />
+    <Property Name="item" Type="varchar" MaxLength="10" />
+    <Property Name="rev" Type="int" />
+    <Property Name="description" Type="varchar" MaxLength="200" />
+    <Property Name="category" Type="varchar" MaxLength="50" />
+    <Property Name="planner_code" Type="varchar" MaxLength="20" />
+    <Property Name="country_of_origin" Type="varchar" MaxLength="100" />
+    <Property Name="item_status" Type="varchar" MaxLength="15" />
+    <Property Name="uom" Type="varchar" MaxLength="10" />
+    <Property Name="subinv" Type="varchar" MaxLength="20" />
+    <Property Name="locator" Type="varchar" MaxLength="50" />
+    <Property Name="locator_status" Type="varchar" MaxLength="15" />
+    <Property Name="lot_number" Type="varchar" MaxLength="20" />
+    <Property Name="lot_status" Type="varchar" MaxLength="15" />
+    <Property Name="expiration_date" Type="date" />
+    <Property Name="lpn" Type="varchar" MaxLength="50" />
+    <Property Name="frozen_unit_cost" Type="decimal" Precision="18" Scale="5" />
+    <Property Name="on_hand_qty" Type="int" />
+    <Property Name="on_hand_value" Type="decimal" Precision="18" Scale="5" />
+    <Property Name="reserved_qty" Type="int" />
+    <Property Name="reserved_value" Type="decimal" Precision="18" Scale="5" />
+    <Property Name="available_qty" Type="int" />
+    <Property Name="available_value" Type="decimal" Precision="18" Scale="5" />
+    <Property Name="curr_cd" Type="varchar" MaxLength="10" />
+    <Property Name="unit_weight" Type="decimal" Precision="18" Scale="5" />
+    <Property Name="weight_uom" Type="varchar" MaxLength="50" />
+    <Property Name="case_quantity" Type="int" />
+    <Property Name="pallet_size" Type="int" />
+    <Property Name="hl_itemlc" Type="varchar" MaxLength="50" />
+    <Property Name="case_quantity_lot" Type="int" />
+  </EntityType>
   <EntityContainer Name="DB_A3F19C_PruebasModelStoreContainer">
     <EntitySet Name="geneticas" EntityType="Self.geneticas" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="masterarticulos" EntityType="Self.masterarticulos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="onhand" EntityType="Self.onhand" Schema="dbo" store:Type="Tables" />
   </EntityContainer>
 </Schema>

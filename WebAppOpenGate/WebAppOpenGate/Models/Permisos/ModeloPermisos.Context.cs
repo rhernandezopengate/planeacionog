@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebAppOpenGate.Models.Planeacion
+namespace WebAppOpenGate.Models.Permisos
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DB_A3F19C_PruebasEntities : DbContext
+    public partial class DB_A3F19C_PruebasEntities1 : DbContext
     {
-        public DB_A3F19C_PruebasEntities()
-            : base("name=DB_A3F19C_PruebasEntities")
+        public DB_A3F19C_PruebasEntities1()
+            : base("name=DB_A3F19C_PruebasEntities1")
         {
         }
     
@@ -25,8 +25,10 @@ namespace WebAppOpenGate.Models.Planeacion
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<masterarticulos> masterarticulos { get; set; }
-        public virtual DbSet<geneticas> geneticas { get; set; }
-        public virtual DbSet<onhand> onhand { get; set; }
+        public virtual DbSet<modulo> modulo { get; set; }
+        public virtual DbSet<operaciones> operaciones { get; set; }
+        public virtual DbSet<rol> rol { get; set; }
+        public virtual DbSet<roloperacion> roloperacion { get; set; }
+        public virtual DbSet<usuario> usuario { get; set; }
     }
 }

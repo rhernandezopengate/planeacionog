@@ -36,16 +36,16 @@
                         SKU
                         <div class="form-group">
                             <div class="input-group">
-                                <input id="txtSKU" type="text" class="form-control" placeholder="SKU"/>
+                                <input id="txtSKU" type="text" class="form-control" placeholder="SKU" />
                                 <span class="input-group-addon">
                                     <span class="fa fa-print"></span>
-                                </span>                                
+                                </span>
                             </div>
                         </div>
                     </div>
                 </div>
-                
-                <table id="table" class="table table-striped jambo_table" width="100%">
+
+                <table id="table" class="table table-bordered jambo_table" width="100%">
                     <thead>
                         <tr>
                             <th>id</th>
@@ -55,11 +55,20 @@
                             <th>Genetica Final</th>
                             <th>Minimo</th>
                             <th>Maximo</th>
-                            <th></th>                            
+                            <th></th>
                         </tr>
                     </thead>
                 </table>
             </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="MyModal" class="modal fade bs-example-modal-lg">
+    <div class="modal-dialog modal-lg" id="mdialTamanio">
+        <div class="modal-content">
+            <div id="MyModalContent"></div>
         </div>
     </div>
 </div>
@@ -92,8 +101,8 @@
                 "processing": true,
                 "serverSide": true,
                 "dom": 'Blrtip',
-                "columnDefs": [{                    
-                    targets: [1,2,3,4,5], className: 'dt-body-center text-center'
+                "columnDefs": [{
+                    targets: [1, 2, 3, 4, 5], className: 'dt-body-center text-center'
                 }],
                 buttons: [
                     {
@@ -145,7 +154,7 @@
                     { "data": "promedio", "autoWidth": true },
                     { "data": "geneticafinal", "autoWidth": true },
                     { "data": "minimo", "autoWidth": true },
-                    { "data": "maximo", "autoWidth": true },                    
+                    { "data": "maximo", "autoWidth": true },
                     {
                         "data": null,
                         "targets": -1,
@@ -168,7 +177,7 @@
 
         var Editar = function (ID) {
             $.ajaxSetup({ cache: false });
-            var EditUrl = "/masterarticulos/Edit/" + ID;
+            var EditUrl = "/geneticas/Edit/" + ID;
             $("#MyModalContent").load(EditUrl, function () {
                 $("#MyModal").modal({
                     //backdrop: 'static',

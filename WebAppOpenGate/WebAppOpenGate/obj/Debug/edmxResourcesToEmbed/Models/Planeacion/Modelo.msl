@@ -31,5 +31,43 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="onhand">
+      <EntityTypeMapping TypeName="DB_A3F19C_PruebasModel.onhand">
+        <MappingFragment StoreEntitySet="onhand">
+          <ScalarProperty Name="case_quantity_lot" ColumnName="case_quantity_lot" />
+          <ScalarProperty Name="hl_itemlc" ColumnName="hl_itemlc" />
+          <ScalarProperty Name="pallet_size" ColumnName="pallet_size" />
+          <ScalarProperty Name="case_quantity" ColumnName="case_quantity" />
+          <ScalarProperty Name="weight_uom" ColumnName="weight_uom" />
+          <ScalarProperty Name="unit_weight" ColumnName="unit_weight" />
+          <ScalarProperty Name="curr_cd" ColumnName="curr_cd" />
+          <ScalarProperty Name="available_value" ColumnName="available_value" />
+          <ScalarProperty Name="available_qty" ColumnName="available_qty" />
+          <ScalarProperty Name="reserved_value" ColumnName="reserved_value" />
+          <ScalarProperty Name="reserved_qty" ColumnName="reserved_qty" />
+          <ScalarProperty Name="on_hand_value" ColumnName="on_hand_value" />
+          <ScalarProperty Name="on_hand_qty" ColumnName="on_hand_qty" />
+          <ScalarProperty Name="frozen_unit_cost" ColumnName="frozen_unit_cost" />
+          <ScalarProperty Name="lpn" ColumnName="lpn" />
+          <ScalarProperty Name="expiration_date" ColumnName="expiration_date" />
+          <ScalarProperty Name="lot_status" ColumnName="lot_status" />
+          <ScalarProperty Name="lot_number" ColumnName="lot_number" />
+          <ScalarProperty Name="locator_status" ColumnName="locator_status" />
+          <ScalarProperty Name="locator" ColumnName="locator" />
+          <ScalarProperty Name="subinv" ColumnName="subinv" />
+          <ScalarProperty Name="uom" ColumnName="uom" />
+          <ScalarProperty Name="item_status" ColumnName="item_status" />
+          <ScalarProperty Name="country_of_origin" ColumnName="country_of_origin" />
+          <ScalarProperty Name="planner_code" ColumnName="planner_code" />
+          <ScalarProperty Name="category" ColumnName="category" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="rev" ColumnName="rev" />
+          <ScalarProperty Name="item" ColumnName="item" />
+          <ScalarProperty Name="org" ColumnName="org" />
+          <ScalarProperty Name="fechaalta" ColumnName="fechaalta" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

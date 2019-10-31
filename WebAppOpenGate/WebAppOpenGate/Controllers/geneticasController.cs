@@ -10,20 +10,24 @@ using WebAppOpenGate.Models.Planeacion;
 using System.Linq.Dynamic;
 using System.Data.SqlClient;
 using System.Configuration;
+using WebAppOpenGate.Filters;
 
 namespace WebAppOpenGate.Controllers
 {
+    [Authorize]
     public class geneticasController : Controller
     {
         private DB_A3F19C_PruebasEntities db = new DB_A3F19C_PruebasEntities();
 
         // GET: geneticas
+        [AuthorizeUser(IdOperacion: 3)]
         public ActionResult Index()
         {
             return View();
         }
 
         [HttpPost]
+        [AuthorizeUser(IdOperacion: 3)]
         public ActionResult ObtenerGeneticas()
         {
             var Draw = Request.Form.GetValues("draw").FirstOrDefault();
@@ -42,7 +46,7 @@ namespace WebAppOpenGate.Controllers
             {
                 List<geneticas> lista = new List<geneticas>();
 
-                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString()))
+                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["BDConnection"].ToString()))
                 {
                     con.Open();
 
@@ -127,7 +131,7 @@ namespace WebAppOpenGate.Controllers
             {
                 db.geneticas.Add(geneticas);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return Json("Correcto", JsonRequestBehavior.AllowGet);
             }
 
             return View(geneticas);
@@ -159,7 +163,7 @@ namespace WebAppOpenGate.Controllers
             {
                 db.Entry(geneticas).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return Json("Correcto", JsonRequestBehavior.AllowGet);
             }
             return View(geneticas);
         }
