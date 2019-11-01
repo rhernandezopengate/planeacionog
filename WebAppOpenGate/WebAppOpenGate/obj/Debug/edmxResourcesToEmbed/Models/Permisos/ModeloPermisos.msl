@@ -38,12 +38,11 @@
     <EntitySetMapping Name="usuario">
       <EntityTypeMapping TypeName="DB_A3F19C_PruebasModel1.usuario">
         <MappingFragment StoreEntitySet="usuario">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="Password" ColumnName="Password" />
-          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
           <ScalarProperty Name="rol_Id" ColumnName="rol_Id" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

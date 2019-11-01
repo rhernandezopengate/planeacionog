@@ -13,21 +13,18 @@ using System.Configuration;
 using WebAppOpenGate.Filters;
 
 namespace WebAppOpenGate.Controllers
-{
-    [Authorize]
+{    
     public class geneticasController : Controller
     {
         private DB_A3F19C_PruebasEntities db = new DB_A3F19C_PruebasEntities();
 
-        // GET: geneticas
-        [AuthorizeUser(IdOperacion: 3)]
+        // GET: geneticas        
         public ActionResult Index()
         {
             return View();
         }
 
-        [HttpPost]
-        [AuthorizeUser(IdOperacion: 3)]
+        [HttpPost]        
         public ActionResult ObtenerGeneticas()
         {
             var Draw = Request.Form.GetValues("draw").FirstOrDefault();

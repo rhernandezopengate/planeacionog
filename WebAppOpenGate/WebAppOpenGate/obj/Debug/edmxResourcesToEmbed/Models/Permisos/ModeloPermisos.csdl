@@ -25,7 +25,7 @@
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="roloperacion" Relationship="Self.roloperacion_rol_fk" FromRole="rol" ToRole="roloperacion" />
-    <NavigationProperty Name="usuario" Relationship="Self.usuario_rol_fk" FromRole="rol" ToRole="usuario" />
+    <NavigationProperty Name="usuario" Relationship="DB_A3F19C_PruebasModel1.usuario_rol_fk" FromRole="rol" ToRole="usuario" />
   </EntityType>
   <EntityType Name="roloperacion">
     <Key>
@@ -36,18 +36,6 @@
     <Property Name="rol_Id" Type="Int32" Nullable="false" />
     <NavigationProperty Name="operaciones" Relationship="Self.roloperacion_operaciones_fk" FromRole="roloperacion" ToRole="operaciones" />
     <NavigationProperty Name="rol" Relationship="Self.roloperacion_rol_fk" FromRole="roloperacion" ToRole="rol" />
-  </EntityType>
-  <EntityType Name="usuario">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="Password" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-    <Property Name="Fecha" Type="DateTime" Precision="0" />
-    <Property Name="rol_Id" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="rol" Relationship="Self.usuario_rol_fk" FromRole="usuario" ToRole="rol" />
   </EntityType>
   <Association Name="operaciones_modulo_fk">
     <End Role="modulo" Type="Self.modulo" Multiplicity="1" />
@@ -85,24 +73,11 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="usuario_rol_fk">
-    <End Role="rol" Type="Self.rol" Multiplicity="1" />
-    <End Role="usuario" Type="Self.usuario" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="rol">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="usuario">
-        <PropertyRef Name="rol_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityContainer Name="DB_A3F19C_PruebasEntities1" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="modulo" EntityType="Self.modulo" />
     <EntitySet Name="operaciones" EntityType="Self.operaciones" />
     <EntitySet Name="rol" EntityType="Self.rol" />
     <EntitySet Name="roloperacion" EntityType="Self.roloperacion" />
-    <EntitySet Name="usuario" EntityType="Self.usuario" />
     <AssociationSet Name="operaciones_modulo_fk" Association="Self.operaciones_modulo_fk">
       <End Role="modulo" EntitySet="modulo" />
       <End Role="operaciones" EntitySet="operaciones" />
@@ -115,9 +90,33 @@
       <End Role="rol" EntitySet="rol" />
       <End Role="roloperacion" EntitySet="roloperacion" />
     </AssociationSet>
-    <AssociationSet Name="usuario_rol_fk" Association="Self.usuario_rol_fk">
+    <EntitySet Name="usuario" EntityType="DB_A3F19C_PruebasModel1.usuario" />
+    <AssociationSet Name="usuario_rol_fk" Association="DB_A3F19C_PruebasModel1.usuario_rol_fk">
       <End Role="rol" EntitySet="rol" />
       <End Role="usuario" EntitySet="usuario" />
     </AssociationSet>
   </EntityContainer>
+  <EntityType Name="usuario">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Fecha" Type="DateTime" Precision="0" />
+    <Property Name="rol_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="rol" Relationship="DB_A3F19C_PruebasModel1.usuario_rol_fk" FromRole="usuario" ToRole="rol" />
+  </EntityType>
+  <Association Name="usuario_rol_fk">
+    <End Type="DB_A3F19C_PruebasModel1.rol" Role="rol" Multiplicity="1" />
+    <End Type="DB_A3F19C_PruebasModel1.usuario" Role="usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="rol">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="usuario">
+        <PropertyRef Name="rol_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

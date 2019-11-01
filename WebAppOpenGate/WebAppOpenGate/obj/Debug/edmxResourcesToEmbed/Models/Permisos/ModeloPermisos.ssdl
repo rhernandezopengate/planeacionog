@@ -37,7 +37,6 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Nombre" Type="varchar" MaxLength="100" />
     <Property Name="Email" Type="varchar" MaxLength="100" />
-    <Property Name="Password" Type="varchar" MaxLength="500" />
     <Property Name="Fecha" Type="date" />
     <Property Name="rol_Id" Type="int" Nullable="false" />
   </EntityType>

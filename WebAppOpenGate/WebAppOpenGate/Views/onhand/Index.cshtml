@@ -84,14 +84,17 @@
                             <th>id</th>
                             <th>item</th>
                             <th>description</th>
-                            <th>subinv</th>
-                            <th>on_hand_qty</th>
-                            <th>available_qty</th>
-                            <th>reserved_qty</th>
-                            <th>lot_number</th>
                             <th>locator</th>
-                            <th>rev</th>
+                            <th>lot_number</th>
                             <th>expiration_date</th>
+                            <th>on_hand_qty</th>
+                            <th>reserved_qty</th>
+                            <th>available_qty</th>
+                            <th>QTY Pallets</th>
+                            <th>rev</th>
+                            <th>WH</th>
+                            <th>Llave</th>
+                            <th>subinv</th>
                         </tr>
                     </thead>
                 </table>
@@ -174,14 +177,28 @@
                     { "data": "id", "autoWidth": true, "visible": false },
                     { "data": "item", "autoWidth": true },
                     { "data": "description", "autoWidth": true },
-                    { "data": "subinv", "autoWidth": true },
-                    { "data": "on_hand_qty", "autoWidth": true },
-                    { "data": "available_qty", "autoWidth": true },
-                    { "data": "reserved_qty", "autoWidth": true },
-                    { "data": "lot_number", "autoWidth": true },
                     { "data": "locator", "autoWidth": true },
-                    { "data": "rev", "autoWidth": true },       
-                    { "data": "expiration_date", "autoWidth": true },       
+                    { "data": "lot_number", "autoWidth": true },
+                    {
+                        "data": "expiration_date",
+                        "name": "expiration_date",
+                        "render": function (data, type, full) {
+
+                            var data1 = data.replace("/Date(", "").replace(")/", "");
+                            var date = new Date(parseInt(data1));
+                            var month = date.getMonth() + 1;
+                            return date.getDate() + "-" + (month.toString().length > 1 ? month : "0" + month) + "-" + date.getFullYear();
+                        },
+                        "autoWidth": true
+                    },
+                    { "data": "on_hand_qty", "render": $.fn.dataTable.render.number(','), "autoWidth": true },
+                    { "data": "reserved_qty", "render": $.fn.dataTable.render.number(','), "autoWidth": true },
+                    { "data": "available_qty", "render": $.fn.dataTable.render.number(','), "autoWidth": true },
+                    { "data": "qtypallets", "render": $.fn.dataTable.render.number(',', '.', 2), "autoWidth": true },
+                    { "data": "rev", "autoWidth": true },
+                    { "data": "wh", "autoWidth": true },
+                    { "data": "llave", "autoWidth": true },
+                    { "data": "subinv", "autoWidth": true },                    
                 ]
             });
 
@@ -197,7 +214,7 @@
                 table.columns(2).search(this.value).draw();
             });
 
-             $('#txtLot').on('keyup', function () {
+            $('#txtLot').on('keyup', function () {
                 table.columns(3).search(this.value).draw();
             });
         });

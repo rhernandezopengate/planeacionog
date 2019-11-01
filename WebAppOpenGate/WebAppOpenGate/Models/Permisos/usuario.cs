@@ -17,7 +17,6 @@ namespace WebAppOpenGate.Models.Permisos
         public int id { get; set; }
         public string Nombre { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
         public Nullable<System.DateTime> Fecha { get; set; }
         public int rol_Id { get; set; }
     
