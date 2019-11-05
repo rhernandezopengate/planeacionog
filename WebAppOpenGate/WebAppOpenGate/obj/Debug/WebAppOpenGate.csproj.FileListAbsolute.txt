@@ -111,7 +111,6 @@ C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenG
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\es\Microsoft.AspNet.Identity.Core.resources.dll
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\es\Microsoft.AspNet.Identity.Owin.resources.dll
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\es\Microsoft.AspNet.Identity.EntityFramework.resources.dll
-C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\obj\Debug\WebAppOpenGate.csprojAssemblyReference.cache
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\obj\Debug\WebAppOpenGate.csproj.CopyComplete
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\obj\Debug\WebAppOpenGate.dll
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\obj\Debug\WebAppOpenGate.pdb

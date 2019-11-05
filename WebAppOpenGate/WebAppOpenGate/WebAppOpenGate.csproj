@@ -252,6 +252,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\OnHandViewModels.cs" />
+    <Compile Include="ViewModels\PlaneacionViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="build\css\custom.css" />
@@ -269,6 +270,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\progress-modal.css" />
     <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
     <Content Include="favicon.ico" />
@@ -4787,6 +4789,9 @@
     <Content Include="Views\roloperacions\Details.cshtml" />
     <Content Include="Views\roloperacions\Edit.cshtml" />
     <Content Include="Views\roloperacions\Index.cshtml" />
+    <Content Include="Views\planeacion\CrearPlaneacion.cshtml" />
+    <Content Include="Views\planeacion\_ConsultaSkus.cshtml" />
+    <Content Include="Views\onhand\Cargar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,37 @@
+﻿@model List<WebAppOpenGate.ViewModels.PlaneacionViewModel>
+@{
+    ViewBag.Title = "_ConsultaSkus";
+    Layout = null;
+}
+
+@ViewBag.WH
+
+@if (Model != null)
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Multiplo Sutido</th>
+                <th>WH</th>
+                <th>QTY On Hand</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.OrderByDescending(x => x.multiplosurtido))
+            {
+            <tr>
+                <td>@item.sku</td>
+                <td>@item.multiplosurtido</td>
+                <td>@item.wh</td>
+                <td>@item.qtyonhand</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+
+}
+else
+{
+    <label>Empty</label>
+}
