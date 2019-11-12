@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="DB_A3F19C_PruebasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="familiasku">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="bloque" Type="int" />
+    <Property Name="descripcion" Type="varchar" MaxLength="100" />
+  </EntityType>
   <EntityType Name="geneticas">
     <Key>
       <PropertyRef Name="id" />
@@ -27,6 +35,7 @@
     <Property Name="pesopallet" Type="decimal" Precision="18" Scale="2" />
     <Property Name="descripcion" Type="varchar" MaxLength="500" />
     <Property Name="activo" Type="bit" />
+    <Property Name="FamiliaSKU_Id" Type="int" />
   </EntityType>
   <EntityType Name="onhand">
     <Key>
@@ -65,9 +74,35 @@
     <Property Name="hl_itemlc" Type="varchar" MaxLength="50" />
     <Property Name="case_quantity_lot" Type="int" />
   </EntityType>
+  <EntityType Name="wharehouse">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nomenclatura" Type="varchar" MaxLength="10" />
+    <Property Name="descripcion" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <Association Name="masterarticulos_familiasku_fk">
+    <End Role="familiasku" Type="Self.familiasku" Multiplicity="0..1" />
+    <End Role="masterarticulos" Type="Self.masterarticulos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="familiasku">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="masterarticulos">
+        <PropertyRef Name="FamiliaSKU_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="DB_A3F19C_PruebasModelStoreContainer">
+    <EntitySet Name="familiasku" EntityType="Self.familiasku" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="geneticas" EntityType="Self.geneticas" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="masterarticulos" EntityType="Self.masterarticulos" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="onhand" EntityType="Self.onhand" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="wharehouse" EntityType="Self.wharehouse" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="masterarticulos_familiasku_fk" Association="Self.masterarticulos_familiasku_fk">
+      <End Role="familiasku" EntitySet="familiasku" />
+      <End Role="masterarticulos" EntitySet="masterarticulos" />
+    </AssociationSet>
   </EntityContainer>
 </Schema>

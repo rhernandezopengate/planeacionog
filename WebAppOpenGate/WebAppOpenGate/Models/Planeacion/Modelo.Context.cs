@@ -25,18 +25,10 @@ namespace WebAppOpenGate.Models.Planeacion
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<masterarticulos> masterarticulos { get; set; }
         public virtual DbSet<geneticas> geneticas { get; set; }
         public virtual DbSet<onhand> onhand { get; set; }
-
-        public System.Data.Entity.DbSet<WebAppOpenGate.Models.Permisos.rol> rols { get; set; }
-
-        public System.Data.Entity.DbSet<WebAppOpenGate.Models.Permisos.modulo> moduloes { get; set; }
-
-        public System.Data.Entity.DbSet<WebAppOpenGate.Models.Permisos.operaciones> operaciones { get; set; }
-
-        public System.Data.Entity.DbSet<WebAppOpenGate.Models.Permisos.usuario> usuarios { get; set; }
-
-        public System.Data.Entity.DbSet<WebAppOpenGate.Models.Permisos.roloperacion> roloperacions { get; set; }
+        public virtual DbSet<familiasku> familiasku { get; set; }
+        public virtual DbSet<masterarticulos> masterarticulos { get; set; }
+        public virtual DbSet<wharehouse> wharehouse { get; set; }
     }
 }

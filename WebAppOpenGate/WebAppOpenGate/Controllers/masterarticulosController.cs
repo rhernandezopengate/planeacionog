@@ -10,6 +10,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebAppOpenGate.Models.Planeacion;
 using System.Linq.Dynamic;
+using WebAppOpenGate.ViewModels;
 
 namespace WebAppOpenGate.Controllers
 {
@@ -63,11 +64,12 @@ namespace WebAppOpenGate.Controllers
                         while (dr.Read())
                         {
                             // master
-                            var master = new masterarticulos();
+                            var master = new MasterArticulosViewModel();
 
                             master.id = Convert.ToInt32(dr["id"]);
                             master.sku = dr["sku"].ToString();
-                            master.descripcion = dr["descripcion"].ToString();                            
+                            master.descripcion = dr["Nombre"].ToString();
+                            master.familia = dr["Familia"].ToString();
                             master.qtycaja = int.Parse(dr["qtycaja"].ToString());
                             master.qtypallet = int.Parse(dr["qtypallet"].ToString());
                             master.multiplosurtido = int.Parse(dr["multiplosurtido"].ToString());
@@ -116,6 +118,7 @@ namespace WebAppOpenGate.Controllers
         // GET: masterarticulos/Create
         public ActionResult Create()
         {
+            ViewBag.FamiliaId = new SelectList(db.familiasku, "id", "descripcion");
             return View();
         }
 
@@ -124,7 +127,7 @@ namespace WebAppOpenGate.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,sku,qtycaja,qtypallet,multiplosurtido,cajaspallet,kgcaja,pesopallet,descripcion, activo")] masterarticulos masterarticulos)
+        public ActionResult Create([Bind(Include = "id,sku,qtycaja,qtypallet,multiplosurtido,cajaspallet,kgcaja,pesopallet,descripcion, activo, ,FamiliaSKU_Id")] masterarticulos masterarticulos)
         {
             if (ModelState.IsValid)
             {
@@ -132,6 +135,8 @@ namespace WebAppOpenGate.Controllers
                 db.SaveChanges();
                 return Json("Correcto", JsonRequestBehavior.AllowGet);
             }
+
+            ViewBag.FamiliaId = new SelectList(db.familiasku, "id", "descripcion");
 
             return View(masterarticulos);
         }
@@ -144,6 +149,7 @@ namespace WebAppOpenGate.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             masterarticulos masterarticulos = db.masterarticulos.Find(id);
+            ViewBag.FamiliaSKU_Id = new SelectList(db.familiasku, "id", "descripcion", masterarticulos.FamiliaSKU_Id);
             if (masterarticulos == null)
             {
                 return HttpNotFound();
@@ -156,7 +162,7 @@ namespace WebAppOpenGate.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,sku,qtycaja,qtypallet,multiplosurtido,cajaspallet,kgcaja,pesopallet,descripcion, activo")] masterarticulos masterarticulos)
+        public ActionResult Edit([Bind(Include = "id,sku,qtycaja,qtypallet,multiplosurtido,cajaspallet,kgcaja,pesopallet,descripcion, activo, FamiliaSKU_Id")] masterarticulos masterarticulos)
         {
             if (ModelState.IsValid)
             {
@@ -164,6 +170,9 @@ namespace WebAppOpenGate.Controllers
                 db.SaveChanges();
                 return Json("Correcto", JsonRequestBehavior.AllowGet);
             }
+
+            ViewBag.FamiliaSKU_Id = new SelectList(db.familiasku, "id", "descripcion", masterarticulos.FamiliaSKU_Id);
+
             return View(masterarticulos);
         }
 

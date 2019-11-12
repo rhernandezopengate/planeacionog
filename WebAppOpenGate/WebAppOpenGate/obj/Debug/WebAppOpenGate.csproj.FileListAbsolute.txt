@@ -1,3 +1,4 @@
+C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\Newtonsoft.Json.xml
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\WebAppOpenGate.dll.config
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\WebAppOpenGate.dll
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\WebAppOpenGate.pdb
@@ -82,7 +83,6 @@ C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenG
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\System.Web.WebPages.xml
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\System.Web.WebPages.Deployment.xml
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\System.Web.WebPages.Razor.xml
-C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\Newtonsoft.Json.xml
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\Antlr3.Runtime.pdb
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\EntityFramework.xml
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\EntityFramework.SqlServer.xml

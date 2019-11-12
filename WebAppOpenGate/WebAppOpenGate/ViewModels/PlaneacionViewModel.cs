@@ -14,5 +14,6 @@ namespace WebAppOpenGate.ViewModels
         public string wh { get; set; }
 
         public int? qtyonhand { get; set; }
+        public int bloque { get; internal set; }
     }
 }

@@ -13,16 +13,17 @@ namespace WebAppOpenGate.Filters
     {
         private usuario oUsuario;
         private DB_A3F19C_PruebasEntities1 db = new DB_A3F19C_PruebasEntities1();
-        private int idOperacion;
+        private int idOperacion;       
 
         public AuthorizeUser(int IdOperacion = 0)
         {
-            this.idOperacion = IdOperacion;
+            this.idOperacion = IdOperacion;            
         }
+
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
             string nombreOperacion = "";
-            string nombreModulo = "";
+            string nombreModulo = "";         
 
             try
             {

@@ -34,6 +34,7 @@ namespace WebAppOpenGate.Controllers
             var SortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
 
             var item = Request.Form.GetValues("columns[0][search][value]").FirstOrDefault();
+            var wh = Request.Form.GetValues("columns[1][search][value]").FirstOrDefault();
 
             int PageSize = Length != null ? Convert.ToInt32(Length) : 0;
             int Skip = Start != null ? Convert.ToInt32(Start) : 0;
@@ -47,7 +48,7 @@ namespace WebAppOpenGate.Controllers
                 {
                     con.Open();
 
-                    string sql = "exec [SP_Geneticas_ParametrosOpcionales] @sku";
+                    string sql = "exec [SP_Geneticas_ParametrosOpcionales] @sku, @wh";
                     var query = new SqlCommand(sql, con);
 
                     if (item != "")
@@ -59,6 +60,15 @@ namespace WebAppOpenGate.Controllers
                         query.Parameters.AddWithValue("@sku", DBNull.Value);
                     }
 
+                    if (wh != "" && wh != "0")
+                    {
+                        query.Parameters.AddWithValue("@wh", wh);
+                    }
+                    else
+                    {
+                        query.Parameters.AddWithValue("@wh", DBNull.Value);
+                    }
+
                     using (var dr = query.ExecuteReader())
                     {
                         while (dr.Read())
@@ -67,7 +77,9 @@ namespace WebAppOpenGate.Controllers
                             var master = new geneticas();
 
                             master.id = Convert.ToInt32(dr["id"]);
-                            master.clave = dr["clave"].ToString();
+                            string clave = dr["clave"].ToString();
+                            master.clave = clave;
+                            master.wh = dr["clave"].ToString().Remove(0, clave.IndexOf("/") + 1);
                             master.sku = dr["sku"].ToString();
                             master.promedio = decimal.Parse(dr["promedio"].ToString());
                             master.geneticafinal = dr["geneticafinal"].ToString();

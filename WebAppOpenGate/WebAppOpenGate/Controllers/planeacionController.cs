@@ -34,7 +34,7 @@ namespace WebAppOpenGate.Controllers
                 var skus = db.masterarticulos.Where(x => x.activo == true).ToList();
                 var onhand = db.onhand.Where(x => x.subinv.Contains(wh + "10") || x.subinv.Contains(wh + "20")).ToList();
                 var geneticas = db.geneticas.Where(x => x.clave.Contains(wh)).ToList();
-                var master = db.masterarticulos.ToList();                                
+                var master = db.masterarticulos.ToList();                
 
                 foreach (var item in skus)
                 {
@@ -45,21 +45,13 @@ namespace WebAppOpenGate.Controllers
 
                     if (valgeneticas != null)
                     {
+                        pl.sku = item.sku;
+                        pl.bloque = (int)master.Where(x => x.sku == item.sku).FirstOrDefault().familiasku.bloque;
                         pl.multiplosurtido = master.Where(x => x.sku == item.sku).FirstOrDefault().multiplosurtido;
                         pl.wh = wh;
                         pl.qtyonhand = onhand.Where(x => x.item.Equals(item.sku)).Select(x => x.on_hand_qty - x.reserved_qty).Sum();
-                    }
-                    else
-                    {
-                        pl.multiplosurtido = 0;
-                        pl.wh = "";
-                        pl.qtyonhand = 0;
-                    }
-
-                    
-                    pl.sku = item.sku;
-
-                    lista.Add(pl);
+                        lista.Add(pl);
+                    }                                        
                 }
 
                 return PartialView("_ConsultaSkus", lista);
@@ -76,20 +68,16 @@ namespace WebAppOpenGate.Controllers
         {
             List<SelectListItem> lista = new List<SelectListItem>();
 
-            SelectListItem selectListItem = new SelectListItem();
-            selectListItem.Value = "3T";
-            selectListItem.Text = "3T";
-
-            SelectListItem selectListItem2 = new SelectListItem();
-            selectListItem2.Value = "1X";
-            selectListItem2.Text = "1X";
-
-            lista.Add(selectListItem);
-            lista.Add(selectListItem2);
+            foreach (var item in db.wharehouse.ToList())
+            {
+                lista.Add(new SelectListItem
+                {
+                    Value = item.nomenclatura,
+                    Text = item.nomenclatura
+                });
+            }
 
             return Json(lista);
         }
-
-
     }
 }

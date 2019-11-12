@@ -12,20 +12,10 @@ namespace WebAppOpenGate.Models.Planeacion
     using System;
     using System.Collections.Generic;
     
-    public partial class masterarticulos
+    public partial class wharehouse
     {
         public int id { get; set; }
-        public string sku { get; set; }
-        public Nullable<int> qtycaja { get; set; }
-        public Nullable<int> qtypallet { get; set; }
-        public Nullable<int> multiplosurtido { get; set; }
-        public Nullable<int> cajaspallet { get; set; }
-        public Nullable<decimal> kgcaja { get; set; }
-        public Nullable<decimal> pesopallet { get; set; }
+        public string nomenclatura { get; set; }
         public string descripcion { get; set; }
-        public bool activo { get; set; }
-        public Nullable<int> FamiliaSKU_Id { get; set; }
-    
-        public virtual familiasku familiasku { get; set; }
     }
 }

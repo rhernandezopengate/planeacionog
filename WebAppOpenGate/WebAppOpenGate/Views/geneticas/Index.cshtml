@@ -43,6 +43,18 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            WH
+                            <div class="input-group date">
+                                <select class="form-control" id="ddlWH"></select>
+                                <span class="input-group-addon">
+                                    <span class="fa fa-list-alt"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <table id="table" class="table table-bordered jambo_table" width="100%">
@@ -50,6 +62,7 @@
                         <tr>
                             <th>id</th>
                             <th>Clave</th>
+                            <th>WH</th>
                             <th>SKU</th>
                             <th>Promedio</th>
                             <th>Genetica Final</th>
@@ -150,6 +163,7 @@
                     //0
                     { "data": "id", "autoWidth": true, "visible": false },
                     { "data": "clave", "autoWidth": true },
+                    { "data": "wh", "autoWidth": true },
                     { "data": "sku", "autoWidth": true },
                     { "data": "promedio", "autoWidth": true },
                     { "data": "geneticafinal", "autoWidth": true },
@@ -172,6 +186,10 @@
 
             $('#txtSKU').on('keyup', function () {
                 table.columns(0).search(this.value).draw();
+            });
+
+            $('#ddlWH').on('change', function () {
+                table.columns(1).search(this.value).draw();
             });
         });
 
@@ -213,5 +231,29 @@
                 return false;
             });
         }
+
+        $(function () {
+            var ddlCustomers = $("#ddlWH");
+            ddlCustomers.empty().append('<option selected="selected" value="0" disabled = "disabled">Loading ...</option>');
+            $.ajax({
+                type: "POST",
+                url: "/planeacion/ListaWH",
+                data: '{}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    ddlCustomers.empty().append('<option selected="selected" value="0">Seleccione una opcion...</option>');
+                    $.each(response, function () {
+                        ddlCustomers.append($("<option></option>").val(this['Value']).html(this['Text']));
+                    });
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
     </script>
 }
