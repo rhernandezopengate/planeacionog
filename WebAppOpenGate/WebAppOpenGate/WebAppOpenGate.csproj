@@ -4811,6 +4811,8 @@
     <Content Include="Views\wharehouses\Details.cshtml" />
     <Content Include="Views\wharehouses\Edit.cshtml" />
     <Content Include="Views\wharehouses\Index.cshtml" />
+    <Content Include="Views\geneticas\CambiarGeneticasBySKU.cshtml" />
+    <Content Include="Views\geneticas\ActualizarByArchivo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

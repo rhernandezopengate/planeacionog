@@ -8,7 +8,10 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Plain Page</h2>
+                <h2>Geneticas</h2>
+                &nbsp;&nbsp;&nbsp;
+                <button class="btn btn-primary" id="btnEditar"><i class="fa fa-list-alt"></i> Actualizar SKU Individual</button>
+                <a class="btn btn-dark" href="@Url.Action("ActualizarByArchivo", new { error = "" })"><i class="fa fa-file-excel-o"></i>&nbsp;&nbsp;Actualizar Por Archivo</a>
                 <ul class="nav navbar-right panel_toolbox">
                     <li>
                         <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -193,8 +196,21 @@
             });
         });
 
+        $("#btnEditar").click(function () {
+            $.ajaxSetup({ cache: false });
+            var EditUrl = "/geneticas/CambiarGeneticasBySKU";
+            $("#MyModalContent").load(EditUrl, function () {
+                $("#MyModal").modal({
+                    //backdrop: 'static',
+                    keyboard: false
+                }, 'show');                
+            });
+            return false;
+        });        
+        
         var Editar = function (ID) {
             $.ajaxSetup({ cache: false });
+            
             var EditUrl = "/geneticas/Edit/" + ID;
             $("#MyModalContent").load(EditUrl, function () {
                 $("#MyModal").modal({
@@ -213,14 +229,14 @@
                     type: this.method,
                     data: $(this).serialize(),
                     success: function (result) {
-                        if (result === 'Correcto') {
+                        if (result.Respuesta === 'Correcto') {
                             $("#MyModal").modal('hide');
-                            toastr.success('Edicion Correcta');
+                            toastr.success('Edicion Correcta');                            
                             table.draw();
                         }
                         else {
                             $("#MyModal").modal('show');
-                            toastr.error('Ha ocurrido un error');
+                            toastr.error('Ha ocurrido un error: ' + result.Respuesta);
                             bindForm(dialog);
                         }
                     },

@@ -11,6 +11,7 @@ using System.Linq.Dynamic;
 using System.Data.SqlClient;
 using System.Configuration;
 using WebAppOpenGate.Filters;
+using System.IO;
 
 namespace WebAppOpenGate.Controllers
 {    
@@ -22,6 +23,169 @@ namespace WebAppOpenGate.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        public ActionResult ActualizarByArchivo(string error)
+        {
+            ViewBag.Error = error;
+            return View();
+        }
+
+        public ActionResult EditarByArchivo(HttpPostedFileBase archivoPosteado)
+        {
+            try
+            {               
+                string filePath = string.Empty;
+
+                if (archivoPosteado != null)
+                {
+                    string path = Server.MapPath("~/Uploads/");
+
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+
+                    filePath = path + Path.GetFileName(archivoPosteado.FileName);
+                    string extension = Path.GetExtension(archivoPosteado.FileName);
+                    archivoPosteado.SaveAs(filePath);
+
+                    DataTable dt = new DataTable();
+
+                    dt.Columns.AddRange(new DataColumn[7]
+                    {
+                        //0
+                        new DataColumn("clave", typeof(string)),
+                        //1
+                        new DataColumn("sku", typeof(string)),
+                        //2
+                        new DataColumn("wh", typeof(string)),
+                        //3
+                        new DataColumn("promedio", typeof(decimal)),
+                        //4                       
+                        new DataColumn("geneticafinal", typeof(string)),                       
+                        //5
+                        new DataColumn("minimo", typeof(decimal)),                       
+                        //6
+                        new DataColumn("maximo", typeof(decimal)),
+                    });
+
+                    string csvData = System.IO.File.ReadAllText(filePath);                    
+
+                    foreach (string row in csvData.Split('\n'))
+                    {
+                        if (!string.IsNullOrEmpty(row))
+                        {
+                            dt.Rows.Add();
+                            int i = 0;
+
+                            foreach (string cell in row.Split(','))
+                            {
+                                if (cell.Equals(string.Empty))
+                                {
+                                    if (dt.Rows[dt.Rows.Count - 1][3].ToString() == "")
+                                    {
+                                        dt.Rows[dt.Rows.Count - 1][3] = 0;
+                                    }
+
+                                    if (dt.Rows[dt.Rows.Count - 1][5].ToString() == "")
+                                    {
+                                        dt.Rows[dt.Rows.Count - 1][5] = 0;
+                                    }
+                                    
+                                    if (dt.Rows[dt.Rows.Count - 1][6].ToString() == "")
+                                    {
+                                        dt.Rows[dt.Rows.Count - 1][6] = 0;
+                                    }
+                                }
+                                else
+                                {                                    
+                                    dt.Rows[dt.Rows.Count - 1][i] = cell;
+                                }
+
+                                i++;
+                            }
+                        }
+                    }
+
+                    List<geneticas> listaGeneticas = db.geneticas.ToList();
+
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        string clave = row[0].ToString();
+
+                        var genetica = listaGeneticas.Where(x => x.clave == clave).FirstOrDefault();
+                        
+                        if (genetica != null)
+                        {
+                            genetica.wh = row[2].ToString();
+                            genetica.promedio = decimal.Parse(row[3].ToString());
+                            genetica.geneticafinal = row[4].ToString();
+                            genetica.minimo = decimal.Parse(row[5].ToString());
+                            genetica.maximo = decimal.Parse(row[6].ToString());
+                        }
+                        else
+                        {
+                            geneticas geneticas = new geneticas();
+                            geneticas.clave = clave;
+                            geneticas.sku = row[1].ToString();
+                            geneticas.wh = row[2].ToString();
+                            geneticas.promedio = decimal.Parse(row[3].ToString());
+                            geneticas.geneticafinal = row[4].ToString();
+                            geneticas.minimo = decimal.Parse(row[5].ToString());
+                            geneticas.maximo = decimal.Parse(row[6].ToString());
+
+                            db.geneticas.Add(geneticas);
+                        }
+
+                        db.SaveChanges();
+                    }
+                }
+
+                return RedirectToAction("ActualizarByArchivo", new { error = "Success" });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message.ToString());
+                return RedirectToAction("ActualizarByArchivo", new { error = "Error" });
+            }
+        }
+
+        public ActionResult CambiarGeneticasBySKU() 
+        {
+            return View();   
+        }
+
+        [HttpPost]
+        public ActionResult CambiarGeneticasBySKU(string sku, decimal minimo, decimal maximo)
+        {
+            try
+            {
+                var geneticas = db.geneticas.Where(x => x.sku.Equals(sku)).ToList();
+
+                if (geneticas != null)
+                {
+                    foreach (var item in geneticas)
+                    {
+                        geneticas geneticasTemp = db.geneticas.Where(x => x.clave == item.clave).FirstOrDefault();
+
+                        geneticasTemp.maximo = maximo;
+                        geneticasTemp.minimo = minimo;
+                    }
+
+                    db.SaveChanges();
+
+                    return Json(new { Respuesta = "Correcto" }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { Respuesta = "SKU No Existe" }, JsonRequestBehavior.AllowGet);
+                }                
+            }
+            catch (Exception _ex)
+            {
+                return Json(new { Respuesta = _ex.Message.ToString() }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         [HttpPost]        

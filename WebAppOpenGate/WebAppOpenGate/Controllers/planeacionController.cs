@@ -19,8 +19,9 @@ namespace WebAppOpenGate.Controllers
             return View();
         }
 
-        public ActionResult CrearPlaneacion()
+        public ActionResult CrearPlaneacion(string error)
         {
+            ViewBag.Error = error;
             return View();
         }
 
