@@ -1,37 +1,40 @@
 ﻿@model List<WebAppOpenGate.ViewModels.PlaneacionViewModel>
+
 @{
     ViewBag.Title = "_ConsultaSkus";
     Layout = null;
+    WebGrid webGrid = new WebGrid(source: Model, canPage: false);
 }
 
 @ViewBag.WH
 
 @if (Model != null)
 {
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Bloque</th>
-                <th>Item</th>
-                <th>Multiplo Sutido</th>                
-                <th>QTY On Hand</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.OrderBy(x => x.bloque))
-            {
-            <tr>
-                <td>@item.bloque</td>
-                <td>@item.sku</td>
-                <td>@item.multiplosurtido</td>                
-                <td>@item.qtyonhand</td>
-            </tr>
-            }
-        </tbody>
-    </table>
+    <div id="table">
+        @webGrid.GetHtml(
+            htmlAttributes: new { @id = "WebGrid", @class = "table table-bordered" },
+            columns: webGrid.Columns(
+                     webGrid.Column("bloque", "Bloque"),
+                     webGrid.Column("sku", "SKU"),
+                     webGrid.Column("multiplosurtido", "Multiplo Surtido"),
+                     webGrid.Column("qtyonhand", "On Hand CV"),
+                     webGrid.Column("qtycedis", "On Hand Cedis"),
+                     webGrid.Column("qtycalidad", "WK Calidad")))
+    </div>
+}
 
-}
-else
-{
-    <label>Empty</label>
-}
+
+
+<script>
+    $(document).ready(function () {
+        $('#WebGrid > tbody > tr').each(function (index) {
+
+            var cantidad = parseFloat($(this).children('td:nth-child(5)').text());
+
+            if (cantidad === 0) {
+                $(this).children('td:nth-child(5)').css("background-color", "#F16445");
+            }
+
+        });
+    });
+</script> 

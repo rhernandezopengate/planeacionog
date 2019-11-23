@@ -7,6 +7,7 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="bloque" Type="int" />
     <Property Name="descripcion" Type="varchar" MaxLength="100" />
+    <Property Name="posicion" Type="int" />
   </EntityType>
   <EntityType Name="geneticas">
     <Key>

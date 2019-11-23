@@ -1,40 +1,209 @@
-﻿@model IEnumerable<WebAppOpenGate.Models.Planeacion.familiasku>
-
+﻿
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutPlaneacion.cshtml";
 }
 
-<h2>Index</h2>
+<div class="x_panel">
+    <div class="x_title">
+        <h2>Familias SKU</h2>&nbsp;&nbsp;<a id="btnNuevo" class="btn btn-primary" onclick="Crear()"><i class="fa fa-plus-circle"></i> Agregar Registro</a>        
+        <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+        <div class="well" style="overflow:auto">
+            <div class="col-sm-3">
+                Descripcion
+                <div class="form-group">
+                    <div class="input-group">
+                        <input id="txtDescripcion" type="text" class="form-control" placeholder="Descripcion" />
+                        <span class="input-group-addon">
+                            <span class="fa fa-sort-numeric-desc"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <table id="table" class="table table-bordered jambo_table" width="100%">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Bloque</th>
+                    <th>Posicion</th>
+                    <th>Descripcion</th>
+                    <th></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.bloque)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.descripcion)
-        </th>
-        <th></th>
-    </tr>
+<div id="MyModal" class="modal fade bs-example-modal-lg">
+    <div class="modal-dialog modal-lg" id="mdialTamanio">
+        <div class="modal-content">
+            <div id="MyModalContent"></div>
+        </div>
+    </div>
+</div>
 
-@foreach (var item in Model.OrderByDescending(x => x.id)) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.bloque)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.descripcion)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
+@section Styles {
+    <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css" rel="stylesheet" />
+    <link href="~/Content/toastr.css" rel="stylesheet" />
 }
 
-</table>
+@section Scripts{
+    <script src="~/Scripts/toastr.js"></script>
+    <!-- Datatables -->
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.4/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.4.0/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/pdfmake.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.4.0/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.4.0/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            table = $("#table").DataTable({
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                "processing": true,
+                "serverSide": true,
+                "dom": 'Blrtip',
+                "columnDefs": [{
+                    targets: [1, 2], className: 'dt-body-center text-center'
+                }],
+                buttons: [
+                    {
+                        extend: 'copyHtml5',
+                        text: '<i class="fa fa-files-o"></i>',
+                        titleAttr: 'COPIAR',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+
+                        extend: 'print',
+                        text: '<i class="fa fa-print"></i>',
+                        titleAttr: 'IMPRIMIR',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'excel',
+                        text: '<i class="fa fa-file-excel-o"></i>',
+                        titleAttr: 'EXCEL',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'pdf',
+                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        titleAttr: 'PDF',
+                        orientation: 'landscape',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    }
+
+                ],
+                "ajax": {
+                    "url": "/familiaskus/ObtenerFamilias",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "aoColumns": [
+                    { "data": "id", "autoWidth": true, "visible": false },
+                    { "data": "bloque", "autoWidth": true },
+                    { "data": "posicion", "autoWidth": true },
+                    { "data": "descripcion", "autoWidth": true },
+                    {
+                        "data": null,
+                        "targets": -1,
+                        "render": function (data, type, full) {
+                            return "<a  onclick='Editar(" + full['id'] + ")' id='btnEdit" + full['id'] + "' class='btn btn-success'><i class='glyphicon glyphicon-pencil'></i></a>";
+
+                        },
+                        "bSearchable": false,
+                        "sortable": false,
+                        "autoWidth": true,
+                        "sWidth": "50px"
+                    }
+                ]
+            });
+
+            $('#txtDescripcion').on('keyup', function () {
+                table.columns(0).search(this.value).draw();
+            });
+        });
+
+         var Editar = function (ID) {
+            $.ajaxSetup({ cache: false });
+
+            var EditUrl = "/familiaskus/Edit/" + ID;
+            $("#MyModalContent").load(EditUrl, function () {
+                $("#MyModal").modal({
+                    //backdrop: 'static',
+                    keyboard: false
+                }, 'show');
+                bindForm(this);
+            });
+            return false;
+        }
+
+        var Crear = function () {
+            $.ajaxSetup({ cache: false });
+            var EditUrl = "/familiaskus/Create/";
+            $("#MyModalContent").load(EditUrl, function () {
+                $("#MyModal").modal({
+                    //backdrop: 'static',
+                    keyboard: false
+                }, 'show');
+                bindForm(this);
+            });
+            return false;
+        }
+
+        function bindForm(dialog) {
+            $('form', dialog).submit(function () {
+                var $this = $("#Guardar");
+                $this.button('loading');
+
+                var $this1 = $("#Crear");
+                $this1.button('loading');
+
+                $.ajax({
+                    url: this.action,
+                    type: this.method,
+                    data: $(this).serialize(),
+                    success: function (result) {
+                        if (result.Respuesta === 'Correcto') {
+                            $("#MyModal").modal('hide');
+                            toastr.success('Edicion Correcta');
+                            $this.button('reset');
+                            $this1.button('reset');
+                            table.draw();
+                        }
+                        else {
+                            $("#MyModal").modal('show');
+                            $this.button('reset');
+                            $this1.button('reset');
+                            toastr.error('Ha ocurrido un error: ' + result.Respuesta);
+                            bindForm(dialog);
+                        }
+                    },
+                    error: function (xml, message, text) {
+                        toastr.error("Msg: " + message + ", Text: " + text);
+                        $this.button('reset');
+                        $this1.button('reset');
+                    }
+                });
+                return false;
+            });
+        }
+    </script>
+}

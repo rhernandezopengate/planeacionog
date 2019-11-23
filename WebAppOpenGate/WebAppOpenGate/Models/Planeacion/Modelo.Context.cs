@@ -27,8 +27,8 @@ namespace WebAppOpenGate.Models.Planeacion
     
         public virtual DbSet<geneticas> geneticas { get; set; }
         public virtual DbSet<onhand> onhand { get; set; }
-        public virtual DbSet<familiasku> familiasku { get; set; }
         public virtual DbSet<masterarticulos> masterarticulos { get; set; }
         public virtual DbSet<wharehouse> wharehouse { get; set; }
+        public virtual DbSet<familiasku> familiasku { get; set; }
     }
 }

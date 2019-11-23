@@ -3,13 +3,13 @@
   <EntityContainer Name="DB_A3F19C_PruebasEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="geneticas" EntityType="DB_A3F19C_PruebasModel.geneticas" />
     <EntitySet Name="onhand" EntityType="DB_A3F19C_PruebasModel.onhand" />
-    <EntitySet Name="familiasku" EntityType="DB_A3F19C_PruebasModel.familiasku" />
     <EntitySet Name="masterarticulos" EntityType="DB_A3F19C_PruebasModel.masterarticulos" />
+    <EntitySet Name="wharehouse" EntityType="DB_A3F19C_PruebasModel.wharehouse" />
+    <EntitySet Name="familiasku" EntityType="DB_A3F19C_PruebasModel.familiasku" />
     <AssociationSet Name="masterarticulos_familiasku_fk" Association="DB_A3F19C_PruebasModel.masterarticulos_familiasku_fk">
       <End Role="familiasku" EntitySet="familiasku" />
       <End Role="masterarticulos" EntitySet="masterarticulos" />
     </AssociationSet>
-    <EntitySet Name="wharehouse" EntityType="DB_A3F19C_PruebasModel.wharehouse" />
   </EntityContainer>
   <EntityType Name="geneticas">
     <Key>
@@ -61,15 +61,6 @@
     <Property Name="hl_itemlc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="case_quantity_lot" Type="Int32" />
   </EntityType>
-  <EntityType Name="familiasku">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="bloque" Type="Int32" />
-    <Property Name="descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="masterarticulos" Relationship="DB_A3F19C_PruebasModel.masterarticulos_familiasku_fk" FromRole="familiasku" ToRole="masterarticulos" />
-  </EntityType>
   <EntityType Name="masterarticulos">
     <Key>
       <PropertyRef Name="id" />
@@ -87,6 +78,24 @@
     <Property Name="FamiliaSKU_Id" Type="Int32" />
     <NavigationProperty Name="familiasku" Relationship="DB_A3F19C_PruebasModel.masterarticulos_familiasku_fk" FromRole="masterarticulos" ToRole="familiasku" />
   </EntityType>
+  <EntityType Name="wharehouse">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nomenclatura" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="familiasku">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="bloque" Type="Int32" />
+    <Property Name="descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="posicion" Type="Int32" />
+    <NavigationProperty Name="masterarticulos" Relationship="DB_A3F19C_PruebasModel.masterarticulos_familiasku_fk" FromRole="familiasku" ToRole="masterarticulos" />
+  </EntityType>
   <Association Name="masterarticulos_familiasku_fk">
     <End Type="DB_A3F19C_PruebasModel.familiasku" Role="familiasku" Multiplicity="0..1" />
     <End Type="DB_A3F19C_PruebasModel.masterarticulos" Role="masterarticulos" Multiplicity="*" />
@@ -99,12 +108,4 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityType Name="wharehouse">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="nomenclatura" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-  </EntityType>
 </Schema>

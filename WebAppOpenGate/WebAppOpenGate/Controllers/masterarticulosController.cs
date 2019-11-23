@@ -33,7 +33,8 @@ namespace WebAppOpenGate.Controllers
             var SortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][data]").FirstOrDefault();
             var SortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
 
-            var item = Request.Form.GetValues("columns[0][search][value]").FirstOrDefault();            
+            var item = Request.Form.GetValues("columns[0][search][value]").FirstOrDefault();
+            var familia = Request.Form.GetValues("columns[1][search][value]").FirstOrDefault();
 
             int PageSize = Length != null ? Convert.ToInt32(Length) : 0;
             int Skip = Start != null ? Convert.ToInt32(Start) : 0;
@@ -47,7 +48,7 @@ namespace WebAppOpenGate.Controllers
                 {
                     con.Open();
 
-                    string sql = "exec SP_MasterArticulos_ParametrosOpcionales @sku";
+                    string sql = "exec SP_MasterArticulos_ParametrosOpcionales @sku, @familia";
                     var query = new SqlCommand(sql, con);
 
                     if (item != "")
@@ -57,7 +58,16 @@ namespace WebAppOpenGate.Controllers
                     else
                     {
                         query.Parameters.AddWithValue("@sku", DBNull.Value);
-                    }                    
+                    }
+
+                    if (familia != "" && familia != "0")
+                    {
+                        query.Parameters.AddWithValue("@familia", familia);
+                    }
+                    else
+                    {
+                        query.Parameters.AddWithValue("@familia", DBNull.Value);
+                    }
 
                     using (var dr = query.ExecuteReader())
                     {
@@ -100,6 +110,23 @@ namespace WebAppOpenGate.Controllers
             }
         }
 
+        [HttpPost]
+        public JsonResult ListaFamilias()
+        {
+            List<SelectListItem> lista = new List<SelectListItem>();
+
+            foreach (var item in db.familiasku.GroupBy(x => x.descripcion).ToList())
+            {
+                lista.Add(new SelectListItem
+                {
+                    Value = item.Key,
+                    Text = item.Key
+                });
+            }
+
+            return Json(lista);
+        }
+
         // GET: masterarticulos/Details/5
         public ActionResult Details(int? id)
         {
@@ -118,7 +145,7 @@ namespace WebAppOpenGate.Controllers
         // GET: masterarticulos/Create
         public ActionResult Create()
         {
-            ViewBag.FamiliaId = new SelectList(db.familiasku, "id", "descripcion");
+            ViewBag.FamiliaSKU_Id = new SelectList(db.familiasku, "id", "descripcion");
             return View();
         }
 
@@ -127,16 +154,16 @@ namespace WebAppOpenGate.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,sku,qtycaja,qtypallet,multiplosurtido,cajaspallet,kgcaja,pesopallet,descripcion, activo, ,FamiliaSKU_Id")] masterarticulos masterarticulos)
+        public ActionResult Create([Bind(Include = "id,sku,qtycaja,qtypallet,multiplosurtido,cajaspallet,kgcaja,pesopallet,descripcion,activo,FamiliaSKU_Id")] masterarticulos masterarticulos)
         {
             if (ModelState.IsValid)
             {
                 db.masterarticulos.Add(masterarticulos);
                 db.SaveChanges();
-                return Json("Correcto", JsonRequestBehavior.AllowGet);
+                return Json(new { Respuesta = "Correcto" }, JsonRequestBehavior.AllowGet);
             }
 
-            ViewBag.FamiliaId = new SelectList(db.familiasku, "id", "descripcion");
+            ViewBag.FamiliaSKU_Id = new SelectList(db.familiasku, "id", "descripcion");
 
             return View(masterarticulos);
         }
@@ -149,7 +176,23 @@ namespace WebAppOpenGate.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             masterarticulos masterarticulos = db.masterarticulos.Find(id);
-            ViewBag.FamiliaSKU_Id = new SelectList(db.familiasku, "id", "descripcion", masterarticulos.FamiliaSKU_Id);
+
+            var familias = db.familiasku.ToList();
+
+            List<familiasku> lista = new List<familiasku>();
+
+            foreach (var item in familias)
+            {
+                familiasku familiasku = new familiasku();
+
+                familiasku.id = item.id;
+                familiasku.descripcion = item.bloque + " - " + item.posicion + " - " + item.descripcion;                
+
+                lista.Add(familiasku);
+            }
+
+            ViewBag.FamiliaSKU_Id = new SelectList(lista, "id", "descripcion", masterarticulos.FamiliaSKU_Id);
+
             if (masterarticulos == null)
             {
                 return HttpNotFound();
@@ -162,13 +205,13 @@ namespace WebAppOpenGate.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,sku,qtycaja,qtypallet,multiplosurtido,cajaspallet,kgcaja,pesopallet,descripcion, activo, FamiliaSKU_Id")] masterarticulos masterarticulos)
+        public ActionResult Edit([Bind(Include = "id,sku,qtycaja,qtypallet,multiplosurtido,cajaspallet,kgcaja,pesopallet,descripcion,activo,FamiliaSKU_Id")] masterarticulos masterarticulos)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(masterarticulos).State = EntityState.Modified;
                 db.SaveChanges();
-                return Json("Correcto", JsonRequestBehavior.AllowGet);
+                return Json(new { Respuesta = "Correcto" }, JsonRequestBehavior.AllowGet);
             }
 
             ViewBag.FamiliaSKU_Id = new SelectList(db.familiasku, "id", "descripcion", masterarticulos.FamiliaSKU_Id);

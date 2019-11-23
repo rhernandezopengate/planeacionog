@@ -7,26 +7,7 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Master de Articulos</h2> &nbsp;&nbsp;<a onclick="Crear()" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Agregar Registro</a>
-                <ul class="nav navbar-right panel_toolbox">
-                    <li>
-                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li>
-                                <a href="#">Settings 1</a>
-                            </li>
-                            <li>
-                                <a href="#">Settings 2</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a class="close-link"><i class="fa fa-close"></i></a>
-                    </li>
-                </ul>
+                <h2>Master de Articulos</h2> &nbsp;&nbsp;<a onclick="Crear()" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Agregar Registro</a>                
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
@@ -37,7 +18,18 @@
                             <div class="input-group">
                                 <input id="txtSKU" type="text" class="form-control" placeholder="SKU" />
                                 <span class="input-group-addon">
-                                    <span class="fa fa-print"></span>
+                                    <span class="fa fa-barcode"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            Familia
+                            <div class="input-group date">
+                                <select class="form-control" id="ddlFamilia"></select>
+                                <span class="input-group-addon">
+                                    <span class="fa fa-sort-numeric-desc"></span>
                                 </span>
                             </div>
                         </div>
@@ -51,12 +43,12 @@
                             <th class="column-title">SKU</th>
                             <th class="column-title">Descripcion</th>
                             <th class="column-title">Familia</th>
-                            <th class="column-title">qtycaja</th>
-                            <th class="column-title">qtypallet</th>
-                            <th class="column-title">multiplosurtido</th>
-                            <th class="column-title">cajaspallet</th>
-                            <th class="column-title">kgcaja</th>
-                            <th class="column-title">pesopallet</th>
+                            <th class="column-title">QTY Caja</th>
+                            <th class="column-title">QTY Pallet</th>
+                            <th class="column-title">Multiplo Surtido</th>
+                            <th class="column-title">Cajas X Pallet</th>
+                            <th class="column-title">Peso Caja</th>
+                            <th class="column-title">Peso Pallet</th>
                             <th class="column-title">Activo</th>
                             <th></th>
                         </tr>
@@ -186,6 +178,34 @@
             $('#txtSKU').on('keyup', function () {
                 table.columns(0).search(this.value).draw();
             });
+
+            $('#ddlFamilia').on('change', function () {
+                table.columns(1).search(this.value).draw();
+            });
+        });
+
+        $(function () {
+            var ddlCustomers = $("#ddlFamilia");
+            ddlCustomers.empty().append('<option selected="selected" value="0" disabled = "disabled">Loading ...</option>');
+            $.ajax({
+                type: "POST",
+                url: "/masterarticulos/ListaFamilias",
+                data: '{}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    ddlCustomers.empty().append('<option selected="selected" value="0">Seleccione una opcion...</option>');
+                    $.each(response, function () {
+                        ddlCustomers.append($("<option></option>").val(this['Value']).html(this['Text']));
+                    });
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
         });
 
         var Editar = function (ID) {
@@ -216,24 +236,35 @@
 
         function bindForm(dialog) {
             $('form', dialog).submit(function () {
+                var $this = $("#Guardar");
+                $this.button('loading');
+
+                var $this1 = $("#Crear");
+                $this1.button('loading');
+
                 $.ajax({
                     url: this.action,
                     type: this.method,
                     data: $(this).serialize(),
                     success: function (result) {
-                        if (result === 'Correcto') {
+                        if (result.Respuesta === 'Correcto') {
                             $("#MyModal").modal('hide');
                             toastr.success('Operacion Correcta');
+                            $this.button('reset'); 
+                            $this1.button('reset'); 
                             table.draw();
                         }
                         else {
                             $("#MyModal").modal('show');
                             toastr.error('Ha ocurrido un error');
+                            $this.button('reset'); 
+                            $this1.button('reset'); 
                             bindForm(dialog);
                         }
                     },
                     error: function (xml, message, text) {
                         toastr.error("Msg: " + message + ", Text: " + text);
+                        $this.button('reset'); 
                     }
                 });
                 return false;

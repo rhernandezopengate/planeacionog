@@ -10,27 +10,8 @@
             <div class="x_title">
                 <h2>Geneticas</h2>
                 &nbsp;&nbsp;&nbsp;
-                <button class="btn btn-primary" id="btnEditar"><i class="fa fa-list-alt"></i> Actualizar SKU Individual</button>
-                <a class="btn btn-dark" href="@Url.Action("ActualizarByArchivo", new { error = "" })"><i class="fa fa-file-excel-o"></i>&nbsp;&nbsp;Actualizar Por Archivo</a>
-                <ul class="nav navbar-right panel_toolbox">
-                    <li>
-                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li>
-                                <a href="#">Settings 1</a>
-                            </li>
-                            <li>
-                                <a href="#">Settings 2</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a class="close-link"><i class="fa fa-close"></i></a>
-                    </li>
-                </ul>
+                <button class="btn btn-primary" id="btnEditar"><i class="fa fa-list-alt"></i> Actualizar SKU General</button>
+                <a class="btn btn-dark" href="@Url.Action("ActualizarByArchivo", new { error = "" })"><i class="fa fa-file-excel-o"></i>&nbsp;&nbsp;Actualizar Por Archivo</a>                
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
@@ -41,7 +22,7 @@
                             <div class="input-group">
                                 <input id="txtSKU" type="text" class="form-control" placeholder="SKU" />
                                 <span class="input-group-addon">
-                                    <span class="fa fa-print"></span>
+                                    <span class="fa fa-barcode"></span>
                                 </span>
                             </div>
                         </div>
@@ -53,7 +34,7 @@
                             <div class="input-group date">
                                 <select class="form-control" id="ddlWH"></select>
                                 <span class="input-group-addon">
-                                    <span class="fa fa-list-alt"></span>
+                                    <span class="fa fa-university"></span>
                                 </span>
                             </div>
                         </div>
@@ -224,6 +205,9 @@
 
         function bindForm(dialog) {
             $('form', dialog).submit(function () {
+                var $this = $("#Guardar");
+                $this.button('loading');
+
                 $.ajax({
                     url: this.action,
                     type: this.method,
@@ -231,17 +215,20 @@
                     success: function (result) {
                         if (result.Respuesta === 'Correcto') {
                             $("#MyModal").modal('hide');
-                            toastr.success('Edicion Correcta');                            
+                            toastr.success('Edicion Correcta');    
+                            $this.button('reset');
                             table.draw();
                         }
                         else {
                             $("#MyModal").modal('show');
                             toastr.error('Ha ocurrido un error: ' + result.Respuesta);
+                            $this.button('reset');
                             bindForm(dialog);
                         }
                     },
                     error: function (xml, message, text) {
                         toastr.error("Msg: " + message + ", Text: " + text);
+                        $this.button('reset');
                     }
                 });
                 return false;

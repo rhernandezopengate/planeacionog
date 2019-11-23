@@ -23,6 +23,7 @@ namespace WebAppOpenGate.Models.Planeacion
         public int id { get; set; }
         public Nullable<int> bloque { get; set; }
         public string descripcion { get; set; }
+        public Nullable<int> posicion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<masterarticulos> masterarticulos { get; set; }

@@ -7,10 +7,10 @@
       <Diagram DiagramId="a1e1b30509344bbc84f67f45e8d0ffa9" Name="Diagram1">
         <EntityTypeShape EntityType="DB_A3F19C_PruebasModel.geneticas" Width="1.5" PointX="4.5" PointY="0.5" />
         <EntityTypeShape EntityType="DB_A3F19C_PruebasModel.onhand" Width="1.5" PointX="6.25" PointY="0.5" />
-        <EntityTypeShape EntityType="DB_A3F19C_PruebasModel.familiasku" Width="1.5" PointX="0.5" PointY="1.25" />
         <EntityTypeShape EntityType="DB_A3F19C_PruebasModel.masterarticulos" Width="1.5" PointX="2.75" PointY="0.5" />
-        <AssociationConnector Association="DB_A3F19C_PruebasModel.masterarticulos_familiasku_fk" />
         <EntityTypeShape EntityType="DB_A3F19C_PruebasModel.wharehouse" Width="1.5" PointX="0.5" PointY="4.5" />
+        <EntityTypeShape EntityType="DB_A3F19C_PruebasModel.familiasku" Width="1.5" PointX="0.75" PointY="1.125" />
+        <AssociationConnector Association="DB_A3F19C_PruebasModel.masterarticulos_familiasku_fk" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

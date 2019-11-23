@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebAppOpenGate.Models.Planeacion;
+using System.Linq.Dynamic;
 
 namespace WebAppOpenGate.Controllers
 {
@@ -17,7 +20,75 @@ namespace WebAppOpenGate.Controllers
         // GET: wharehouses
         public ActionResult Index()
         {
-            return View(db.wharehouse.ToList());
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ObtenerWharehouse()
+        {
+            var Draw = Request.Form.GetValues("draw").FirstOrDefault();
+            var Start = Request.Form.GetValues("start").FirstOrDefault();
+            var Length = Request.Form.GetValues("length").FirstOrDefault();
+            var SortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][data]").FirstOrDefault();
+            var SortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
+
+            var wh = Request.Form.GetValues("columns[0][search][value]").FirstOrDefault();
+
+            int PageSize = Length != null ? Convert.ToInt32(Length) : 0;
+            int Skip = Start != null ? Convert.ToInt32(Start) : 0;
+            int TotalRecords = 0;
+
+            try
+            {
+                List<wharehouse> listaResultado = new List<wharehouse>();
+
+                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["BDConnection"].ToString()))
+                {
+                    con.Open();
+
+                    string sql = "exec [SP_Wharehouse_ParametrosOpcionales] @wh";
+                    var query = new SqlCommand(sql, con);
+
+                    if (wh != "")
+                    {
+                        query.Parameters.AddWithValue("@wh", wh);
+                    }
+                    else
+                    {
+                        query.Parameters.AddWithValue("@wh", DBNull.Value);
+                    }
+
+                    using (var dr = query.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            // master
+                            var whTemp = new wharehouse();
+
+                            whTemp.id = Convert.ToInt32(dr["id"]);
+                            whTemp.nomenclatura = dr["nomenclatura"].ToString();
+                            whTemp.descripcion = dr["descripcion"].ToString();
+
+                            listaResultado.Add(whTemp);
+                        }
+                    }
+                }
+
+                if (!(string.IsNullOrEmpty(SortColumn) && string.IsNullOrEmpty(SortColumnDir)))
+                {
+                    listaResultado = listaResultado.OrderBy(SortColumn + " " + SortColumnDir).ToList();
+                }
+
+                TotalRecords = listaResultado.ToList().Count();
+                var NewItems = listaResultado.Skip(Skip).Take(PageSize == -1 ? TotalRecords : PageSize).ToList();
+
+                return Json(new { draw = Draw, recordsFiltered = TotalRecords, recordsTotal = TotalRecords, data = NewItems }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception _ex)
+            {
+                Console.WriteLine(_ex.Message.ToString());
+                return null;
+            }
         }
 
         // GET: wharehouses/Details/5
@@ -52,7 +123,7 @@ namespace WebAppOpenGate.Controllers
             {
                 db.wharehouse.Add(wharehouse);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return Json(new { Respuesta = "Correcto" }, JsonRequestBehavior.AllowGet);
             }
 
             return View(wharehouse);
@@ -84,7 +155,7 @@ namespace WebAppOpenGate.Controllers
             {
                 db.Entry(wharehouse).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return Json(new { Respuesta = "Correcto" }, JsonRequestBehavior.AllowGet);
             }
             return View(wharehouse);
         }

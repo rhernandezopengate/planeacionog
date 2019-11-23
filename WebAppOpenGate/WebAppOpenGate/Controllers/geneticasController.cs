@@ -304,7 +304,7 @@ namespace WebAppOpenGate.Controllers
             {
                 db.geneticas.Add(geneticas);
                 db.SaveChanges();
-                return Json("Correcto", JsonRequestBehavior.AllowGet);
+                return Json(new { Respuesta = "Correcto" }, JsonRequestBehavior.AllowGet);
             }
 
             return View(geneticas);
@@ -336,7 +336,7 @@ namespace WebAppOpenGate.Controllers
             {
                 db.Entry(geneticas).State = EntityState.Modified;
                 db.SaveChanges();
-                return Json("Correcto", JsonRequestBehavior.AllowGet);
+                return Json(new { Respuesta = "Correcto" }, JsonRequestBehavior.AllowGet);
             }
             return View(geneticas);
         }
