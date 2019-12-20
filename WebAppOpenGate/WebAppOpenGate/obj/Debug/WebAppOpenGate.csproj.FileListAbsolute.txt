@@ -1,3 +1,4 @@
+C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\EntityFramework.dll
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\WebAppOpenGate.dll.config
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\WebAppOpenGate.dll
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\WebAppOpenGate.pdb
@@ -48,7 +49,6 @@ C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenG
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\roslyn\VBCSCompiler.exe
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\roslyn\VBCSCompiler.exe.config
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\Antlr3.Runtime.dll
-C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\EntityFramework.dll
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\EntityFramework.SqlServer.dll
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\Microsoft.AspNet.Identity.Core.dll
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\Microsoft.AspNet.Identity.EntityFramework.dll

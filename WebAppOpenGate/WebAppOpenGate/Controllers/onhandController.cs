@@ -140,55 +140,55 @@ namespace WebAppOpenGate.Controllers
                                         dt.Rows[dt.Rows.Count - 1][15] = DateTime.MinValue;
                                     }
 
-                                    if (dt.Rows[dt.Rows.Count - 1][17].ToString() == "")
-                                    {
-                                        dt.Rows[dt.Rows.Count - 1][17] = 0;
-                                    }
+                                    //if (dt.Rows[dt.Rows.Count - 1][17].ToString() == "")
+                                    //{
+                                    //    dt.Rows[dt.Rows.Count - 1][17] = 0;
+                                    //}
 
-                                    if (dt.Rows[dt.Rows.Count - 1][18].ToString() == "")
-                                    {
-                                        dt.Rows[dt.Rows.Count - 1][18] = 0;
-                                    }
+                                    //if (dt.Rows[dt.Rows.Count - 1][18].ToString() == "")
+                                    //{
+                                    //    dt.Rows[dt.Rows.Count - 1][18] = 0;
+                                    //}
 
-                                    if (dt.Rows[dt.Rows.Count - 1][19].ToString() == "")
-                                    {
-                                        dt.Rows[dt.Rows.Count - 1][19] = 0;
-                                    }
+                                    //if (dt.Rows[dt.Rows.Count - 1][19].ToString() == "")
+                                    //{
+                                    //    dt.Rows[dt.Rows.Count - 1][19] = 0;
+                                    //}
 
-                                    if (dt.Rows[dt.Rows.Count - 1][20].ToString() == "")
-                                    {
-                                        dt.Rows[dt.Rows.Count - 1][20] = 0;
-                                    }
+                                    //if (dt.Rows[dt.Rows.Count - 1][20].ToString() == "")
+                                    //{
+                                    //    dt.Rows[dt.Rows.Count - 1][20] = 0;
+                                    //}
 
-                                    if (dt.Rows[dt.Rows.Count - 1][21].ToString() == "")
-                                    {
-                                        dt.Rows[dt.Rows.Count - 1][21] = 0;
-                                    }
+                                    //if (dt.Rows[dt.Rows.Count - 1][21].ToString() == "")
+                                    //{
+                                    //    dt.Rows[dt.Rows.Count - 1][21] = 0;
+                                    //}
 
-                                    if (dt.Rows[dt.Rows.Count - 1][22].ToString() == "")
-                                    {
-                                        dt.Rows[dt.Rows.Count - 1][22] = 0;
-                                    }
+                                    //if (dt.Rows[dt.Rows.Count - 1][22].ToString() == "")
+                                    //{
+                                    //    dt.Rows[dt.Rows.Count - 1][22] = 0;
+                                    //}
 
-                                    if (dt.Rows[dt.Rows.Count - 1][23].ToString() == "")
-                                    {
-                                        dt.Rows[dt.Rows.Count - 1][23] = 0;
-                                    }
+                                    //if (dt.Rows[dt.Rows.Count - 1][23].ToString() == "")
+                                    //{
+                                    //    dt.Rows[dt.Rows.Count - 1][23] = 0;
+                                    //}
 
-                                    if (dt.Rows[dt.Rows.Count - 1][25].ToString() == "")
-                                    {
-                                        dt.Rows[dt.Rows.Count - 1][25] = 0;
-                                    }
+                                    //if (dt.Rows[dt.Rows.Count - 1][25].ToString() == "")
+                                    //{
+                                    //    dt.Rows[dt.Rows.Count - 1][25] = 0;
+                                    //}
 
-                                    if (dt.Rows[dt.Rows.Count - 1][27].ToString() == "")
-                                    {
-                                        dt.Rows[dt.Rows.Count - 1][27] = 0;
-                                    }
+                                    //if (dt.Rows[dt.Rows.Count - 1][27].ToString() == "")
+                                    //{
+                                    //    dt.Rows[dt.Rows.Count - 1][27] = 0;
+                                    //}
 
-                                    if (dt.Rows[dt.Rows.Count - 1][28].ToString() == "")
-                                    {
-                                        dt.Rows[dt.Rows.Count - 1][28] = 0;
-                                    }
+                                    //if (dt.Rows[dt.Rows.Count - 1][28].ToString() == "")
+                                    //{
+                                    //    dt.Rows[dt.Rows.Count - 1][28] = 0;
+                                    //}
                                 }
                                 else
                                 {
@@ -206,6 +206,14 @@ namespace WebAppOpenGate.Controllers
                     }
 
                     string connectionString = @"Data Source=sql7005.site4now.net;Initial Catalog=DB_A3F19C_Pruebas;User Id=DB_A3F19C_Pruebas_admin;Password=xQ9znAhU;";
+
+                    using (SqlConnection cn = new SqlConnection(connectionString))
+                    {
+                        cn.Open();
+                        string query = "TRUNCATE TABLE onhand";
+                        SqlCommand cmd = new SqlCommand(query, cn);
+                        cmd.ExecuteNonQuery();
+                    }
 
                     using (SqlBulkCopy bulkCopy = new SqlBulkCopy(connectionString))
                     {

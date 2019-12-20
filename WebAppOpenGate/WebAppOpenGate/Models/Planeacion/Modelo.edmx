@@ -26,6 +26,7 @@
           <Property Name="geneticafinal" Type="varchar" MaxLength="10" />
           <Property Name="minimo" Type="decimal" Precision="18" Scale="2" />
           <Property Name="maximo" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="organizacion" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="masterarticulos">
           <Key>
@@ -42,6 +43,58 @@
           <Property Name="descripcion" Type="varchar" MaxLength="500" />
           <Property Name="activo" Type="bit" />
           <Property Name="FamiliaSKU_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="moopen">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FechaAlta" Type="datetime" />
+          <Property Name="Allocation" Type="varchar" MaxLength="50" />
+          <Property Name="Number" Type="varchar" MaxLength="50" />
+          <Property Name="type" Type="varchar" MaxLength="50" />
+          <Property Name="line" Type="int" />
+          <Property Name="transaction_type" Type="varchar" MaxLength="50" />
+          <Property Name="item" Type="varchar" MaxLength="10" />
+          <Property Name="rev" Type="int" />
+          <Property Name="source_subinv" Type="varchar" MaxLength="20" />
+          <Property Name="source_locator" Type="varchar" MaxLength="50" />
+          <Property Name="destination_subinv" Type="varchar" MaxLength="100" />
+          <Property Name="destination_locator" Type="varchar" MaxLength="100" />
+          <Property Name="destination_account" Type="varchar" MaxLength="50" />
+          <Property Name="lot_number" Type="varchar" MaxLength="50" />
+          <Property Name="expiration_date" Type="date" />
+          <Property Name="serial_from" Type="varchar" MaxLength="50" />
+          <Property Name="serial_to" Type="varchar" MaxLength="50" />
+          <Property Name="unit_number" Type="int" />
+          <Property Name="uom" Type="varchar" MaxLength="10" />
+          <Property Name="transaction_qty" Type="int" />
+          <Property Name="requested_qty" Type="int" />
+          <Property Name="required_qty" Type="int" />
+          <Property Name="delivered_qty" Type="int" />
+          <Property Name="allocated_qty" Type="int" />
+          <Property Name="secondary_uom" Type="varchar" MaxLength="10" />
+          <Property Name="secondary_qty" Type="int" />
+          <Property Name="secondary_requested_qty" Type="int" />
+          <Property Name="secondary_required_qty" Type="int" />
+          <Property Name="secondary_delivered_qty" Type="int" />
+          <Property Name="secondary_allocated_qty" Type="int" />
+          <Property Name="grade" Type="varchar" MaxLength="50" />
+          <Property Name="daterequired" Type="datetime" />
+          <Property Name="reason" Type="varchar" MaxLength="100" />
+          <Property Name="reference" Type="varchar" MaxLength="50" />
+          <Property Name="reference_number" Type="varchar" MaxLength="10" />
+          <Property Name="reference_type" Type="varchar" MaxLength="10" />
+          <Property Name="sales_order" Type="varchar" MaxLength="10" />
+          <Property Name="so_line" Type="varchar" MaxLength="10" />
+          <Property Name="ship_set" Type="varchar" MaxLength="10" />
+          <Property Name="project" Type="varchar" MaxLength="50" />
+          <Property Name="task" Type="varchar" MaxLength="50" />
+          <Property Name="line_status" Type="varchar" MaxLength="50" />
+          <Property Name="status_date" Type="datetime" />
+          <Property Name="created_by" Type="varchar" MaxLength="100" />
+          <Property Name="ship_to_location" Type="varchar" MaxLength="50" />
+          <Property Name="ultimo" Type="char" MaxLength="3" />
         </EntityType>
         <EntityType Name="onhand">
           <Key>
@@ -104,6 +157,7 @@
           <EntitySet Name="familiasku" EntityType="Self.familiasku" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="geneticas" EntityType="Self.geneticas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="masterarticulos" EntityType="Self.masterarticulos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="moopen" EntityType="Self.moopen" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="onhand" EntityType="Self.onhand" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="wharehouse" EntityType="Self.wharehouse" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="masterarticulos_familiasku_fk" Association="Self.masterarticulos_familiasku_fk">
@@ -116,7 +170,6 @@
     <edmx:ConceptualModels>
       <Schema Namespace="DB_A3F19C_PruebasModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="DB_A3F19C_PruebasEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="geneticas" EntityType="DB_A3F19C_PruebasModel.geneticas" />
           <EntitySet Name="onhand" EntityType="DB_A3F19C_PruebasModel.onhand" />
           <EntitySet Name="masterarticulos" EntityType="DB_A3F19C_PruebasModel.masterarticulos" />
           <EntitySet Name="wharehouse" EntityType="DB_A3F19C_PruebasModel.wharehouse" />
@@ -125,20 +178,9 @@
             <End Role="familiasku" EntitySet="familiasku" />
             <End Role="masterarticulos" EntitySet="masterarticulos" />
           </AssociationSet>
+          <EntitySet Name="geneticas" EntityType="DB_A3F19C_PruebasModel.geneticas" />
+          <EntitySet Name="moopen" EntityType="DB_A3F19C_PruebasModel.moopen" />
         </EntityContainer>
-        <EntityType Name="geneticas">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="clave" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="sku" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="wh" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="promedio" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="geneticafinal" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="minimo" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="maximo" Type="Decimal" Precision="18" Scale="2" />
-        </EntityType>
         <EntityType Name="onhand">
           <Key>
             <PropertyRef Name="id" />
@@ -223,26 +265,78 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="geneticas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="clave" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sku" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="wh" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="promedio" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="geneticafinal" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="minimo" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="maximo" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="organizacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="moopen">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FechaAlta" Type="DateTime" Precision="3" />
+          <Property Name="Allocation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="line" Type="Int32" />
+          <Property Name="transaction_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="item" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="rev" Type="Int32" />
+          <Property Name="source_subinv" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="source_locator" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="destination_subinv" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="destination_locator" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="destination_account" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="lot_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="expiration_date" Type="DateTime" Precision="0" />
+          <Property Name="serial_from" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="serial_to" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="unit_number" Type="Int32" />
+          <Property Name="uom" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="transaction_qty" Type="Int32" />
+          <Property Name="requested_qty" Type="Int32" />
+          <Property Name="required_qty" Type="Int32" />
+          <Property Name="delivered_qty" Type="Int32" />
+          <Property Name="allocated_qty" Type="Int32" />
+          <Property Name="secondary_uom" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="secondary_qty" Type="Int32" />
+          <Property Name="secondary_requested_qty" Type="Int32" />
+          <Property Name="secondary_required_qty" Type="Int32" />
+          <Property Name="secondary_delivered_qty" Type="Int32" />
+          <Property Name="secondary_allocated_qty" Type="Int32" />
+          <Property Name="grade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="daterequired" Type="DateTime" Precision="3" />
+          <Property Name="reason" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="reference" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="reference_number" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="reference_type" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="sales_order" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="so_line" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ship_set" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="project" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="task" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="line_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="status_date" Type="DateTime" Precision="3" />
+          <Property Name="created_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ship_to_location" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ultimo" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="DB_A3F19C_PruebasModelStoreContainer" CdmEntityContainer="DB_A3F19C_PruebasEntities">
-          <EntitySetMapping Name="geneticas">
-            <EntityTypeMapping TypeName="DB_A3F19C_PruebasModel.geneticas">
-              <MappingFragment StoreEntitySet="geneticas">
-                <ScalarProperty Name="maximo" ColumnName="maximo" />
-                <ScalarProperty Name="minimo" ColumnName="minimo" />
-                <ScalarProperty Name="geneticafinal" ColumnName="geneticafinal" />
-                <ScalarProperty Name="promedio" ColumnName="promedio" />
-                <ScalarProperty Name="wh" ColumnName="wh" />
-                <ScalarProperty Name="sku" ColumnName="sku" />
-                <ScalarProperty Name="clave" ColumnName="clave" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="onhand">
             <EntityTypeMapping TypeName="DB_A3F19C_PruebasModel.onhand">
               <MappingFragment StoreEntitySet="onhand">
@@ -313,6 +407,74 @@
                 <ScalarProperty Name="posicion" ColumnName="posicion" />
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
                 <ScalarProperty Name="bloque" ColumnName="bloque" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="geneticas">
+            <EntityTypeMapping TypeName="DB_A3F19C_PruebasModel.geneticas">
+              <MappingFragment StoreEntitySet="geneticas">
+                <ScalarProperty Name="organizacion" ColumnName="organizacion" />
+                <ScalarProperty Name="maximo" ColumnName="maximo" />
+                <ScalarProperty Name="minimo" ColumnName="minimo" />
+                <ScalarProperty Name="geneticafinal" ColumnName="geneticafinal" />
+                <ScalarProperty Name="promedio" ColumnName="promedio" />
+                <ScalarProperty Name="wh" ColumnName="wh" />
+                <ScalarProperty Name="sku" ColumnName="sku" />
+                <ScalarProperty Name="clave" ColumnName="clave" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="moopen">
+            <EntityTypeMapping TypeName="DB_A3F19C_PruebasModel.moopen">
+              <MappingFragment StoreEntitySet="moopen">
+                <ScalarProperty Name="ultimo" ColumnName="ultimo" />
+                <ScalarProperty Name="ship_to_location" ColumnName="ship_to_location" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="status_date" ColumnName="status_date" />
+                <ScalarProperty Name="line_status" ColumnName="line_status" />
+                <ScalarProperty Name="task" ColumnName="task" />
+                <ScalarProperty Name="project" ColumnName="project" />
+                <ScalarProperty Name="ship_set" ColumnName="ship_set" />
+                <ScalarProperty Name="so_line" ColumnName="so_line" />
+                <ScalarProperty Name="sales_order" ColumnName="sales_order" />
+                <ScalarProperty Name="reference_type" ColumnName="reference_type" />
+                <ScalarProperty Name="reference_number" ColumnName="reference_number" />
+                <ScalarProperty Name="reference" ColumnName="reference" />
+                <ScalarProperty Name="reason" ColumnName="reason" />
+                <ScalarProperty Name="daterequired" ColumnName="daterequired" />
+                <ScalarProperty Name="grade" ColumnName="grade" />
+                <ScalarProperty Name="secondary_allocated_qty" ColumnName="secondary_allocated_qty" />
+                <ScalarProperty Name="secondary_delivered_qty" ColumnName="secondary_delivered_qty" />
+                <ScalarProperty Name="secondary_required_qty" ColumnName="secondary_required_qty" />
+                <ScalarProperty Name="secondary_requested_qty" ColumnName="secondary_requested_qty" />
+                <ScalarProperty Name="secondary_qty" ColumnName="secondary_qty" />
+                <ScalarProperty Name="secondary_uom" ColumnName="secondary_uom" />
+                <ScalarProperty Name="allocated_qty" ColumnName="allocated_qty" />
+                <ScalarProperty Name="delivered_qty" ColumnName="delivered_qty" />
+                <ScalarProperty Name="required_qty" ColumnName="required_qty" />
+                <ScalarProperty Name="requested_qty" ColumnName="requested_qty" />
+                <ScalarProperty Name="transaction_qty" ColumnName="transaction_qty" />
+                <ScalarProperty Name="uom" ColumnName="uom" />
+                <ScalarProperty Name="unit_number" ColumnName="unit_number" />
+                <ScalarProperty Name="serial_to" ColumnName="serial_to" />
+                <ScalarProperty Name="serial_from" ColumnName="serial_from" />
+                <ScalarProperty Name="expiration_date" ColumnName="expiration_date" />
+                <ScalarProperty Name="lot_number" ColumnName="lot_number" />
+                <ScalarProperty Name="destination_account" ColumnName="destination_account" />
+                <ScalarProperty Name="destination_locator" ColumnName="destination_locator" />
+                <ScalarProperty Name="destination_subinv" ColumnName="destination_subinv" />
+                <ScalarProperty Name="source_locator" ColumnName="source_locator" />
+                <ScalarProperty Name="source_subinv" ColumnName="source_subinv" />
+                <ScalarProperty Name="rev" ColumnName="rev" />
+                <ScalarProperty Name="item" ColumnName="item" />
+                <ScalarProperty Name="transaction_type" ColumnName="transaction_type" />
+                <ScalarProperty Name="line" ColumnName="line" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Allocation" ColumnName="Allocation" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

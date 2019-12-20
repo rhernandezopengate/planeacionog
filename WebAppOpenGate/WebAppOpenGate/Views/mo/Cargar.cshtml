@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "Cargar";
+    Layout = "~/Views/Shared/_LayoutPlaneacion.cshtml";
+}
+
+@using (Html.BeginForm("Importar", "mo", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Carga de Archivo <small>Move Orders Abiertas</small></h2>                    
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <br />
+                    <div id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="archivoPosteado">
+                                Plantilla Move Order
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="file" id="archivoPosteado" name="archivoPosteado" class="form-control input-sm" />
+                            </div>
+                        </div>
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                <a href="@Url.Action("Index")" class="btn btn-primary"><i class="fa fa-arrow-circle-o-left"></i> Regresar</a>
+                                <button type="submit" class="btn btn-success"><i class="fa fa-upload"></i> Cargar Informacion</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (ViewBag.Error == null)
+{
+
+}
+else if (ViewBag.Error == "Success")
+{
+    <div class="alert alert-success">
+        La informacion se cargado correctamente.
+    </div>
+}
+else
+{
+    <div class="alert alert-danger">
+        Se ha producido un error.
+    </div>
+}
+
+

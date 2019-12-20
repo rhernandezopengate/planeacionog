@@ -52,7 +52,7 @@ namespace WebAppOpenGate.Controllers
 
                     DataTable dt = new DataTable();
 
-                    dt.Columns.AddRange(new DataColumn[7]
+                    dt.Columns.AddRange(new DataColumn[8]
                     {
                         //0
                         new DataColumn("clave", typeof(string)),
@@ -68,6 +68,8 @@ namespace WebAppOpenGate.Controllers
                         new DataColumn("minimo", typeof(decimal)),                       
                         //6
                         new DataColumn("maximo", typeof(decimal)),
+                        //6
+                        new DataColumn("organizacion", typeof(string)),
                     });
 
                     string csvData = System.IO.File.ReadAllText(filePath);                    
@@ -108,37 +110,38 @@ namespace WebAppOpenGate.Controllers
                         }
                     }
 
-                    List<geneticas> listaGeneticas = db.geneticas.ToList();
+                    string connectionString = @"Data Source=sql7005.site4now.net;Initial Catalog=DB_A3F19C_Pruebas;User Id=DB_A3F19C_Pruebas_admin;Password=xQ9znAhU;";
 
-                    foreach (DataRow row in dt.Rows)
+                    using (SqlConnection cn = new SqlConnection(connectionString))
                     {
-                        string clave = row[0].ToString();
+                        cn.Open();
+                        string query = "TRUNCATE TABLE geneticas";
+                        SqlCommand cmd = new SqlCommand(query, cn);
+                        cmd.ExecuteNonQuery();
+                    }
+                     
+                    using (SqlBulkCopy bulkCopy = new SqlBulkCopy(connectionString))
+                    {
+                        bulkCopy.DestinationTableName = "dbo.geneticas";
 
-                        var genetica = listaGeneticas.Where(x => x.clave == clave).FirstOrDefault();
-                        
-                        if (genetica != null)
-                        {
-                            genetica.wh = row[2].ToString();
-                            genetica.promedio = decimal.Parse(row[3].ToString());
-                            genetica.geneticafinal = row[4].ToString();
-                            genetica.minimo = decimal.Parse(row[5].ToString());
-                            genetica.maximo = decimal.Parse(row[6].ToString());
+                        bulkCopy.ColumnMappings.Add("clave", "clave");
+                        bulkCopy.ColumnMappings.Add("sku", "sku");
+                        bulkCopy.ColumnMappings.Add("wh", "wh");
+                        bulkCopy.ColumnMappings.Add("promedio", "promedio");
+                        bulkCopy.ColumnMappings.Add("geneticafinal", "geneticafinal");
+                        bulkCopy.ColumnMappings.Add("minimo", "minimo");
+                        bulkCopy.ColumnMappings.Add("maximo", "maximo");
+                        bulkCopy.ColumnMappings.Add("organizacion", "organizacion");
+
+                        try
+                        {  
+                            bulkCopy.WriteToServer(dt);
                         }
-                        else
+                        catch (Exception ex)
                         {
-                            geneticas geneticas = new geneticas();
-                            geneticas.clave = clave;
-                            geneticas.sku = row[1].ToString();
-                            geneticas.wh = row[2].ToString();
-                            geneticas.promedio = decimal.Parse(row[3].ToString());
-                            geneticas.geneticafinal = row[4].ToString();
-                            geneticas.minimo = decimal.Parse(row[5].ToString());
-                            geneticas.maximo = decimal.Parse(row[6].ToString());
-
-                            db.geneticas.Add(geneticas);
+                            Console.WriteLine(ex.Message);
+                            return RedirectToAction("Cargar", new { error = "Error" });
                         }
-
-                        db.SaveChanges();
                     }
                 }
 
@@ -238,19 +241,20 @@ namespace WebAppOpenGate.Controllers
                         while (dr.Read())
                         {
                             // master
-                            var master = new geneticas();
+                            var genetica = new geneticas();
 
-                            master.id = Convert.ToInt32(dr["id"]);
+                            genetica.id = Convert.ToInt32(dr["id"]);
                             string clave = dr["clave"].ToString();
-                            master.clave = clave;
-                            master.wh = dr["clave"].ToString().Remove(0, clave.IndexOf("/") + 1);
-                            master.sku = dr["sku"].ToString();
-                            master.promedio = decimal.Parse(dr["promedio"].ToString());
-                            master.geneticafinal = dr["geneticafinal"].ToString();
-                            master.minimo = decimal.Parse(dr["minimo"].ToString());
-                            master.maximo = decimal.Parse(dr["maximo"].ToString());
-
-                            lista.Add(master);
+                            genetica.clave = clave;
+                            genetica.wh = dr["clave"].ToString().Remove(0, clave.IndexOf("/") + 1);
+                            genetica.sku = dr["sku"].ToString();
+                            genetica.promedio = decimal.Parse(dr["promedio"].ToString());
+                            genetica.geneticafinal = dr["geneticafinal"].ToString();
+                            genetica.minimo = decimal.Parse(dr["minimo"].ToString());
+                            genetica.maximo = decimal.Parse(dr["maximo"].ToString());
+                            genetica.organizacion = dr["organizacion"].ToString();
+                            
+                            lista.Add(genetica);
                         }
                     }
                 }

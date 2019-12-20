@@ -22,5 +22,6 @@ namespace WebAppOpenGate.Models.Planeacion
         public string geneticafinal { get; set; }
         public Nullable<decimal> minimo { get; set; }
         public Nullable<decimal> maximo { get; set; }
+        public string organizacion { get; set; }
     }
 }

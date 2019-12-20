@@ -23,7 +23,7 @@ namespace WebAppOpenGate.Models.Planeacion
         public Nullable<decimal> kgcaja { get; set; }
         public Nullable<decimal> pesopallet { get; set; }
         public string descripcion { get; set; }
-        public bool activo { get; set; }
+        public Nullable<bool> activo { get; set; }
         public Nullable<int> FamiliaSKU_Id { get; set; }
     
         public virtual familiasku familiasku { get; set; }

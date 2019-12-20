@@ -1,0 +1,47 @@
+﻿@model IEnumerable<WebAppOpenGate.ViewModels.PlaneacionViewModel>
+
+@{
+    ViewBag.Title = "_ConsultaSkus";
+    Layout = null;
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>SKU</th>
+            <th>Multiplo de Surtido</th>
+            <th>Maximo</th>
+            <th>Minimo</th>
+            <th>QTY CV</th>
+            <th>QTY Cedis</th>
+            <th>QTY Calidad</th>
+            <th>Coverage Weeks</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{ int i = 0; }
+        @foreach (var item in Model)
+        {
+        <tr>
+            @{
+                i++;
+                <td tabindex="@i">@item.sku</td>
+                i++;
+                <td tabindex="@i">@item.multiplosurtido</td>
+                i++;
+                <td tabindex="@i">@item.maximo</td>
+                i++;
+                <td tabindex="@i">@item.minimo</td>
+                i++;
+                <td tabindex="@i">@item.qtyonhandcv</td>
+                i++;
+                <td tabindex="@i">@item.qtyonhandcedis</td>
+                i++;
+                <td tabindex="@i">@item.qtyonhandcalidad</td>
+                i++;
+                <td tabindex="@i">@item.coverageweeks</td>
+            }
+        </tr>
+        }
+    </tbody>
+</table>

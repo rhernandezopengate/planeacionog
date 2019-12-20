@@ -25,10 +25,11 @@ namespace WebAppOpenGate.Models.Planeacion
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<geneticas> geneticas { get; set; }
         public virtual DbSet<onhand> onhand { get; set; }
         public virtual DbSet<masterarticulos> masterarticulos { get; set; }
         public virtual DbSet<wharehouse> wharehouse { get; set; }
         public virtual DbSet<familiasku> familiasku { get; set; }
+        public virtual DbSet<geneticas> geneticas { get; set; }
+        public virtual DbSet<moopen> moopen { get; set; }
     }
 }

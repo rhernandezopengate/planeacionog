@@ -50,9 +50,10 @@
                                 <li>
                                     <a><i class="fa fa-cogs"></i> Catalogos <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
+                                        <li><a href="@Url.Action("Index", "geneticas")">Geneticas</a>
+                                        <li><a href="@Url.Action("Index", "mo")">Move Orders Abiertas</a>
                                         <li><a href="@Url.Action("Index", "onhand")">On Hand</a>
                                         <li><a href="@Url.Action("Index", "masterarticulos")">Master de Articulos</a>
-                                        <li><a href="@Url.Action("Index", "geneticas")">Geneticas</a>
                                         <li><a href="@Url.Action("Index", "familiaskus")">Familias SKU</a>
                                         <li><a href="@Url.Action("Index", "wharehouses")">Wharehouse</a>
                                     </ul>
@@ -194,10 +195,8 @@
             <!-- /footer content -->
         </div>
     </div>
-    @Scripts.Render("~/vendors/Scripts")  
-   
+    @Scripts.Render("~/vendors/Scripts")     
     @RenderSection("styles", required: false)
     @RenderSection("scripts", required: false)
-
 </body>
 </html>

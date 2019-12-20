@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="DB_A3F19C_PruebasModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityContainer Name="DB_A3F19C_PruebasEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="geneticas" EntityType="DB_A3F19C_PruebasModel.geneticas" />
     <EntitySet Name="onhand" EntityType="DB_A3F19C_PruebasModel.onhand" />
     <EntitySet Name="masterarticulos" EntityType="DB_A3F19C_PruebasModel.masterarticulos" />
     <EntitySet Name="wharehouse" EntityType="DB_A3F19C_PruebasModel.wharehouse" />
@@ -10,20 +9,9 @@
       <End Role="familiasku" EntitySet="familiasku" />
       <End Role="masterarticulos" EntitySet="masterarticulos" />
     </AssociationSet>
+    <EntitySet Name="geneticas" EntityType="DB_A3F19C_PruebasModel.geneticas" />
+    <EntitySet Name="moopen" EntityType="DB_A3F19C_PruebasModel.moopen" />
   </EntityContainer>
-  <EntityType Name="geneticas">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="clave" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="sku" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="wh" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="promedio" Type="Decimal" Precision="18" Scale="2" />
-    <Property Name="geneticafinal" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="minimo" Type="Decimal" Precision="18" Scale="2" />
-    <Property Name="maximo" Type="Decimal" Precision="18" Scale="2" />
-  </EntityType>
   <EntityType Name="onhand">
     <Key>
       <PropertyRef Name="id" />
@@ -108,4 +96,70 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="geneticas">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="clave" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="sku" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="wh" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="promedio" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="geneticafinal" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="minimo" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="maximo" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="organizacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="moopen">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FechaAlta" Type="DateTime" Precision="3" />
+    <Property Name="Allocation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="line" Type="Int32" />
+    <Property Name="transaction_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="item" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="rev" Type="Int32" />
+    <Property Name="source_subinv" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="source_locator" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="destination_subinv" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="destination_locator" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="destination_account" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="lot_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="expiration_date" Type="DateTime" Precision="0" />
+    <Property Name="serial_from" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="serial_to" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="unit_number" Type="Int32" />
+    <Property Name="uom" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="transaction_qty" Type="Int32" />
+    <Property Name="requested_qty" Type="Int32" />
+    <Property Name="required_qty" Type="Int32" />
+    <Property Name="delivered_qty" Type="Int32" />
+    <Property Name="allocated_qty" Type="Int32" />
+    <Property Name="secondary_uom" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="secondary_qty" Type="Int32" />
+    <Property Name="secondary_requested_qty" Type="Int32" />
+    <Property Name="secondary_required_qty" Type="Int32" />
+    <Property Name="secondary_delivered_qty" Type="Int32" />
+    <Property Name="secondary_allocated_qty" Type="Int32" />
+    <Property Name="grade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="daterequired" Type="DateTime" Precision="3" />
+    <Property Name="reason" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="reference" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="reference_number" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="reference_type" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="sales_order" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="so_line" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="ship_set" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="project" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="task" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="line_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="status_date" Type="DateTime" Precision="3" />
+    <Property Name="created_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ship_to_location" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ultimo" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+  </EntityType>
 </Schema>

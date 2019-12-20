@@ -10,8 +10,8 @@
             <div class="x_title">
                 <h2>Geneticas</h2>
                 &nbsp;&nbsp;&nbsp;
-                <button class="btn btn-primary" id="btnEditar"><i class="fa fa-list-alt"></i> Actualizar SKU General</button>
-                <a class="btn btn-dark" href="@Url.Action("ActualizarByArchivo", new { error = "" })"><i class="fa fa-file-excel-o"></i>&nbsp;&nbsp;Actualizar Por Archivo</a>                
+                <a class="btn btn-primary" href="@Url.Action("ActualizarByArchivo", new { error = "" })"><i class="fa fa-upload"></i>&nbsp;&nbsp;Cargar Archivo</a>
+                <button class="btn btn-dark" id="btnEditar"><i class="fa fa-edit"></i> Actualizar SKU General</button>
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
@@ -52,6 +52,7 @@
                             <th>Genetica Final</th>
                             <th>Minimo</th>
                             <th>Maximo</th>
+                            <th>Organizacion</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -99,7 +100,7 @@
                 "serverSide": true,
                 "dom": 'Blrtip',
                 "columnDefs": [{
-                    targets: [1, 2, 3, 4, 5], className: 'dt-body-center text-center'
+                    targets: [1, 2, 3, 4, 5, 6, 7, 8], className: 'dt-body-center text-center'
                 }],
                 buttons: [
                     {
@@ -153,6 +154,7 @@
                     { "data": "geneticafinal", "autoWidth": true },
                     { "data": "minimo", "autoWidth": true },
                     { "data": "maximo", "autoWidth": true },
+                    { "data": "organizacion", "autoWidth": true },
                     {
                         "data": null,
                         "targets": -1,
