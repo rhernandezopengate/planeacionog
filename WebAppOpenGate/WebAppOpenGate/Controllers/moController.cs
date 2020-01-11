@@ -25,6 +25,26 @@ namespace WebAppOpenGate.Controllers
         }
 
 
+        [HttpPost]
+        public JsonResult ListaStatus()
+        {
+            List<SelectListItem> lista = new List<SelectListItem>();
+
+            SelectListItem item1 = new SelectListItem();
+            item1.Text = "Allocated";
+            item1.Value = "Allocated";
+
+            lista.Add(item1);
+
+            SelectListItem item2 = new SelectListItem();
+            item2.Text = "Unallocated";
+            item2.Value = "Unallocated";
+
+            lista.Add(item2);
+
+            return Json(lista);
+        }
+
         public ActionResult ObtenerMoveOrders ()
         {
             var Draw = Request.Form.GetValues("draw").FirstOrDefault();
@@ -33,7 +53,9 @@ namespace WebAppOpenGate.Controllers
             var SortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][data]").FirstOrDefault();
             var SortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
 
-            var item = Request.Form.GetValues("columns[0][search][value]").FirstOrDefault();            
+            var item = Request.Form.GetValues("columns[0][search][value]").FirstOrDefault();
+            var reference = Request.Form.GetValues("columns[1][search][value]").FirstOrDefault();
+            var status = Request.Form.GetValues("columns[2][search][value]").FirstOrDefault();
 
             int PageSize = Length != null ? Convert.ToInt32(Length) : 0;
             int Skip = Start != null ? Convert.ToInt32(Start) : 0;
@@ -48,7 +70,7 @@ namespace WebAppOpenGate.Controllers
                 {
                     con.Open();
 
-                    string sql = "exec [SP_MoOpen_ParametrosOpcionales] @item";
+                    string sql = "exec [SP_MoOpen_ParametrosOpcionales] @item, @reference, @estado";
                     var query = new SqlCommand(sql, con);
 
                     if (item != "")
@@ -58,7 +80,29 @@ namespace WebAppOpenGate.Controllers
                     else
                     {
                         query.Parameters.AddWithValue("@item", DBNull.Value);
-                    }                   
+                    }
+
+                    if (reference != string.Empty && reference != "0")
+                    {
+                        query.Parameters.AddWithValue("@reference", reference);
+                    }
+                    else
+                    {
+                        query.Parameters.AddWithValue("@reference", DBNull.Value);
+                    }
+
+                    if (status.Equals("Allocated"))
+                    {
+                        query.Parameters.AddWithValue("@estado", status);
+                    }
+                    else if (status.Equals("Unallocated"))
+                    {
+                        query.Parameters.AddWithValue("@estado", status);
+                    }
+                    else
+                    {
+                        query.Parameters.AddWithValue("@estado", DBNull.Value);
+                    }
 
                     using (var dr = query.ExecuteReader())
                     {
@@ -68,29 +112,21 @@ namespace WebAppOpenGate.Controllers
                             var moopen = new MoveOrderViewModel();
 
                             moopen.id = Convert.ToInt32(dr["id"]);
+                            moopen.Number = dr["Number"].ToString();
+                            moopen.item = dr["item"].ToString();
+                            moopen.transaction_qty = Convert.ToInt32(dr["transaction_qty"]);
+                            moopen.requested_qty = Convert.ToInt32(dr["requested_qty"]);
                             moopen.allocated_qty = Convert.ToInt32(dr["allocated_qty"]);
-                            moopen.item = dr["item"].ToString() + "/" + dr["reference"].ToString();
+                            moopen.status_date = DateTime.Parse(dr["status_date"].ToString());
+                            moopen.created_by = dr["created_by"].ToString();
+
                             string referencia = dr["reference"].ToString();
                             var wharehouse = wh.Where(x => x.nomenclatura.Contains(referencia)).FirstOrDefault();
 
-                            if (wharehouse != null)
-                            {
-                                moopen.DescripcionWH = wharehouse.descripcion;
-                            }
-                            else
-                            {
-                                moopen.DescripcionWH = "";
-                            }
+                            moopen.reference = referencia;
+                            moopen.Clave = dr["item"].ToString() + "/" + referencia;
+                            moopen.Status = dr["Estado"].ToString();
 
-
-                            if (moopen.allocated_qty <= 0)
-                            {
-                                moopen.Status = "Unallocated";
-                            }
-                            else
-                            {
-                                moopen.Status = "Allocated";
-                            }
 
                             lista.Add(moopen);
                         }

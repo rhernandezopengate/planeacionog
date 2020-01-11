@@ -143,5 +143,32 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="hl_transit">
+      <EntityTypeMapping TypeName="DB_A3F19C_PruebasModel.hl_transit">
+        <MappingFragment StoreEntitySet="hl_transit">
+          <ScalarProperty Name="vendor" ColumnName="vendor" />
+          <ScalarProperty Name="way_bill" ColumnName="way_bill" />
+          <ScalarProperty Name="carrier" ColumnName="carrier" />
+          <ScalarProperty Name="lot_status" ColumnName="lot_status" />
+          <ScalarProperty Name="exp_date" ColumnName="exp_date" />
+          <ScalarProperty Name="lot_number" ColumnName="lot_number" />
+          <ScalarProperty Name="qty_from_lot" ColumnName="qty_from_lot" />
+          <ScalarProperty Name="orderlineqty_intransit" ColumnName="orderlineqty_intransit" />
+          <ScalarProperty Name="eta_date" ColumnName="eta_date" />
+          <ScalarProperty Name="ship_date" ColumnName="ship_date" />
+          <ScalarProperty Name="shipment_num" ColumnName="shipment_num" />
+          <ScalarProperty Name="line_num" ColumnName="line_num" />
+          <ScalarProperty Name="order_num" ColumnName="order_num" />
+          <ScalarProperty Name="requisition" ColumnName="requisition" />
+          <ScalarProperty Name="item_description" ColumnName="item_description" />
+          <ScalarProperty Name="revision" ColumnName="revision" />
+          <ScalarProperty Name="item_num" ColumnName="item_num" />
+          <ScalarProperty Name="shipping_org" ColumnName="shipping_org" />
+          <ScalarProperty Name="receiving_org" ColumnName="receiving_org" />
+          <ScalarProperty Name="fechaalta" ColumnName="fechaalta" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

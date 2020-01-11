@@ -28,6 +28,32 @@
           <Property Name="maximo" Type="decimal" Precision="18" Scale="2" />
           <Property Name="organizacion" Type="varchar" MaxLength="20" />
         </EntityType>
+        <EntityType Name="hl_transit">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fechaalta" Type="datetime" />
+          <Property Name="receiving_org" Type="varchar" MaxLength="10" />
+          <Property Name="shipping_org" Type="varchar" MaxLength="10" />
+          <Property Name="item_num" Type="varchar" MaxLength="50" />
+          <Property Name="revision" Type="int" />
+          <Property Name="item_description" Type="varchar" MaxLength="200" />
+          <Property Name="requisition" Type="varchar" MaxLength="20" />
+          <Property Name="order_num" Type="varchar" MaxLength="20" />
+          <Property Name="line_num" Type="int" />
+          <Property Name="shipment_num" Type="varchar" MaxLength="20" />
+          <Property Name="ship_date" Type="date" />
+          <Property Name="eta_date" Type="date" />
+          <Property Name="orderlineqty_intransit" Type="int" />
+          <Property Name="qty_from_lot" Type="int" />
+          <Property Name="lot_number" Type="varchar" MaxLength="50" />
+          <Property Name="exp_date" Type="date" />
+          <Property Name="lot_status" Type="varchar" MaxLength="50" />
+          <Property Name="carrier" Type="varchar" MaxLength="50" />
+          <Property Name="way_bill" Type="varchar" MaxLength="50" />
+          <Property Name="vendor" Type="varchar" MaxLength="10" />
+        </EntityType>
         <EntityType Name="masterarticulos">
           <Key>
             <PropertyRef Name="id" />
@@ -156,6 +182,7 @@
         <EntityContainer Name="DB_A3F19C_PruebasModelStoreContainer">
           <EntitySet Name="familiasku" EntityType="Self.familiasku" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="geneticas" EntityType="Self.geneticas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="hl_transit" EntityType="Self.hl_transit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="masterarticulos" EntityType="Self.masterarticulos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="moopen" EntityType="Self.moopen" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="onhand" EntityType="Self.onhand" Schema="dbo" store:Type="Tables" />
@@ -180,6 +207,7 @@
           </AssociationSet>
           <EntitySet Name="geneticas" EntityType="DB_A3F19C_PruebasModel.geneticas" />
           <EntitySet Name="moopen" EntityType="DB_A3F19C_PruebasModel.moopen" />
+          <EntitySet Name="hl_transit" EntityType="DB_A3F19C_PruebasModel.hl_transit" />
         </EntityContainer>
         <EntityType Name="onhand">
           <Key>
@@ -331,6 +359,32 @@
           <Property Name="ship_to_location" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ultimo" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
         </EntityType>
+        <EntityType Name="hl_transit">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fechaalta" Type="DateTime" Precision="3" />
+          <Property Name="receiving_org" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="shipping_org" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="item_num" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="revision" Type="Int32" />
+          <Property Name="item_description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="requisition" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="order_num" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="line_num" Type="Int32" />
+          <Property Name="shipment_num" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ship_date" Type="DateTime" Precision="0" />
+          <Property Name="eta_date" Type="DateTime" Precision="0" />
+          <Property Name="orderlineqty_intransit" Type="Int32" />
+          <Property Name="qty_from_lot" Type="Int32" />
+          <Property Name="lot_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="exp_date" Type="DateTime" Precision="0" />
+          <Property Name="lot_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="carrier" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="way_bill" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="vendor" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -475,6 +529,33 @@
                 <ScalarProperty Name="Number" ColumnName="Number" />
                 <ScalarProperty Name="Allocation" ColumnName="Allocation" />
                 <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="hl_transit">
+            <EntityTypeMapping TypeName="DB_A3F19C_PruebasModel.hl_transit">
+              <MappingFragment StoreEntitySet="hl_transit">
+                <ScalarProperty Name="vendor" ColumnName="vendor" />
+                <ScalarProperty Name="way_bill" ColumnName="way_bill" />
+                <ScalarProperty Name="carrier" ColumnName="carrier" />
+                <ScalarProperty Name="lot_status" ColumnName="lot_status" />
+                <ScalarProperty Name="exp_date" ColumnName="exp_date" />
+                <ScalarProperty Name="lot_number" ColumnName="lot_number" />
+                <ScalarProperty Name="qty_from_lot" ColumnName="qty_from_lot" />
+                <ScalarProperty Name="orderlineqty_intransit" ColumnName="orderlineqty_intransit" />
+                <ScalarProperty Name="eta_date" ColumnName="eta_date" />
+                <ScalarProperty Name="ship_date" ColumnName="ship_date" />
+                <ScalarProperty Name="shipment_num" ColumnName="shipment_num" />
+                <ScalarProperty Name="line_num" ColumnName="line_num" />
+                <ScalarProperty Name="order_num" ColumnName="order_num" />
+                <ScalarProperty Name="requisition" ColumnName="requisition" />
+                <ScalarProperty Name="item_description" ColumnName="item_description" />
+                <ScalarProperty Name="revision" ColumnName="revision" />
+                <ScalarProperty Name="item_num" ColumnName="item_num" />
+                <ScalarProperty Name="shipping_org" ColumnName="shipping_org" />
+                <ScalarProperty Name="receiving_org" ColumnName="receiving_org" />
+                <ScalarProperty Name="fechaalta" ColumnName="fechaalta" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

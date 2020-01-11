@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Index - Move Orders";
     Layout = "~/Views/Shared/_LayoutPlaneacion.cshtml";
 }
 
@@ -31,14 +31,54 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <table id="table" class="table table-bordered jambo_table">
+                <div class="well" style="overflow:auto">
+                    <div class="col-sm-3">
+                        SKU
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input id="txtSKU" type="text" class="form-control" placeholder="SKU" />
+                                <span class="input-group-addon">
+                                    <span class="fa fa-barcode"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            WH
+                            <div class="input-group date">
+                                <select class="form-control" id="ddlWH"></select>
+                                <span class="input-group-addon">
+                                    <span class="fa fa-list-alt"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            Status
+                            <div class="input-group date">
+                                <select class="form-control" id="ddlStatus"></select>
+                                <span class="input-group-addon">
+                                    <span class="fa fa-flag"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table id="table" class="table table-bordered jambo_table" width="100%">
                     <thead>
                         <tr>
                             <th>Id</th>
-                            <th>Clave</th>
-                            <th>Allocated Qty</th>
+                            <th>Number MO</th>
+                            <th>Item</th>
+                            <th>Transaction QTY</th>
+                            <th>Requested QTY</th>
+                            <th>Allocated QTY</th>
+                            <th>Created By</th>
+                            <th>Status Date</th>
                             <th>Status</th>
-                            <th>WH</th>
+                            <th>Clave</th>
                         </tr>
                     </thead>
                 </table>
@@ -51,15 +91,18 @@
 
     <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css" rel="stylesheet" />
     <link href="~/Content/toastr.css" rel="stylesheet" />
 }
 
 @section Scripts {
 
     <script src="~/Scripts/toastr.js"></script>
+
     <!-- Datatables -->
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.5.4/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.4.0/js/buttons.flash.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
     <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/pdfmake.min.js"></script>
@@ -67,16 +110,18 @@
     <script src="https://cdn.datatables.net/buttons/1.4.0/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.4.0/js/buttons.print.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js"></script>
+    <script src="~/vendors/moment/moment.js"></script>
 
     <script>
         $(document).ready(function () {
             table = $("#table").DataTable({
                 "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
                 "processing": true,
+                "responsive": true,
                 "serverSide": true,
                 "dom": 'Blrtip',
                 "columnDefs": [{
-                    targets: [1,2], className: 'dt-body-center text-center'
+                    targets: [1, 2, 3, 4, 5, 6, 7, 8, 9], className: 'dt-body-center text-center'
                 }],
                 buttons: [
                     {
@@ -123,16 +168,92 @@
                 "aoColumns": [
                     //0
                     { "data": "id", "autoWidth": true, "visible": false },
+                    //1
+                    { "data": "Number", "autoWidth": true },
+                    //2
                     { "data": "item", "autoWidth": true },
-                    { "data": "allocated_qty", "autoWidth": true },   
+                    //3
+                    { "data": "transaction_qty", "render": $.fn.dataTable.render.number(','), "autoWidth": true },
+                    //4
+                    { "data": "requested_qty", "render": $.fn.dataTable.render.number(','), "autoWidth": true },
+                    //5
+                    { "data": "allocated_qty", "render": $.fn.dataTable.render.number(','), "autoWidth": true },
+                    //6
+                    { "data": "created_by", "autoWidth": true },
+                    //7
+                    {
+                        "data": "status_date", //source: 2016-11-02 10:32pm GMT
+                        "render": function (data) {
+                            //return moment().format('MMMM Do YYYY, h:mm:ss a');
+                            return (moment(data).isValid()) ? moment(data).format("DD/MM/YY h:mm:ss a") : "-";
+                        }
+                    },
+                    //8
                     { "data": "Status", "autoWidth": true },
-                    { "data": "DescripcionWH", "autoWidth": true },
+                    //9
+                    { "data": "Clave", "autoWidth": true },
                 ]
             });
 
-            $('#txtItem').on('keyup', function () {
+            $('#txtSKU').on('keyup', function () {
                 table.columns(0).search(this.value).draw();
             });
-        });        
+
+            $('#ddlWH').on('change', function () {
+                table.columns(1).search(this.value).draw();
+            });
+
+            $('#ddlStatus').on('change', function () {
+                table.columns(2).search(this.value).draw();
+            });
+        });
+
+        $(function () {
+            var ddlCustomers = $("#ddlWH");
+            ddlCustomers.empty().append('<option selected="selected" value="0" disabled = "disabled">Loading ...</option>');
+            $.ajax({
+                type: "POST",
+                url: "/planeacion/ListaWH",
+                data: '{}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    ddlCustomers.empty().append('<option selected="selected" value="0">Seleccione una opcion...</option>');
+                    $.each(response, function () {
+                        ddlCustomers.append($("<option></option>").val(this['Value']).html(this['Text']));
+                    });
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
+
+        $(function () {
+            var ddlCustomers = $("#ddlStatus");
+            ddlCustomers.empty().append('<option selected="selected" value="0" disabled = "disabled">Loading ...</option>');
+            $.ajax({
+                type: "POST",
+                url: "/mo/ListaStatus",
+                data: '{}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    ddlCustomers.empty().append('<option selected="selected" value="0">Seleccione una opcion...</option>');
+                    $.each(response, function () {
+                        ddlCustomers.append($("<option></option>").val(this['Value']).html(this['Text']));
+                    });
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
     </script>
 }

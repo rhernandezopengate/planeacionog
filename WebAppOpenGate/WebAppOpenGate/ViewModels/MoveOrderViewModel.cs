@@ -11,5 +11,7 @@ namespace WebAppOpenGate.ViewModels
         public string Status { get; set; }
 
         public string DescripcionWH { get; set; }
+
+        public string Clave { get; set; }
     }
 }

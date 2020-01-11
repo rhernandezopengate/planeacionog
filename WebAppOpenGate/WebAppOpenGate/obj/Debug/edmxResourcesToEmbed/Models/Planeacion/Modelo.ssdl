@@ -23,6 +23,32 @@
     <Property Name="maximo" Type="decimal" Precision="18" Scale="2" />
     <Property Name="organizacion" Type="varchar" MaxLength="20" />
   </EntityType>
+  <EntityType Name="hl_transit">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fechaalta" Type="datetime" />
+    <Property Name="receiving_org" Type="varchar" MaxLength="10" />
+    <Property Name="shipping_org" Type="varchar" MaxLength="10" />
+    <Property Name="item_num" Type="varchar" MaxLength="50" />
+    <Property Name="revision" Type="int" />
+    <Property Name="item_description" Type="varchar" MaxLength="200" />
+    <Property Name="requisition" Type="varchar" MaxLength="20" />
+    <Property Name="order_num" Type="varchar" MaxLength="20" />
+    <Property Name="line_num" Type="int" />
+    <Property Name="shipment_num" Type="varchar" MaxLength="20" />
+    <Property Name="ship_date" Type="date" />
+    <Property Name="eta_date" Type="date" />
+    <Property Name="orderlineqty_intransit" Type="int" />
+    <Property Name="qty_from_lot" Type="int" />
+    <Property Name="lot_number" Type="varchar" MaxLength="50" />
+    <Property Name="exp_date" Type="date" />
+    <Property Name="lot_status" Type="varchar" MaxLength="50" />
+    <Property Name="carrier" Type="varchar" MaxLength="50" />
+    <Property Name="way_bill" Type="varchar" MaxLength="50" />
+    <Property Name="vendor" Type="varchar" MaxLength="10" />
+  </EntityType>
   <EntityType Name="masterarticulos">
     <Key>
       <PropertyRef Name="id" />
@@ -151,6 +177,7 @@
   <EntityContainer Name="DB_A3F19C_PruebasModelStoreContainer">
     <EntitySet Name="familiasku" EntityType="Self.familiasku" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="geneticas" EntityType="Self.geneticas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="hl_transit" EntityType="Self.hl_transit" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="masterarticulos" EntityType="Self.masterarticulos" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="moopen" EntityType="Self.moopen" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="onhand" EntityType="Self.onhand" Schema="dbo" store:Type="Tables" />

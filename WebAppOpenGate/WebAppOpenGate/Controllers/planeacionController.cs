@@ -59,6 +59,10 @@ namespace WebAppOpenGate.Controllers
                                      where oh.subinv.Contains("M1QE87")
                                      select new { oh.on_hand_qty, oh.reserved_qty, oh.item }).ToListAsync();
 
+            var onhandmx3 = await (from oh in db.onhand
+                                       where oh.subinv.Contains("M3TP10")
+                                       select new { oh.on_hand_qty, oh.reserved_qty, oh.item }).ToListAsync();
+
             var promediogeneticas = await (from gen in db.geneticas
                                            where gen.organizacion.Contains("MX1") || gen.organizacion.Contains("MX4") || gen.organizacion.Contains("MX5")
                                            select new { gen.promedio, gen.sku }).ToListAsync();
@@ -88,6 +92,7 @@ namespace WebAppOpenGate.Controllers
                     pl.qtyonhandcv = onhandcv.Where(x => x.item.Equals(item.sku)).Select(x => x.on_hand_qty - x.reserved_qty).Sum();
                     pl.qtyonhandcedis = onhandcedis.Where(x => x.item.Equals(item.sku)).Select(x => x.on_hand_qty - x.reserved_qty).Sum();
                     pl.qtyonhandcalidad = onhandcalidad.Where(x => x.item.Equals(item.sku)).Select(x => x.on_hand_qty - x.reserved_qty).Sum();
+                    pl.qtyonhandmx3 = onhandmx3.Where(x => x.item.Equals(item.sku)).Select(x => x.on_hand_qty - x.reserved_qty).Sum();
                     var consumopromedio = promediogeneticas.Where(x => x.sku.Equals(item.sku)).Select(x => x.promedio).Sum();
                     decimal coverageweeks = (decimal)(pl.qtyonhandcedis / consumopromedio);
                     pl.coverageweeks = Math.Round(coverageweeks, 1);

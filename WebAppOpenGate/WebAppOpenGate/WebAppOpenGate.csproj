@@ -180,6 +180,7 @@
     <Compile Include="Controllers\familiaskusController.cs" />
     <Compile Include="Controllers\geneticasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\intransitController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\masterarticulosController.cs" />
     <Compile Include="Controllers\moController.cs" />
@@ -232,6 +233,9 @@
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Planeacion\geneticas.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Planeacion\hl_transit.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Planeacion\masterarticulos.cs">
@@ -4823,6 +4827,8 @@
     <Content Include="Views\mo\Cargar.cshtml" />
     <Content Include="Views\planeacion\CrearPlaneacion.cshtml" />
     <Content Include="Views\planeacion\Cargas.cshtml" />
+    <Content Include="Views\intransit\Index.cshtml" />
+    <Content Include="Views\intransit\Cargar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

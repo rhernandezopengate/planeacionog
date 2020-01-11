@@ -31,5 +31,6 @@ namespace WebAppOpenGate.Models.Planeacion
         public virtual DbSet<familiasku> familiasku { get; set; }
         public virtual DbSet<geneticas> geneticas { get; set; }
         public virtual DbSet<moopen> moopen { get; set; }
+        public virtual DbSet<hl_transit> hl_transit { get; set; }
     }
 }

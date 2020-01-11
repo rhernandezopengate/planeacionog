@@ -11,6 +11,7 @@
     </AssociationSet>
     <EntitySet Name="geneticas" EntityType="DB_A3F19C_PruebasModel.geneticas" />
     <EntitySet Name="moopen" EntityType="DB_A3F19C_PruebasModel.moopen" />
+    <EntitySet Name="hl_transit" EntityType="DB_A3F19C_PruebasModel.hl_transit" />
   </EntityContainer>
   <EntityType Name="onhand">
     <Key>
@@ -161,5 +162,31 @@
     <Property Name="created_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="ship_to_location" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="ultimo" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="hl_transit">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fechaalta" Type="DateTime" Precision="3" />
+    <Property Name="receiving_org" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="shipping_org" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="item_num" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="revision" Type="Int32" />
+    <Property Name="item_description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="requisition" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="order_num" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="line_num" Type="Int32" />
+    <Property Name="shipment_num" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ship_date" Type="DateTime" Precision="0" />
+    <Property Name="eta_date" Type="DateTime" Precision="0" />
+    <Property Name="orderlineqty_intransit" Type="Int32" />
+    <Property Name="qty_from_lot" Type="Int32" />
+    <Property Name="lot_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="exp_date" Type="DateTime" Precision="0" />
+    <Property Name="lot_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="carrier" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="way_bill" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="vendor" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
   </EntityType>
 </Schema>
