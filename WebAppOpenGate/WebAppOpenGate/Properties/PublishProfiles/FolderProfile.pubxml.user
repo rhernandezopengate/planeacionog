@@ -10,10 +10,10 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/Antlr3.Runtime.dll">
-      <publishTime>09/10/2013 16:29:20</publishTime>
+      <publishTime>10/09/2013 16:29:20</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.pdb">
-      <publishTime>09/10/2013 16:29:20</publishTime>
+      <publishTime>10/09/2013 16:29:20</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>10/23/2017 13:15:18</publishTime>
@@ -43,7 +43,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/es/System.Web.Optimization.resources.dll">
-      <publishTime>02/11/2014 15:28:40</publishTime>
+      <publishTime>11/02/2014 15:28:40</publishTime>
     </File>
     <File Include="bin/es/System.Web.Razor.resources.dll">
       <publishTime>11/28/2018 13:00:22</publishTime>
@@ -253,7 +253,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>11/28/2018 11:59:46</publishTime>
     </File>
     <File Include="bin/System.Web.Optimization.dll">
-      <publishTime>02/11/2014 14:26:04</publishTime>
+      <publishTime>11/02/2014 14:26:04</publishTime>
     </File>
     <File Include="bin/System.Web.Razor.dll">
       <publishTime>11/28/2018 12:00:12</publishTime>
@@ -334,7 +334,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>10/29/2019 08:25:02</publishTime>
     </File>
     <File Include="Content/progress-modal.css">
-      <publishTime>11/05/2019 08:59:14</publishTime>
+      <publishTime>05/11/2019 08:59:14</publishTime>
     </File>
     <File Include="Content/Site.css">
       <publishTime>10/29/2019 08:24:40</publishTime>
@@ -13645,10 +13645,10 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>11/15/2019 09:39:12</publishTime>
     </File>
     <File Include="Views/familiaskus/Delete.cshtml">
-      <publishTime>11/07/2019 11:56:28</publishTime>
+      <publishTime>07/11/2019 11:56:28</publishTime>
     </File>
     <File Include="Views/familiaskus/Details.cshtml">
-      <publishTime>11/07/2019 11:56:30</publishTime>
+      <publishTime>07/11/2019 11:56:30</publishTime>
     </File>
     <File Include="Views/familiaskus/Edit.cshtml">
       <publishTime>11/15/2019 09:39:04</publishTime>
@@ -13726,7 +13726,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>11/15/2019 09:40:30</publishTime>
     </File>
     <File Include="Views/masterarticulos/Index.cshtml">
-      <publishTime>11/15/2019 09:52:18</publishTime>
+      <publishTime>01/14/2020 13:50:53</publishTime>
     </File>
     <File Include="Views/mo/Cargar.cshtml">
       <publishTime>12/20/2019 10:40:55</publishTime>
@@ -13753,7 +13753,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>12/23/2019 11:16:41</publishTime>
     </File>
     <File Include="Views/onhand/Index.cshtml">
-      <publishTime>01/14/2020 13:16:11</publishTime>
+      <publishTime>01/14/2020 13:54:44</publishTime>
     </File>
     <File Include="Views/operaciones/Create.cshtml">
       <publishTime>10/31/2019 14:54:28</publishTime>
@@ -13780,7 +13780,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>12/23/2019 12:16:24</publishTime>
     </File>
     <File Include="Views/planeacion/CrearPlaneacion3.cshtml">
-      <publishTime>12/03/2019 12:49:21</publishTime>
+      <publishTime>03/12/2019 12:49:21</publishTime>
     </File>
     <File Include="Views/planeacion/Index.cshtml">
       <publishTime>12/20/2019 12:49:50</publishTime>
@@ -13855,10 +13855,10 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>01/10/2020 11:39:57</publishTime>
     </File>
     <File Include="Views/wharehouses/Delete.cshtml">
-      <publishTime>11/07/2019 11:56:59</publishTime>
+      <publishTime>07/11/2019 11:56:59</publishTime>
     </File>
     <File Include="Views/wharehouses/Details.cshtml">
-      <publishTime>11/07/2019 11:57:00</publishTime>
+      <publishTime>07/11/2019 11:57:00</publishTime>
     </File>
     <File Include="Views/wharehouses/Edit.cshtml">
       <publishTime>01/10/2020 11:39:48</publishTime>
