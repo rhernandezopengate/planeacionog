@@ -1,0 +1,204 @@
+﻿
+@{
+    ViewBag.Title = "Index - On Hand";
+    Layout = "~/Views/Shared/_LayoutPlaneacion.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>On Hand</h2>
+                &nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-primary" href="@Url.Action("Cargar", "onHand", new { error = "" })"><i class="glyphicon glyphicon-download-alt"></i> Cargar Archivo </a>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="well" style="overflow:auto">
+                    <div class="col-sm-3">
+                        SKU
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input id="txtSKU" type="text" class="form-control" placeholder="SKU" />
+                                <span class="input-group-addon">
+                                    <span class="fa fa-barcode"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        REV
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input id="txtREV" type="text" class="form-control" placeholder="REV" />
+                                <span class="input-group-addon">
+                                    <span class="fa fa-print"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        Sub Inventory
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input id="txtSubInv" type="text" class="form-control" placeholder="Sub Inventory" />
+                                <span class="input-group-addon">
+                                    <span class="fa fa-university"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        Lot
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input id="txtLot" type="text" class="form-control" placeholder="Lot" />
+                                <span class="input-group-addon">
+                                    <span class="fa fa-print"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <table id="table" class="table table-bordered jambo_table" width="100%">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Item</th>
+                            <th>Description</th>
+                            <th>WH</th>
+                            <th>Clave</th>
+                            <th>On Hand Qty</th>
+                            <th>Reserved Qty</th>
+                            <th>Available Qty</th>
+                            <th>QTY Pallets</th>
+                            <th>Subinv</th>
+                            <th>Locator</th>
+                            <th>Lot Number</th>
+                            <th>Expiration Date</th>
+                            <th>REV</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css" rel="stylesheet" />
+    <link href="~/Content/toastr.css" rel="stylesheet" />
+}
+
+@section Scripts {
+
+    <script src="~/Scripts/toastr.js"></script>
+    <!-- Datatables -->
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.4/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.4.0/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/pdfmake.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.4.0/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.4.0/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js"></script>
+    <script src="~/vendors/moment/moment.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            table = $("#table").DataTable({
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                "processing": true,
+                "serverSide": true,
+                "responsive": true,
+                "dom": 'Blrtip',
+                "buttons": [
+                    {
+                        extend: 'copyHtml5',
+                        text: '<i class="fa fa-files-o"></i>',
+                        titleAttr: 'COPIAR',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+
+                        extend: 'print',
+                        text: '<i class="fa fa-print"></i>',
+                        titleAttr: 'IMPRIMIR',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'excel',
+                        text: '<i class="fa fa-file-excel-o"></i>',
+                        titleAttr: 'EXCEL',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'pdf',
+                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        titleAttr: 'PDF',
+                        orientation: 'landscape',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    }
+
+                ],
+                "columnDefs": [{
+                    targets: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13], className: 'dt-body-center text-center'
+                }],
+                "ajax": {
+                    "url": "/onhand/ObtenerOnHand",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "aoColumns": [
+                    { "data": "id", "autoWidth": true, "visible": false },
+                    { "data": "item", "autoWidth": true },
+                    { "data": "description", "autoWidth": true },
+                    { "data": "wh", "autoWidth": true },
+                    { "data": "llave", "autoWidth": true },
+                    { "data": "on_hand_qty", "render": $.fn.dataTable.render.number(','), "autoWidth": true },
+                    { "data": "reserved_qty", "render": $.fn.dataTable.render.number(','), "autoWidth": true },
+                    { "data": "available_qty", "render": $.fn.dataTable.render.number(','), "autoWidth": true },
+                    { "data": "qtypallets", "render": $.fn.dataTable.render.number(',', '.', 2), "autoWidth": true },
+                    { "data": "subinv", "autoWidth": true },           
+                    { "data": "locator", "autoWidth": true },                     
+                    { "data": "lot_number", "autoWidth": true },                    
+                    {
+                        "data": "expiration_date",
+                        "render": function (data) {                            
+                            return (moment(data).isValid()) ? moment(data).format("DD/MM/YYYY") : "-";
+                        }
+                    },                   
+                    { "data": "rev", "autoWidth": true },
+                ]
+            });
+
+            $('#txtSKU').on('keyup', function () {
+                table.columns(0).search(this.value).draw();
+            });
+
+            $('#txtREV').on('keyup', function () {
+                table.columns(1).search(this.value).draw();
+            });
+
+            $('#txtSubInv').on('keyup', function () {
+                table.columns(2).search(this.value).draw();
+            });
+
+            $('#txtLot').on('keyup', function () {
+                table.columns(3).search(this.value).draw();
+            });
+        });
+    </script>
+}

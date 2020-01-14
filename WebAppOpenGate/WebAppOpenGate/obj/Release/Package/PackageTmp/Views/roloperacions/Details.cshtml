@@ -1,0 +1,35 @@
+﻿@model WebAppOpenGate.Models.Permisos.roloperacion
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>roloperacion</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.operaciones.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.operaciones.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.rol.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.rol.nombre)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -10,6 +10,8 @@ using System.Linq.Dynamic;
 using WebAppOpenGate.ViewModels;
 using System.IO;
 using System.Data;
+using System.Data.Entity;
+using System.Threading.Tasks;
 
 namespace WebAppOpenGate.Controllers
 {
@@ -273,7 +275,7 @@ namespace WebAppOpenGate.Controllers
         }
 
         [HttpPost]
-        public ActionResult ObtenerOnHand()
+        public async Task<ActionResult> ObtenerOnHand()
         {
             var Draw = Request.Form.GetValues("draw").FirstOrDefault();
             var Start = Request.Form.GetValues("start").FirstOrDefault();
@@ -293,7 +295,7 @@ namespace WebAppOpenGate.Controllers
             try
             {
                 List<OnHandViewModels> lista = new List<OnHandViewModels>();
-                List<masterarticulos> listamaster = db.masterarticulos.ToList();
+                List<masterarticulos> listamaster = await db.masterarticulos.ToListAsync();
 
                 using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["BDConnection"].ToString()))
                 {
@@ -308,7 +310,7 @@ namespace WebAppOpenGate.Controllers
                     }
                     else
                     {
-                        query.Parameters.AddWithValue("@sku", DBNull.Value);
+                        query.Parameters.AddWithValue("@sku", DBNull.Value);                        
                     }
 
                     if (rev != "")
@@ -343,29 +345,28 @@ namespace WebAppOpenGate.Controllers
                         while (dr.Read())
                         {
                             // master
-                            var onhand = new OnHandViewModels();
+                            var onhand = new OnHandViewModels();                           
 
-                            onhand.id = Convert.ToInt32(dr["id"]);
-                            string item = dr["item"].ToString();
-                            onhand.item = item;
-                            onhand.description = dr["description"].ToString();
+                            onhand.id = Convert.ToInt32(dr["id"]);                            
+                            onhand.item = dr["item"].ToString();                            
                             onhand.subinv = dr["subinv"].ToString();                            
-                            onhand.on_hand_qty = int.Parse(dr["on_hand_qty"].ToString());
-                            
-                            onhand.reserved_qty = int.Parse(dr["reserved_qty"].ToString());
                             onhand.lot_number = dr["lot_number"].ToString();
-                            onhand.locator = dr["locator"].ToString();
-                            onhand.rev = int.Parse(dr["rev"].ToString());
-
-                            int available = int.Parse((dr["on_hand_qty"].ToString())) - int.Parse(dr["reserved_qty"].ToString());
-                            onhand.available_qty = available;
-
+                            onhand.locator = dr["locator"].ToString();                            
+                            onhand.expiration_date = Convert.ToDateTime(dr["expiration_date"]);
+                            onhand.available_qty = Convert.ToInt32(dr["Available"]);
+                            onhand.on_hand_qty = Convert.ToInt32(dr["on_hand_qty"]);
+                            onhand.reserved_qty = Convert.ToInt32(dr["reserved_qty"]);
+                            onhand.rev = Convert.ToInt32(dr["rev"]);
+                            onhand.description = dr["description"].ToString();
+                            
                             string val = dr["subinv"].ToString().Remove(0, 4);
+                            string itemTemp = dr["item"].ToString();
+                            int available = Convert.ToInt32(dr["Available"]);
 
                             if (val.Equals("10") || val.Equals("20"))
                             {
                                 onhand.wh = dr["subinv"].ToString().Remove(0, 2).Remove(2, 2);
-                                onhand.llave = item + "/" + dr["subinv"].ToString().Remove(0, 2).Remove(2, 2);
+                                onhand.llave = dr["item"].ToString() + "/" + dr["subinv"].ToString().Remove(0, 2).Remove(2, 2);
                             }
                             else
                             {
@@ -373,33 +374,23 @@ namespace WebAppOpenGate.Controllers
                                 onhand.llave = "";
                             }
 
-                            var itemmaster = listamaster.Where(x => x.sku.Contains(item)).FirstOrDefault();
+                            var itemmaster = listamaster.Where(x => x.sku.Equals(itemTemp)).FirstOrDefault();
 
                             if (itemmaster != null)
-                            {                               
-
+                            {
                                 if (available != 0)
                                 {
-                                    onhand.qtypallets = (available / double.Parse(listamaster.Where(x => x.sku.Contains(item)).FirstOrDefault().qtypallet.ToString()));
+                                    onhand.qtypallets = (available / double.Parse(listamaster.Where(x => x.sku.Contains(itemTemp)).FirstOrDefault().qtypallet.ToString()));
                                 }
                                 else
                                 {
                                     onhand.qtypallets = 0;
-                                }
+                                }                                
                             }
                             else
                             {
                                 onhand.qtypallets = 0;
                             }
-
-                            if (dr["expiration_date"].ToString().Equals(string.Empty))
-                            {
-                                onhand.expiration_date = DateTime.MinValue;
-                            }
-                            else
-                            {
-                                onhand.expiration_date = Convert.ToDateTime(dr["expiration_date"].ToString());
-                            }                            
 
                             lista.Add(onhand);
                         }

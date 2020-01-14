@@ -1,6 +1,3 @@
-C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\System.Web.Mvc.dll
-C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\System.Web.Razor.xml
-C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\es\EntityFramework.resources.dll
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\WebAppOpenGate.dll.config
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\WebAppOpenGate.dll
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\WebAppOpenGate.pdb
@@ -71,6 +68,7 @@ C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenG
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\Owin.dll
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\System.Linq.Dynamic.dll
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\System.Web.Helpers.dll
+C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\System.Web.Mvc.dll
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\System.Web.Optimization.dll
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\System.Web.Razor.dll
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\System.Web.WebPages.Deployment.dll
@@ -80,6 +78,7 @@ C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenG
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\System.Web.Helpers.xml
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\System.Web.Mvc.xml
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\System.Web.Optimization.xml
+C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\System.Web.Razor.xml
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\System.Web.WebPages.xml
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\System.Web.WebPages.Deployment.xml
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\System.Web.WebPages.Razor.xml
@@ -107,6 +106,7 @@ C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenG
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\es\System.Web.WebPages.resources.dll
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\es\System.Web.WebPages.Deployment.resources.dll
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\es\EntityFramework.resources.dll
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\es\EntityFramework.SqlServer.resources.dll
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\es\Microsoft.AspNet.Identity.Core.resources.dll
 C:\Users\RubenHernandez\Documents\GitHub\planeacionog\WebAppOpenGate\WebAppOpenGate\bin\es\Microsoft.AspNet.Identity.Owin.resources.dll

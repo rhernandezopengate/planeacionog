@@ -12,6 +12,7 @@
     <EntitySet Name="geneticas" EntityType="DB_A3F19C_PruebasModel.geneticas" />
     <EntitySet Name="moopen" EntityType="DB_A3F19C_PruebasModel.moopen" />
     <EntitySet Name="hl_transit" EntityType="DB_A3F19C_PruebasModel.hl_transit" />
+    <EntitySet Name="asignacionwhintransit" EntityType="DB_A3F19C_PruebasModel.asignacionwhintransit" />
   </EntityContainer>
   <EntityType Name="onhand">
     <Key>
@@ -188,5 +189,14 @@
     <Property Name="carrier" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="way_bill" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="vendor" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="asignacionwhintransit">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fechaalta" Type="DateTime" Precision="3" />
+    <Property Name="requisition" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="wh" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
   </EntityType>
 </Schema>

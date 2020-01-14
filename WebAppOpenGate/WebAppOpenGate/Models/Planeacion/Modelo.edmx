@@ -5,6 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="DB_A3F19C_PruebasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="asignacionwhintransit">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fechaalta" Type="datetime" />
+          <Property Name="requisition" Type="varchar" MaxLength="20" />
+          <Property Name="wh" Type="varchar" MaxLength="5" />
+        </EntityType>
         <EntityType Name="familiasku">
           <Key>
             <PropertyRef Name="id" />
@@ -180,6 +189,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="DB_A3F19C_PruebasModelStoreContainer">
+          <EntitySet Name="asignacionwhintransit" EntityType="Self.asignacionwhintransit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="familiasku" EntityType="Self.familiasku" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="geneticas" EntityType="Self.geneticas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="hl_transit" EntityType="Self.hl_transit" Schema="dbo" store:Type="Tables" />
@@ -208,6 +218,7 @@
           <EntitySet Name="geneticas" EntityType="DB_A3F19C_PruebasModel.geneticas" />
           <EntitySet Name="moopen" EntityType="DB_A3F19C_PruebasModel.moopen" />
           <EntitySet Name="hl_transit" EntityType="DB_A3F19C_PruebasModel.hl_transit" />
+          <EntitySet Name="asignacionwhintransit" EntityType="DB_A3F19C_PruebasModel.asignacionwhintransit" />
         </EntityContainer>
         <EntityType Name="onhand">
           <Key>
@@ -385,6 +396,15 @@
           <Property Name="way_bill" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="vendor" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="asignacionwhintransit">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fechaalta" Type="DateTime" Precision="3" />
+          <Property Name="requisition" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="wh" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -555,6 +575,16 @@
                 <ScalarProperty Name="item_num" ColumnName="item_num" />
                 <ScalarProperty Name="shipping_org" ColumnName="shipping_org" />
                 <ScalarProperty Name="receiving_org" ColumnName="receiving_org" />
+                <ScalarProperty Name="fechaalta" ColumnName="fechaalta" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="asignacionwhintransit">
+            <EntityTypeMapping TypeName="DB_A3F19C_PruebasModel.asignacionwhintransit">
+              <MappingFragment StoreEntitySet="asignacionwhintransit">
+                <ScalarProperty Name="wh" ColumnName="wh" />
+                <ScalarProperty Name="requisition" ColumnName="requisition" />
                 <ScalarProperty Name="fechaalta" ColumnName="fechaalta" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>

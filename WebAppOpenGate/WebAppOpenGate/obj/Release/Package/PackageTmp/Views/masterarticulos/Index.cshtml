@@ -1,0 +1,274 @@
+﻿@{
+    ViewBag.Title = "Index - Master de Articulos";
+    Layout = "~/Views/Shared/_LayoutPlaneacion.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Master de Articulos</h2> &nbsp;&nbsp;<a onclick="Crear()" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Agregar Registro</a>                
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="well" style="overflow:auto">
+                    <div class="col-sm-3">
+                        SKU
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input id="txtSKU" type="text" class="form-control" placeholder="SKU" />
+                                <span class="input-group-addon">
+                                    <span class="fa fa-barcode"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            Familia
+                            <div class="input-group date">
+                                <select class="form-control" id="ddlFamilia"></select>
+                                <span class="input-group-addon">
+                                    <span class="fa fa-sort-numeric-desc"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <table id="table" class="table table-bordered jambo_table" width="100%">
+                    <thead>
+                        <tr class="headings">
+                            <th class="column-title">id</th>
+                            <th class="column-title">SKU</th>
+                            <th class="column-title">Descripcion</th>
+                            <th class="column-title">Familia</th>
+                            <th class="column-title">QTY Caja</th>
+                            <th class="column-title">QTY Pallet</th>
+                            <th class="column-title">Multiplo Surtido</th>
+                            <th class="column-title">Cajas X Pallet</th>
+                            <th class="column-title">Peso Caja</th>
+                            <th class="column-title">Peso Pallet</th>
+                            <th class="column-title">Activo</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="MyModal" class="modal fade bs-example-modal-lg">
+    <div class="modal-dialog modal-lg" id="mdialTamanio">
+        <div class="modal-content">
+            <div id="MyModalContent"></div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+
+    <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css" rel="stylesheet" />
+    <link href="~/Content/toastr.css" rel="stylesheet" />
+}
+
+@section Scripts {
+
+    <script src="~/Scripts/toastr.js"></script>
+    <!-- Datatables -->
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.4/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.4.0/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/pdfmake.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.4.0/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.4.0/js/buttons.print.min.js"></script>    
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            table = $("#table").DataTable({
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                "processing": true,
+                "serverSide": true,
+                "dom": 'Blrtip',                
+                buttons: [
+                    {
+                        extend: 'copyHtml5',
+                        text: '<i class="fa fa-files-o"></i>',
+                        titleAttr: 'COPIAR',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+
+                        extend: 'print',
+                        text: '<i class="fa fa-print"></i>',
+                        titleAttr: 'IMPRIMIR',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'excel',
+                        text: '<i class="fa fa-file-excel-o"></i>',
+                        titleAttr: 'EXCEL',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'pdf',
+                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        titleAttr: 'PDF',
+                        orientation: 'landscape',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    }
+
+                ],
+                "ajax": {
+                    "url": "/masterarticulos/ObtenerMaster",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "aoColumns": [
+                    //0
+                    { "data": "id", "autoWidth": true, "visible": false },
+                    { "data": "sku", "autoWidth": true },
+                    { "data": "descripcion", "autoWidth": true },
+                    { "data": "familia", "autoWidth": true },
+                    { "data": "qtycaja", "autoWidth": true },
+                    { "data": "qtypallet", "autoWidth": true },
+                    { "data": "multiplosurtido", "autoWidth": true },
+                    { "data": "cajaspallet", "autoWidth": true },
+                    { "data": "kgcaja", "autoWidth": true },
+                    { "data": "pesopallet", "autoWidth": true },
+                    {
+                        data: "activo",
+                        render: function (data, type, row) {
+                            if (data === true) {
+                                return '<div class="icheckbox_flat-green checked flat" onclick="return false;" checked> </div>';
+                            } else {
+                                return '<div class="icheckbox_flat-green flat" onclick="return false;" checked> </div>';
+                            }
+                            return data;
+                        },                        
+                    },
+                    {
+                        "data": null,
+                        "targets": -1,
+                        "render": function (data, type, full) {
+                            return "<a  onclick='Editar(" + full['id'] + ")' id='btnEdit" + full['id'] + "' class='btn btn-success'><i class='glyphicon glyphicon-pencil'></i></a>";
+
+                        },
+                        "bSearchable": false,
+                        "sortable": false,
+                        "autoWidth": true,
+                        "sWidth": "50px"
+                    }
+                ]
+            });
+
+            $('#txtSKU').on('keyup', function () {
+                table.columns(0).search(this.value).draw();
+            });
+
+            $('#ddlFamilia').on('change', function () {
+                table.columns(1).search(this.value).draw();
+            });
+        });
+
+        $(function () {
+            var ddlCustomers = $("#ddlFamilia");
+            ddlCustomers.empty().append('<option selected="selected" value="0" disabled = "disabled">Loading ...</option>');
+            $.ajax({
+                type: "POST",
+                url: "/masterarticulos/ListaFamilias",
+                data: '{}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    ddlCustomers.empty().append('<option selected="selected" value="0">Seleccione una opcion...</option>');
+                    $.each(response, function () {
+                        ddlCustomers.append($("<option></option>").val(this['Value']).html(this['Text']));
+                    });
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
+
+        var Editar = function (ID) {
+            $.ajaxSetup({ cache: false });
+            var EditUrl = "/masterarticulos/Edit/" + ID;
+            $("#MyModalContent").load(EditUrl, function () {
+                $("#MyModal").modal({
+                    //backdrop: 'static',
+                    keyboard: false
+                }, 'show');
+                bindForm(this);
+            });
+            return false;
+        }
+
+        var Crear = function () {
+            $.ajaxSetup({ cache: false });
+            var EditUrl = "/masterarticulos/Create/";
+            $("#MyModalContent").load(EditUrl, function () {
+                $("#MyModal").modal({
+                    //backdrop: 'static',
+                    keyboard: false
+                }, 'show');
+                bindForm(this);
+            });
+            return false;
+        }
+
+        function bindForm(dialog) {
+            $('form', dialog).submit(function () {
+                var $this = $("#Guardar");
+                $this.button('loading');
+
+                var $this1 = $("#Crear");
+                $this1.button('loading');
+
+                $.ajax({
+                    url: this.action,
+                    type: this.method,
+                    data: $(this).serialize(),
+                    success: function (result) {
+                        if (result.Respuesta === 'Correcto') {
+                            $("#MyModal").modal('hide');
+                            toastr.success('Operacion Correcta');
+                            $this.button('reset'); 
+                            $this1.button('reset'); 
+                            table.draw();
+                        }
+                        else {
+                            $("#MyModal").modal('show');
+                            toastr.error('Ha ocurrido un error');
+                            $this.button('reset'); 
+                            $this1.button('reset'); 
+                            bindForm(dialog);
+                        }
+                    },
+                    error: function (xml, message, text) {
+                        toastr.error("Msg: " + message + ", Text: " + text);
+                        $this.button('reset'); 
+                    }
+                });
+                return false;
+            });
+        }
+    </script>
+}

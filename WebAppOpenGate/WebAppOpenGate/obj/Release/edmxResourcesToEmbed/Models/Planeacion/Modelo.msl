@@ -1,36 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="DB_A3F19C_PruebasModelStoreContainer" CdmEntityContainer="DB_A3F19C_PruebasEntities">
-    <EntitySetMapping Name="masterarticulos">
-      <EntityTypeMapping TypeName="DB_A3F19C_PruebasModel.masterarticulos">
-        <MappingFragment StoreEntitySet="masterarticulos">
-          <ScalarProperty Name="activo" ColumnName="activo" />
-          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-          <ScalarProperty Name="pesopallet" ColumnName="pesopallet" />
-          <ScalarProperty Name="kgcaja" ColumnName="kgcaja" />
-          <ScalarProperty Name="cajaspallet" ColumnName="cajaspallet" />
-          <ScalarProperty Name="multiplosurtido" ColumnName="multiplosurtido" />
-          <ScalarProperty Name="qtypallet" ColumnName="qtypallet" />
-          <ScalarProperty Name="qtycaja" ColumnName="qtycaja" />
-          <ScalarProperty Name="sku" ColumnName="sku" />
-          <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="geneticas">
-      <EntityTypeMapping TypeName="DB_A3F19C_PruebasModel.geneticas">
-        <MappingFragment StoreEntitySet="geneticas">
-          <ScalarProperty Name="maximo" ColumnName="maximo" />
-          <ScalarProperty Name="minimo" ColumnName="minimo" />
-          <ScalarProperty Name="geneticafinal" ColumnName="geneticafinal" />
-          <ScalarProperty Name="promedio" ColumnName="promedio" />
-          <ScalarProperty Name="wh" ColumnName="wh" />
-          <ScalarProperty Name="sku" ColumnName="sku" />
-          <ScalarProperty Name="clave" ColumnName="clave" />
-          <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="onhand">
       <EntityTypeMapping TypeName="DB_A3F19C_PruebasModel.onhand">
         <MappingFragment StoreEntitySet="onhand">
@@ -64,6 +34,147 @@
           <ScalarProperty Name="rev" ColumnName="rev" />
           <ScalarProperty Name="item" ColumnName="item" />
           <ScalarProperty Name="org" ColumnName="org" />
+          <ScalarProperty Name="fechaalta" ColumnName="fechaalta" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="masterarticulos">
+      <EntityTypeMapping TypeName="DB_A3F19C_PruebasModel.masterarticulos">
+        <MappingFragment StoreEntitySet="masterarticulos">
+          <ScalarProperty Name="FamiliaSKU_Id" ColumnName="FamiliaSKU_Id" />
+          <ScalarProperty Name="activo" ColumnName="activo" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="pesopallet" ColumnName="pesopallet" />
+          <ScalarProperty Name="kgcaja" ColumnName="kgcaja" />
+          <ScalarProperty Name="cajaspallet" ColumnName="cajaspallet" />
+          <ScalarProperty Name="multiplosurtido" ColumnName="multiplosurtido" />
+          <ScalarProperty Name="qtypallet" ColumnName="qtypallet" />
+          <ScalarProperty Name="qtycaja" ColumnName="qtycaja" />
+          <ScalarProperty Name="sku" ColumnName="sku" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="wharehouse">
+      <EntityTypeMapping TypeName="DB_A3F19C_PruebasModel.wharehouse">
+        <MappingFragment StoreEntitySet="wharehouse">
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="nomenclatura" ColumnName="nomenclatura" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="familiasku">
+      <EntityTypeMapping TypeName="DB_A3F19C_PruebasModel.familiasku">
+        <MappingFragment StoreEntitySet="familiasku">
+          <ScalarProperty Name="posicion" ColumnName="posicion" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="bloque" ColumnName="bloque" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="geneticas">
+      <EntityTypeMapping TypeName="DB_A3F19C_PruebasModel.geneticas">
+        <MappingFragment StoreEntitySet="geneticas">
+          <ScalarProperty Name="organizacion" ColumnName="organizacion" />
+          <ScalarProperty Name="maximo" ColumnName="maximo" />
+          <ScalarProperty Name="minimo" ColumnName="minimo" />
+          <ScalarProperty Name="geneticafinal" ColumnName="geneticafinal" />
+          <ScalarProperty Name="promedio" ColumnName="promedio" />
+          <ScalarProperty Name="wh" ColumnName="wh" />
+          <ScalarProperty Name="sku" ColumnName="sku" />
+          <ScalarProperty Name="clave" ColumnName="clave" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="moopen">
+      <EntityTypeMapping TypeName="DB_A3F19C_PruebasModel.moopen">
+        <MappingFragment StoreEntitySet="moopen">
+          <ScalarProperty Name="ultimo" ColumnName="ultimo" />
+          <ScalarProperty Name="ship_to_location" ColumnName="ship_to_location" />
+          <ScalarProperty Name="created_by" ColumnName="created_by" />
+          <ScalarProperty Name="status_date" ColumnName="status_date" />
+          <ScalarProperty Name="line_status" ColumnName="line_status" />
+          <ScalarProperty Name="task" ColumnName="task" />
+          <ScalarProperty Name="project" ColumnName="project" />
+          <ScalarProperty Name="ship_set" ColumnName="ship_set" />
+          <ScalarProperty Name="so_line" ColumnName="so_line" />
+          <ScalarProperty Name="sales_order" ColumnName="sales_order" />
+          <ScalarProperty Name="reference_type" ColumnName="reference_type" />
+          <ScalarProperty Name="reference_number" ColumnName="reference_number" />
+          <ScalarProperty Name="reference" ColumnName="reference" />
+          <ScalarProperty Name="reason" ColumnName="reason" />
+          <ScalarProperty Name="daterequired" ColumnName="daterequired" />
+          <ScalarProperty Name="grade" ColumnName="grade" />
+          <ScalarProperty Name="secondary_allocated_qty" ColumnName="secondary_allocated_qty" />
+          <ScalarProperty Name="secondary_delivered_qty" ColumnName="secondary_delivered_qty" />
+          <ScalarProperty Name="secondary_required_qty" ColumnName="secondary_required_qty" />
+          <ScalarProperty Name="secondary_requested_qty" ColumnName="secondary_requested_qty" />
+          <ScalarProperty Name="secondary_qty" ColumnName="secondary_qty" />
+          <ScalarProperty Name="secondary_uom" ColumnName="secondary_uom" />
+          <ScalarProperty Name="allocated_qty" ColumnName="allocated_qty" />
+          <ScalarProperty Name="delivered_qty" ColumnName="delivered_qty" />
+          <ScalarProperty Name="required_qty" ColumnName="required_qty" />
+          <ScalarProperty Name="requested_qty" ColumnName="requested_qty" />
+          <ScalarProperty Name="transaction_qty" ColumnName="transaction_qty" />
+          <ScalarProperty Name="uom" ColumnName="uom" />
+          <ScalarProperty Name="unit_number" ColumnName="unit_number" />
+          <ScalarProperty Name="serial_to" ColumnName="serial_to" />
+          <ScalarProperty Name="serial_from" ColumnName="serial_from" />
+          <ScalarProperty Name="expiration_date" ColumnName="expiration_date" />
+          <ScalarProperty Name="lot_number" ColumnName="lot_number" />
+          <ScalarProperty Name="destination_account" ColumnName="destination_account" />
+          <ScalarProperty Name="destination_locator" ColumnName="destination_locator" />
+          <ScalarProperty Name="destination_subinv" ColumnName="destination_subinv" />
+          <ScalarProperty Name="source_locator" ColumnName="source_locator" />
+          <ScalarProperty Name="source_subinv" ColumnName="source_subinv" />
+          <ScalarProperty Name="rev" ColumnName="rev" />
+          <ScalarProperty Name="item" ColumnName="item" />
+          <ScalarProperty Name="transaction_type" ColumnName="transaction_type" />
+          <ScalarProperty Name="line" ColumnName="line" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="Number" ColumnName="Number" />
+          <ScalarProperty Name="Allocation" ColumnName="Allocation" />
+          <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="hl_transit">
+      <EntityTypeMapping TypeName="DB_A3F19C_PruebasModel.hl_transit">
+        <MappingFragment StoreEntitySet="hl_transit">
+          <ScalarProperty Name="vendor" ColumnName="vendor" />
+          <ScalarProperty Name="way_bill" ColumnName="way_bill" />
+          <ScalarProperty Name="carrier" ColumnName="carrier" />
+          <ScalarProperty Name="lot_status" ColumnName="lot_status" />
+          <ScalarProperty Name="exp_date" ColumnName="exp_date" />
+          <ScalarProperty Name="lot_number" ColumnName="lot_number" />
+          <ScalarProperty Name="qty_from_lot" ColumnName="qty_from_lot" />
+          <ScalarProperty Name="orderlineqty_intransit" ColumnName="orderlineqty_intransit" />
+          <ScalarProperty Name="eta_date" ColumnName="eta_date" />
+          <ScalarProperty Name="ship_date" ColumnName="ship_date" />
+          <ScalarProperty Name="shipment_num" ColumnName="shipment_num" />
+          <ScalarProperty Name="line_num" ColumnName="line_num" />
+          <ScalarProperty Name="order_num" ColumnName="order_num" />
+          <ScalarProperty Name="requisition" ColumnName="requisition" />
+          <ScalarProperty Name="item_description" ColumnName="item_description" />
+          <ScalarProperty Name="revision" ColumnName="revision" />
+          <ScalarProperty Name="item_num" ColumnName="item_num" />
+          <ScalarProperty Name="shipping_org" ColumnName="shipping_org" />
+          <ScalarProperty Name="receiving_org" ColumnName="receiving_org" />
+          <ScalarProperty Name="fechaalta" ColumnName="fechaalta" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="asignacionwhintransit">
+      <EntityTypeMapping TypeName="DB_A3F19C_PruebasModel.asignacionwhintransit">
+        <MappingFragment StoreEntitySet="asignacionwhintransit">
+          <ScalarProperty Name="wh" ColumnName="wh" />
+          <ScalarProperty Name="requisition" ColumnName="requisition" />
           <ScalarProperty Name="fechaalta" ColumnName="fechaalta" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>

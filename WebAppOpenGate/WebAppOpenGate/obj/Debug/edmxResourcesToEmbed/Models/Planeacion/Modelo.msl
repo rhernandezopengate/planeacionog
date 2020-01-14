@@ -170,5 +170,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="asignacionwhintransit">
+      <EntityTypeMapping TypeName="DB_A3F19C_PruebasModel.asignacionwhintransit">
+        <MappingFragment StoreEntitySet="asignacionwhintransit">
+          <ScalarProperty Name="wh" ColumnName="wh" />
+          <ScalarProperty Name="requisition" ColumnName="requisition" />
+          <ScalarProperty Name="fechaalta" ColumnName="fechaalta" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

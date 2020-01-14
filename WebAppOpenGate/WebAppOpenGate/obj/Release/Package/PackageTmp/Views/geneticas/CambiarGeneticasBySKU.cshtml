@@ -1,0 +1,86 @@
+﻿@{
+    Layout = null;
+}
+
+
+<div class="modal-header" style="text-align:center">
+    <h2 class="modal-title">Cambio de Geneticas Por SKU</h2>
+</div>
+<div class="modal-body">
+    <div class="col-sm-4">
+        SKU
+        <div class="form-group">
+            <div class="input-group">
+                <input id="sku" name="sku" type="text" class="form-control" placeholder="SKU" />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-list-alt"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        WK Maximo
+        <div class="form-group">
+            <div class="input-group">
+                <input id="minimo" name="minimo" type="text" class="form-control" placeholder="SKU" />
+                <span class="input-group-addon">
+                    <span class="fa fa-sort-amount-desc"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        WK Min
+        <div class="form-group">
+            <div class="input-group">
+                <input id="maximo" name="maximo" type="text" class="form-control" placeholder="Minimo" />
+                <span class="input-group-addon">
+                    <span class="fa fa-sort-amount-asc"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+    <br />
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+    <button id="load" name="save" type="button" class="btn btn-primary" data-loading-text="Loading..." autocomplete="off">Guardar Cambios</button>
+</div>
+
+<script>
+    $('#load').on('click', function () {
+        var $this = $(this);
+        var SKU = $("#sku").val();
+        var Minimo = $("#minimo").val();
+        var Maximo = $("#maximo").val();
+
+        $this.button('loading');
+        setTimeout(function () {
+            $.ajax({
+                url: "/geneticas/CambiarGeneticasBySKU",
+                type: "POST",
+                data: { sku: SKU, minimo: Minimo, maximo: Maximo },
+                success: function (result) {
+                    if (result.Respuesta === 'Correcto') {
+                        $("#MyModal").modal('hide');
+                        $this.button('reset');
+                        toastr.success('Edicion Correcta');
+                        table.draw();
+                    }
+                    else {
+                        $("#MyModal").modal('show');
+                        toastr.error('Ha ocurrido un error: ' + result.Respuesta);
+                        bindForm(dialog);
+                    }
+                },
+                error: function (xml, message, text) {
+                    toastr.error("Msg: " + message + ", Text: " + text);
+                }
+            });
+        }, 8000);
+    });
+</script>

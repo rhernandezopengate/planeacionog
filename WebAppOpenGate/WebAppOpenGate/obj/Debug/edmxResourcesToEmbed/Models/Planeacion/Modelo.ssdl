@@ -1,5 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="DB_A3F19C_PruebasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="asignacionwhintransit">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fechaalta" Type="datetime" />
+    <Property Name="requisition" Type="varchar" MaxLength="20" />
+    <Property Name="wh" Type="varchar" MaxLength="5" />
+  </EntityType>
   <EntityType Name="familiasku">
     <Key>
       <PropertyRef Name="id" />
@@ -175,6 +184,7 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="DB_A3F19C_PruebasModelStoreContainer">
+    <EntitySet Name="asignacionwhintransit" EntityType="Self.asignacionwhintransit" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="familiasku" EntityType="Self.familiasku" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="geneticas" EntityType="Self.geneticas" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="hl_transit" EntityType="Self.hl_transit" Schema="dbo" store:Type="Tables" />

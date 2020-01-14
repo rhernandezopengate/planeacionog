@@ -1,0 +1,99 @@
+﻿
+@{
+    ViewBag.Title = "CrearPlaneacion";
+    Layout = "~/Views/Shared/_LayoutPlaneacion.cshtml";
+}
+
+<div class="x_panel">
+    <div class="x_title">
+        <h2>Crear Planeacion</h2>        
+        <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+        <div class="well" style="overflow: auto">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    WH
+                    <div class="input-group date">
+                        <select class="form-control" id="ddlWH"></select>
+                        <span class="input-group-addon">
+                            <span class="fa fa-list-alt"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="caratula">
+        </div>
+    </div>
+</div>
+
+<div class="modal modal-static fade" id="processing-modal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="text-center">
+                    <img src="~/build/images/loading.gif" class="icon" />
+                    <h5><span class="modal-text">Procesando, Espere por favor... </span></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles{
+    <link href="~/Content/progress-modal.css" rel="stylesheet" />
+    <link href="~/Content/toastr.css" rel="stylesheet" />
+}
+
+@section Scripts{
+    <script type="text/javascript">
+        $(function () {
+            var ddlCustomers = $("#ddlWH");
+            ddlCustomers.empty().append('<option selected="selected" value="0" disabled = "disabled">Loading ...</option>');
+            $.ajax({
+                type: "POST",
+                url: "/planeacion/ListaWH",
+                data: '{}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    ddlCustomers.empty().append('<option selected="selected" value="0">Seleccione una opcion...</option>');
+                    $.each(response, function () {
+                        ddlCustomers.append($("<option></option>").val(this['Value']).html(this['Text']));
+                    });
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
+
+        $("#ddlWH").on('change', function () {
+            var $modal = $("#processing-modal");
+            var wharehouse = this.value;
+            $modal.modal('show');
+            setTimeout(function () {
+                $.ajax({
+                    type: "GET",
+                    url: "/planeacion/Cargas",
+                    data: { wh: wharehouse },
+                    contentType: "charset=utf-8",
+                    success: function (response) {
+                        $("#caratula").html(response);
+                        $modal.modal('hide');
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            }, 1800);
+        });
+    </script>
+}

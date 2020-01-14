@@ -1,5 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="DB_A3F19C_PruebasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="asignacionwhintransit">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fechaalta" Type="datetime" />
+    <Property Name="requisition" Type="varchar" MaxLength="20" />
+    <Property Name="wh" Type="varchar" MaxLength="5" />
+  </EntityType>
+  <EntityType Name="familiasku">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="bloque" Type="int" />
+    <Property Name="descripcion" Type="varchar" MaxLength="100" />
+    <Property Name="posicion" Type="int" />
+  </EntityType>
   <EntityType Name="geneticas">
     <Key>
       <PropertyRef Name="id" />
@@ -12,6 +30,33 @@
     <Property Name="geneticafinal" Type="varchar" MaxLength="10" />
     <Property Name="minimo" Type="decimal" Precision="18" Scale="2" />
     <Property Name="maximo" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="organizacion" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="hl_transit">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fechaalta" Type="datetime" />
+    <Property Name="receiving_org" Type="varchar" MaxLength="10" />
+    <Property Name="shipping_org" Type="varchar" MaxLength="10" />
+    <Property Name="item_num" Type="varchar" MaxLength="50" />
+    <Property Name="revision" Type="int" />
+    <Property Name="item_description" Type="varchar" MaxLength="200" />
+    <Property Name="requisition" Type="varchar" MaxLength="20" />
+    <Property Name="order_num" Type="varchar" MaxLength="20" />
+    <Property Name="line_num" Type="int" />
+    <Property Name="shipment_num" Type="varchar" MaxLength="20" />
+    <Property Name="ship_date" Type="date" />
+    <Property Name="eta_date" Type="date" />
+    <Property Name="orderlineqty_intransit" Type="int" />
+    <Property Name="qty_from_lot" Type="int" />
+    <Property Name="lot_number" Type="varchar" MaxLength="50" />
+    <Property Name="exp_date" Type="date" />
+    <Property Name="lot_status" Type="varchar" MaxLength="50" />
+    <Property Name="carrier" Type="varchar" MaxLength="50" />
+    <Property Name="way_bill" Type="varchar" MaxLength="50" />
+    <Property Name="vendor" Type="varchar" MaxLength="10" />
   </EntityType>
   <EntityType Name="masterarticulos">
     <Key>
@@ -27,6 +72,59 @@
     <Property Name="pesopallet" Type="decimal" Precision="18" Scale="2" />
     <Property Name="descripcion" Type="varchar" MaxLength="500" />
     <Property Name="activo" Type="bit" />
+    <Property Name="FamiliaSKU_Id" Type="int" />
+  </EntityType>
+  <EntityType Name="moopen">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FechaAlta" Type="datetime" />
+    <Property Name="Allocation" Type="varchar" MaxLength="50" />
+    <Property Name="Number" Type="varchar" MaxLength="50" />
+    <Property Name="type" Type="varchar" MaxLength="50" />
+    <Property Name="line" Type="int" />
+    <Property Name="transaction_type" Type="varchar" MaxLength="50" />
+    <Property Name="item" Type="varchar" MaxLength="10" />
+    <Property Name="rev" Type="int" />
+    <Property Name="source_subinv" Type="varchar" MaxLength="20" />
+    <Property Name="source_locator" Type="varchar" MaxLength="50" />
+    <Property Name="destination_subinv" Type="varchar" MaxLength="100" />
+    <Property Name="destination_locator" Type="varchar" MaxLength="100" />
+    <Property Name="destination_account" Type="varchar" MaxLength="50" />
+    <Property Name="lot_number" Type="varchar" MaxLength="50" />
+    <Property Name="expiration_date" Type="date" />
+    <Property Name="serial_from" Type="varchar" MaxLength="50" />
+    <Property Name="serial_to" Type="varchar" MaxLength="50" />
+    <Property Name="unit_number" Type="int" />
+    <Property Name="uom" Type="varchar" MaxLength="10" />
+    <Property Name="transaction_qty" Type="int" />
+    <Property Name="requested_qty" Type="int" />
+    <Property Name="required_qty" Type="int" />
+    <Property Name="delivered_qty" Type="int" />
+    <Property Name="allocated_qty" Type="int" />
+    <Property Name="secondary_uom" Type="varchar" MaxLength="10" />
+    <Property Name="secondary_qty" Type="int" />
+    <Property Name="secondary_requested_qty" Type="int" />
+    <Property Name="secondary_required_qty" Type="int" />
+    <Property Name="secondary_delivered_qty" Type="int" />
+    <Property Name="secondary_allocated_qty" Type="int" />
+    <Property Name="grade" Type="varchar" MaxLength="50" />
+    <Property Name="daterequired" Type="datetime" />
+    <Property Name="reason" Type="varchar" MaxLength="100" />
+    <Property Name="reference" Type="varchar" MaxLength="50" />
+    <Property Name="reference_number" Type="varchar" MaxLength="10" />
+    <Property Name="reference_type" Type="varchar" MaxLength="10" />
+    <Property Name="sales_order" Type="varchar" MaxLength="10" />
+    <Property Name="so_line" Type="varchar" MaxLength="10" />
+    <Property Name="ship_set" Type="varchar" MaxLength="10" />
+    <Property Name="project" Type="varchar" MaxLength="50" />
+    <Property Name="task" Type="varchar" MaxLength="50" />
+    <Property Name="line_status" Type="varchar" MaxLength="50" />
+    <Property Name="status_date" Type="datetime" />
+    <Property Name="created_by" Type="varchar" MaxLength="100" />
+    <Property Name="ship_to_location" Type="varchar" MaxLength="50" />
+    <Property Name="ultimo" Type="char" MaxLength="3" />
   </EntityType>
   <EntityType Name="onhand">
     <Key>
@@ -65,9 +163,38 @@
     <Property Name="hl_itemlc" Type="varchar" MaxLength="50" />
     <Property Name="case_quantity_lot" Type="int" />
   </EntityType>
+  <EntityType Name="wharehouse">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nomenclatura" Type="varchar" MaxLength="10" />
+    <Property Name="descripcion" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <Association Name="masterarticulos_familiasku_fk">
+    <End Role="familiasku" Type="Self.familiasku" Multiplicity="0..1" />
+    <End Role="masterarticulos" Type="Self.masterarticulos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="familiasku">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="masterarticulos">
+        <PropertyRef Name="FamiliaSKU_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="DB_A3F19C_PruebasModelStoreContainer">
+    <EntitySet Name="asignacionwhintransit" EntityType="Self.asignacionwhintransit" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="familiasku" EntityType="Self.familiasku" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="geneticas" EntityType="Self.geneticas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="hl_transit" EntityType="Self.hl_transit" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="masterarticulos" EntityType="Self.masterarticulos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="moopen" EntityType="Self.moopen" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="onhand" EntityType="Self.onhand" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="wharehouse" EntityType="Self.wharehouse" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="masterarticulos_familiasku_fk" Association="Self.masterarticulos_familiasku_fk">
+      <End Role="familiasku" EntitySet="familiasku" />
+      <End Role="masterarticulos" EntitySet="masterarticulos" />
+    </AssociationSet>
   </EntityContainer>
 </Schema>

@@ -1,0 +1,35 @@
+﻿@model WebAppOpenGate.Models.Planeacion.wharehouse
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutPlaneacion.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>wharehouse</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nomenclatura)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nomenclatura)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descripcion)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

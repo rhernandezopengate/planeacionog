@@ -1,0 +1,122 @@
+﻿
+@{
+    ViewBag.Title = "AsignarWarehouse";
+    Layout = "~/Views/Shared/_LayoutPlaneacion.cshtml";
+}
+
+<div class="x_panel">
+    <div class="x_title">
+        <h2>Asignar Warehouse</h2>
+        <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+        <div id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
+                    RO Number<span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <input type="text" id="ronumber" name="ronumber" required="required" class="form-control col-md-7 col-xs-12">
+                    <input type="hidden" id="rovalida"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                    Warehouse <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <select class="form-control col-md-7 col-xs-12" id="warehouse"></select>
+                </div>
+            </div>
+
+            <div class="ln_solid"></div>
+            <div class="form-group">
+                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                    <a href="@Url.Action("Index")" class="btn btn-primary"><i class="fa fa-arrow-circle-o-left"></i> Regresar</a>
+                    <button id="btnEnviar" type="submit" class="btn btn-success"><i class="fa fa-check-circle"></i> Asignar Warehouse</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {    
+    <link href="~/Content/toastr.css" rel="stylesheet" />
+}
+
+@section Scripts {
+    <script src="~/Scripts/toastr.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            var ddlCustomers = $("#warehouse");
+            ddlCustomers.empty().append('<option selected="selected" value="0" disabled = "disabled">Loading ...</option>');
+            $.ajax({
+                type: "POST",
+                url: "/planeacion/ListaWH",
+                data: '{}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    ddlCustomers.empty().append('<option selected="selected" value="0">Seleccione una opcion...</option>');
+                    $.each(response, function () {
+                        ddlCustomers.append($("<option></option>").val(this['Value']).html(this['Text']));
+                    });
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
+
+        $("#btnEnviar").click(function () {
+            var ronumber = $("#ronumber").val();
+            var rovalida = $("#rovalida").val();
+            var warehouse = $("#warehouse").val();
+
+            if (rovalida != "0") {
+                $.ajax({
+                    type: "POST",
+                    url: "/asignacionwhintransits/AsignacionWarehouse",
+                    data: { warehouse: warehouse, ronumber: ronumber },
+                    success: function (result) {
+                        if (result.Respuesta === 'Correcto') {
+                            toastr.success('Asignacion Correcta');
+                        }
+                        else {
+                            toastr.error('Ha ocurrido un error: ' + result.Respuesta);
+                        }
+                    },
+                    error: function (xml, message, text) {
+                        toastr.error("Msg: " + message + ", Text: " + text);
+                    }
+                });
+            }
+            else {
+                toastr.error('Verifique la informacion capturada');
+            }
+        });
+
+        $('#ronumber').on('change', function () {
+            var ronumber = $("#ronumber").val();
+
+            $.ajax({
+                type: "POST",
+                url: "/intransit/ValidarRO",
+                data: { ronumber: ronumber },
+                success: function (result) {
+                    if (result.Respuesta !== "Correcto") {
+                        $("#rovalida").val(0);
+                        toastr.error(result.Respuesta);                            
+                    }
+                    else {
+                        $("#rovalida").val(1);
+                    }
+                }
+            });
+        });
+    </script>
+}

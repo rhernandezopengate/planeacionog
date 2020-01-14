@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebAppOpenGate.Models.Planeacion;
 using System.Linq.Dynamic;
+using WebAppOpenGate.ViewModels;
 
 namespace WebAppOpenGate.Controllers
 {
@@ -30,7 +31,8 @@ namespace WebAppOpenGate.Controllers
             var SortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][data]").FirstOrDefault();
             var SortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
 
-            var item = Request.Form.GetValues("columns[0][search][value]").FirstOrDefault();            
+            var item = Request.Form.GetValues("columns[0][search][value]").FirstOrDefault();
+            var requisition = Request.Form.GetValues("columns[1][search][value]").FirstOrDefault();
 
             int PageSize = Length != null ? Convert.ToInt32(Length) : 0;
             int Skip = Start != null ? Convert.ToInt32(Start) : 0;
@@ -38,13 +40,14 @@ namespace WebAppOpenGate.Controllers
 
             try
             {
-                List<hl_transit> lista = new List<hl_transit>();
+                List<InTransitViewModel> lista = new List<InTransitViewModel>();
+                List<masterarticulos> listamaster = db.masterarticulos.ToList();
 
                 using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["BDConnection"].ToString()))
                 {
                     con.Open();
 
-                    string sql = "exec [SP_InTransit_ParametrosOpcionales] @item";
+                    string sql = "exec [SP_InTransit_ParametrosOpcionales] @item, @requisition";
                     var query = new SqlCommand(sql, con);
 
                     if (item != "")
@@ -54,19 +57,60 @@ namespace WebAppOpenGate.Controllers
                     else
                     {
                         query.Parameters.AddWithValue("@item", DBNull.Value);
-                    }                    
+                    }
+
+                    if (requisition != "")
+                    {
+                        query.Parameters.AddWithValue("@requisition", requisition);
+                    }
+                    else
+                    {
+                        query.Parameters.AddWithValue("@requisition", DBNull.Value);
+                    }
 
                     using (var dr = query.ExecuteReader())
                     {
                         while (dr.Read())
                         {
                             // master
-                            var intransit = new hl_transit();
+                            var intransit = new InTransitViewModel();
+                            string wh = dr["wh"].ToString();
+                            string itemnum = dr["item_num"].ToString();
+                            int available = Convert.ToInt32(dr["orderlineqty_intransit"]);
 
                             intransit.id = Convert.ToInt32(dr["id"]);
-                            intransit.item_num = dr["item_num"].ToString();
-                            intransit.item_description = dr["item_description"].ToString();
+                            intransit.item_num = itemnum;
+                            intransit.revision = Convert.ToInt32(dr["revision"]);
+                            intransit.requisition = dr["requisition"].ToString();
+                            intransit.order_num = dr["order_num"].ToString();
+                            intransit.eta_date = Convert.ToDateTime(dr["eta_date"]);
+                            intransit.orderlineqty_intransit = available;
                             intransit.lot_number = dr["lot_number"].ToString();
+                            intransit.exp_date = Convert.ToDateTime(dr["exp_date"]);
+                            intransit.wh = wh;
+
+                            if (wh != string.Empty)
+                            {                                
+                                intransit.llave = dr["item_num"].ToString() + "/" + dr["wh"].ToString();
+                            }
+
+                            var itemmaster = (double)listamaster.Where(x => x.sku.Equals(itemnum)).FirstOrDefault().qtypallet;
+
+                            if (itemmaster != 0)
+                            {
+                                if (available != 0)
+                                {
+                                    intransit.qtypallets = Math.Round((available / itemmaster), 2);
+                                }
+                                else
+                                {
+                                    intransit.qtypallets = 0;
+                                }
+                            }
+                            else
+                            {
+                                intransit.qtypallets = 0;
+                            }
 
                             lista.Add(intransit);
                         }
@@ -181,11 +225,11 @@ namespace WebAppOpenGate.Controllers
                                 i++;
 
                                 if (cell.Equals(string.Empty))
-                                {    
+                                {
                                     if (dt.Rows[dt.Rows.Count - 1][15].ToString() == "")
                                     {
                                         dt.Rows[dt.Rows.Count - 1][15] = DateTime.MinValue;
-                                    }                                 
+                                    }
                                 }
                                 else
                                 {
@@ -248,6 +292,34 @@ namespace WebAppOpenGate.Controllers
             {
                 Console.WriteLine(ex.Message.ToString());
                 return RedirectToAction("Cargar", new { error = "Error" });
+            }
+        }
+
+        public ActionResult AsignarWarehouse()
+        {            
+            return View();
+        }        
+
+        [HttpPost]
+        public ActionResult ValidarRO(string ronumber)
+        {
+            try
+            {
+                var ro = db.hl_transit.Where(x => x.requisition.Equals(ronumber)).FirstOrDefault();
+
+                if (ro != null)
+                {
+                    return Json(new { Respuesta = "Correcto" }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { Respuesta = "No existe esta requisicion" }, JsonRequestBehavior.AllowGet);
+                }
+                
+            }
+            catch (Exception _ex)
+            {
+                return Json(new { Respuesta = _ex.Message.ToString() }, JsonRequestBehavior.AllowGet);
             }
         }
     }

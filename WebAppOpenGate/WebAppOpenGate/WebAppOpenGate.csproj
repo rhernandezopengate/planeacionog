@@ -176,6 +176,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\administracionController.cs" />
+    <Compile Include="Controllers\asignacionwhintransitsController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\familiaskusController.cs" />
     <Compile Include="Controllers\geneticasController.cs" />
@@ -229,6 +230,9 @@
     <Compile Include="Models\Permisos\usuario.cs">
       <DependentUpon>ModeloPermisos.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Planeacion\asignacionwhintransit.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Planeacion\familiasku.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
@@ -267,6 +271,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\InTransitViewModel.cs" />
     <Compile Include="ViewModels\MasterArticulosViewModel.cs" />
     <Compile Include="ViewModels\MoveOrderViewModel.cs" />
     <Compile Include="ViewModels\OnHandViewModels.cs" />
@@ -352,6 +357,7 @@
     <Content Include="Models\Permisos\ModeloPermisos.edmx.diagram">
       <DependentUpon>ModeloPermisos.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -4829,6 +4835,12 @@
     <Content Include="Views\planeacion\Cargas.cshtml" />
     <Content Include="Views\intransit\Index.cshtml" />
     <Content Include="Views\intransit\Cargar.cshtml" />
+    <Content Include="Views\intransit\AsignarWarehouse.cshtml" />
+    <Content Include="Views\asignacionwhintransits\Create.cshtml" />
+    <Content Include="Views\asignacionwhintransits\Delete.cshtml" />
+    <Content Include="Views\asignacionwhintransits\Details.cshtml" />
+    <Content Include="Views\asignacionwhintransits\Edit.cshtml" />
+    <Content Include="Views\asignacionwhintransits\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

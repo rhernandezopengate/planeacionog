@@ -1,0 +1,81 @@
+﻿@model WebAppOpenGate.Models.Planeacion.geneticas
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutPlaneacion.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>geneticas</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.clave)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.clave)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sku)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sku)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.wh)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.wh)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.promedio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.promedio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.geneticafinal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.geneticafinal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.minimo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.minimo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.maximo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.maximo)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

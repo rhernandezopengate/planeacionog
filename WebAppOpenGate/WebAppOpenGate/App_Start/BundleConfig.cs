@@ -21,7 +21,6 @@ namespace WebAppOpenGate
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                      "~/vendors/bootstrap/dist/css/bootstrap.min.css",
-                     "~/vendors/font-awesome/css/font-awesome.min.css",
                      "~/vendors/nprogress/nprogress.css",
                      "~/vendors/iCheck/skins/flat/green.css",
                      "~/build/css/custom.min.css"                     
